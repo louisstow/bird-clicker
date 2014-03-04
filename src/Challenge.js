@@ -1,31 +1,53 @@
 var Challenge = Backbone.Model.extend({
   defaults: {
+    name: null,
     description: null,
     probability: 0.00, // 0.00 - 1.00 range
     timeout: 10, //unit: seconds
   },
 
-  initialize: function() {
-    this.on("start", function() {
-      this.displayDescription();
-      console.log("starting");
-      this.start();
-    }, this);
+  constructor: function(data) {
 
-    this.on("process", function(playerObj) {
-      this.process(playerObj);
-    }, this);
+    Backbone.Model.apply(this, arguments);
+
+    if(data.onSuccess) {
+      this.onSuccess = data.onSuccess;
+    }
+    if(data.setup) {
+      this.setup = data.setup;
+    }
+    if(data.verify) {
+      this.verify = data.verify;
+    }
+    if(data.onFailure) {
+      this.onFailure = data.onFailure;
+    }
   },
 
-  displayDescription: function() {
-    console.log("description : " + this.get("description"));
+  initialize: function() {
+    this.on("start", (playerObject) => {
+      if(this.challengeUser()) {
+        this.setup(playerObject);
+        this.start(playerObject);
+      }
+    });
+
+    this.on("challengeTimeout", (playerObj) => {
+      this.process(playerObj);
+    });
+  },
+
+  challengeUser: function() {
+    return confirm(this.get("description"));
+  },
+
+  setup: function(playerObj) {
+    // perform setup operations here
   },
 
   start: function(playerObj) {
-    console.log("timeout: " + this.get("timeout"));
-    
     setTimeout(() => {
-      this.trigger("process", playerObj);
+      this.trigger("challengeTimeout", playerObj);
     }, this.get("timeout") * 1000);
   },
 
@@ -38,10 +60,10 @@ var Challenge = Backbone.Model.extend({
   },
 
   onSuccess: function(playerObj) {
-    console.log("Success");
+    console.log("challenge success");
   },
   
   onFailure: function(playerObj) {
-    console.log("Failure");
+    console.log("challenge failure");
   }
 });
