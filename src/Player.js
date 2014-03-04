@@ -71,8 +71,8 @@ var Player = Backbone.Model.extend({
     this.set("eggs", this.get("eggs") + bird.get("cost") * DEPRECIATION | 0);
     bird.nest.removeBird(bird);
   },
-  
-  performClick: function() {
+
+  hatch: function() {
     this.set("manualClicks", this.get("manualClicks") + 1);
     this.set("eggs", this.get("eggs") + this.get("manualClickIncrement"));
   }
