@@ -5,6 +5,7 @@ var Player = Backbone.Model.extend({
     eggs: 0,
     eggIncrement: 1, // per lay
     manualClicks: 0,
+    manualClickIncrement: 1,
   },
 
   eggTimer: null,
@@ -73,6 +74,6 @@ var Player = Backbone.Model.extend({
   
   performClick: function() {
     this.set("manualClicks", this.get("manualClicks") + 1);
-    this.lay();
+    his.set("eggs", this.get("eggs") + this.get("manualClickIncrement"));
   }
 });

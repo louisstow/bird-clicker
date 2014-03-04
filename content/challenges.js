@@ -9,14 +9,16 @@ var challengeData = [{
 
     verify: function(playerObject) {
         var additionalClicks = playerObject.get("manualClicks") - this.manualClicks;
-        return additionalClicks > 10;
+        return additionalClicks >= 10;
     }, 
 
     onSuccess: function(playerObject) {
+      alert("challenge success - you win 10 eggs");
       playerObject.set("eggs", playerObject.get("eggs") + 10);
     }, 
 
     onFailure: function(playerObject) {
+      alert("challenge failure - you lose 10 eggs");
       playerObject.set("eggs", playerObject.get("eggs") - 10);
     }
   }, 

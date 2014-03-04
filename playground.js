@@ -11,9 +11,11 @@ document.onready = function() {
     challenges.add(data);
   });
 
-  var id = Math.random() * challenges.length;
+  var id = Math.floor(Math.random() * challenges.length);
 
-  var challenge = Math.floor(challenges.at(id));
+  console.log(id);
+
+  var challenge = challenges.at(id);
 
   challenge.trigger("start", player);
 
