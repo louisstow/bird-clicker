@@ -1,7 +1,7 @@
 var Player = Backbone.Model.extend({
   defaults: {
     eggs: 0,
-    eggFrequency: 1, // per lay // XXX rename to eggIncrement
+    eggIncrement: 1, // per lay
   },
 
   eggTimer: null,
@@ -18,14 +18,14 @@ var Player = Backbone.Model.extend({
   },
 
   lay: function() {
-    this.set("eggs", this.get("eggs") + this.get("eggFrequency"));
+    this.set("eggs", this.get("eggs") + this.get("eggIncrement"));
   },
 
   buyBird: function (bird) {
     for (var i = 0; i < this.nests.length; ++i) {
       if (!this.nests[i].atCapacity()) {
         this.nests[i].addBird(bird);
-        this.eggFrequency += bird.rewardPerTick;
+        this.set("eggIncrement", this.get("eggIncrement") + bird.rewardPerTick);
         return this.nests[i];
       }
     }
