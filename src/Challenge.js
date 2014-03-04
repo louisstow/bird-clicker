@@ -23,10 +23,10 @@ var Challenge = Backbone.Model.extend({
 
   start: function(playerObj) {
     console.log("timeout: " + this.get("timeout"));
-    var that = this;
-    setTimeout(function(){
-     that.trigger("process", playerObj);
-   }, this.get("timeout") * 1000);
+    
+    setTimeout(() => {
+      this.trigger("process", playerObj);
+    }, this.get("timeout") * 1000);
   },
 
   process: function(playerObj) {
