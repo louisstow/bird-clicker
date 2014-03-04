@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title>Twitcher</title>
+		<link rel="stylesheet" type="text/css" href="vendor/brick/brick-1.0.0rc1.css"/>
+		<link rel="stylesheet" type="text/css" href="style.css"/>
+		<script src="vendor/brick/brick-1.0.0rc1.js"></script>
+		<script type="text/javascript" src="vendor/underscore.js"></script>
+		<script type="text/javascript" src="vendor/backbone.js"></script>
+		
+		<script src="./src/Bird.js"></script>
+		<script src="./src/Birds.js"></script>
+		<script src="./src/Nest.js"></script>
+		<script src="./src/Nests.js"></script>
+		<script src="./src/Event.js"></script>
+		<script src="./src/Challenge.js"></script>
+		<script src="./src/Badge.js"></script>
+		<script src="./src/Player.js"></script>
+		<script src="./src/Scoreboard.js"></script>
+		<script src="./content/nests.js"></script>
+	</head>
+	<body>
+		
+	<x-layout>
+		<header>
+			<x-tabbar>
+			    <x-tabbar-tab target-selector="x-deck x-card:first-child">hi</x-tabbar-tab>
+			    <x-tabbar-tab target-selector="x-deck x-card:nth-child(2)">test</x-tabbar-tab>
+			</x-tabbar>
+		</header>
+
+		<section>
+			<x-deck id="main" selected-index="0">
+				<x-card>
+					<div>Bird and nest view</div>
+				</x-card>
+				
+			</x-deck>
+		</section>
+	</x-layout>
+
+		<div id="clicker">
+
+		</div>
+
+		<div id="stats">
+
+		</div>
+
+		<script>
+
+		</script>
+	</body>
+</html>
