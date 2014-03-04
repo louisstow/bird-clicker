@@ -20,4 +20,14 @@ var Player = Backbone.Model.extend({
     console.log("eggs: " + this.eggs);
   },
 
+  buyBird: function (bird) {
+    for (var i = 0; i < this.nests.length; ++i) {
+      if (!this.nests[i].atCapacity()) {
+        this.nests[i].addBird(bird);
+        return this.nests[i];
+      }
+    }
+    
+    return false;
+  }
 });
