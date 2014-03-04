@@ -7,7 +7,6 @@ document.onready = function() {
 
   var challenges = new Challenges();
 
-
   challengeData.forEach((data) => {
     challenges.add(data);
   });
@@ -19,4 +18,6 @@ document.onready = function() {
   challenge.trigger("start", player);
 
   $("#click_button").click(function() {player.trigger("performClick");});
+  $("#buyNestButton").click(() => player.buyNest(new Nest));
+  $("#buyBirdButton").click(() => player.buyBird(new Bird));
 }

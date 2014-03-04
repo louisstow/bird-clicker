@@ -1,0 +1,23 @@
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+#layout {
+	height: 60%;
+}
+
+#clicker {
+	height: 20%;
+	text-align: center;
+}
+
+#clicker button {
+	width: 50%;
+	height: 100%;
+	margin: auto;
+}
+
+#stats {
+	height: 20%;
+}
