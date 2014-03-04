@@ -74,6 +74,6 @@ var Player = Backbone.Model.extend({
   
   performClick: function() {
     this.set("manualClicks", this.get("manualClicks") + 1);
-    his.set("eggs", this.get("eggs") + this.get("manualClickIncrement"));
+    this.set("eggs", this.get("eggs") + this.get("manualClickIncrement"));
   }
 });
