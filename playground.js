@@ -1,20 +1,24 @@
 Backbone.$ = $;
 
 document.onready = function() {
-	var player = new Player();
-	new Scoreboard({ model: player });
-	player.start();
+  var player = new Player();
+  new Scoreboard({ model: player });
+  player.start();
 
+  var challenges = new Challenges();
 
-	// TEST - remove if you like!
-	var challenge = new Challenge({description: "basic challenge"});
-	challenge.displayDescription = function() {
-	  console.log(this.get("description"));
-	};
-	challenge.trigger("start");
+  challengeData.forEach((data) => {
+    challenges.add(data);
+  });
 
-	$("#click_button").click(function() {player.trigger("performClick");});
+  var id = Math.random() * challenges.length;
+
+  var challenge = Math.floor(challenges.at(id));
+
+  challenge.trigger("start", player);
+
+  $("#click_button").click(function() {player.trigger("performClick");});
 	$("#hatchButton").click(() => player.lay());
-	$("#buyNestButton").click(() => player.buyNest(new Nest));
-	$("#buyBirdButton").click(() => player.buyBird(new Bird));
+  $("#buyNestButton").click(() => player.buyNest(new Nest));
+  $("#buyBirdButton").click(() => player.buyBird(new Bird));
 }
