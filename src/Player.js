@@ -24,10 +24,11 @@ var Player = Backbone.Model.extend({
     for (var i = 0; i < this.nests.length; ++i) {
       if (!this.nests[i].atCapacity()) {
         this.nests[i].addBird(bird);
+        this.eggFrequency += bird.rewardPerTick;
         return this.nests[i];
       }
     }
-    
+
     return false;
   }
 });
