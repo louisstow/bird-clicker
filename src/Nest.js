@@ -4,7 +4,7 @@ var Nest = Backbone.Model.extend({
     description: null,
     image: null,
     capacity: 1,
-    cost: 0,
+    cost: 5,
   },
 
   birds: null,

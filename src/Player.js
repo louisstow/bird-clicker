@@ -28,9 +28,19 @@ var Player = Backbone.Model.extend({
     this.set("eggs", this.get("eggs") + this.get("eggIncrement"));
   },
 
+  buyNest: function (nest) {
+    if (this.get("eggs") < nest.get("cost")) {
+      console.warn(this.get("eggs") + " eggs isn't enough to buy a nest for " + nest.get("cost") + ".");
+      return;
+    }
+
+    this.nests.add(nest);
+    this.set("eggs", this.get("eggs") - nest.get("cost"));
+  },
+
   buyBird: function (bird) {
     if (this.get("eggs") < bird.get("cost")) {
-      console.warn(this.get("eggs") + " insufficient to buy " + bird.get("cost"));
+      console.warn(this.get("eggs") + " eggs isn't enough to buy a bird for " + bird.get("cost") + ".");
       return false;
     }
 

@@ -11,8 +11,8 @@ var Scoreboard = Backbone.View.extend({
       "Nests: " + this.model.nests.length + ". " +
       this.model.nests.map((nest) =>
         "Nest " + nest.get("name") + ": " +
-        nest.birds.length + "/" + nest.get("capacity") + " birds. "
-      )
+        nest.birds.length + "/" + nest.get("capacity") + " birds"
+      ).join(". ") + "."
     );
   },
 
