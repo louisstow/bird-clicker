@@ -9,6 +9,10 @@ var Player = Backbone.Model.extend({
 
   initialize: function(data) {
     this.nests = new Nests;
+
+    this.on("click", function() {
+      this.performClick();
+    }, this);
   },
 
   start: function() {
@@ -30,5 +34,9 @@ var Player = Backbone.Model.extend({
     }
 
     return false;
+  },
+
+  performClick: function() {
+    this.lay();
   }
 });

@@ -39,7 +39,6 @@ var Challenge = Backbone.Model.extend({
 
   onSuccess: function(playerObj) {
     console.log("Success");
-
   },
   
   onFailure: function(playerObj) {
