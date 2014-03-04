@@ -3,7 +3,11 @@ var Player = Backbone.Model.extend({
   eggTimer: null,
   eggFrequency: 1, // per second
 
-  nests: [],
-  birds: [], // or perhaps birds only need to be referenced by nests?
-  badges: [],
+  nests: null,
+  birds: null, // or perhaps birds only need to be referenced by nests?
+  badges: null,
+
+  initialize: function(data) {
+    this.nests = new Nests;
+  }
 });
