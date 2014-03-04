@@ -20,34 +20,47 @@
 	</head>
 	<body>
 		
-	<x-layout>
-		<header>
-			<x-tabbar>
-			    <x-tabbar-tab target-selector="x-deck x-card:first-child">hi</x-tabbar-tab>
-			    <x-tabbar-tab target-selector="x-deck x-card:nth-child(2)">test</x-tabbar-tab>
-			</x-tabbar>
-		</header>
+		<x-layout id="layout">
+			<header>
+				<x-tabbar>
+				    <x-tabbar-tab target-selector="#home">Home</x-tabbar-tab>
+				    <x-tabbar-tab target-selector="#store">Store</x-tabbar-tab>
+				    <x-tabbar-tab target-selector="#awards">Awards</x-tabbar-tab>
+				    <x-tabbar-tab target-selector="#stats">Stats</x-tabbar-tab>
+				</x-tabbar>
+			</header>
 
-		<section>
-			<x-deck id="main" selected-index="0">
-				<x-card>
-					<div>Bird and nest view</div>
-				</x-card>
-				
-			</x-deck>
-		</section>
-	</x-layout>
+			<section>
+				<x-deck id="main" selected-index="0">
+					<x-card id="home">
+						<h1>Nest</h1>
+					</x-card>
+
+					<x-card id="store">
+						<h1>Store</h1>
+
+						<ul id="items">
+						</ul>
+					</x-card>
+
+					<x-card id="awards">
+						<h1>Awards</h1>
+					</x-card>
+
+					<x-card id="stats">
+						<h1>Stats</h1>
+					</x-card>
+				</x-deck>
+			</section>
+		</x-layout>
 
 		<div id="clicker">
-
+			<button>Hatch!</button>
 		</div>
 
 		<div id="stats">
-
+			<h1>10,000,000</h1>
+			<h2>per second 5,000</h2>
 		</div>
-
-		<script>
-
-		</script>
 	</body>
 </html>
