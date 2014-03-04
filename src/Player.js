@@ -17,8 +17,8 @@ var Player = Backbone.Model.extend({
     this.nests = new Nests;
     this.nests.add(new Nest);
 
-    this.on("performClick", () => {
-      this.performClick();
+    this.on("hatch", () => {
+      this.hatch();
     });
   },
 
