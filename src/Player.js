@@ -1,8 +1,10 @@
 var Player = Backbone.Model.extend({
-  eggs: 0,
-  eggTimer: null,
-  eggFrequency: 1, // per lay
+  defaults: {
+    eggs: 0,
+    eggFrequency: 1, // per lay // XXX rename to eggIncrement
+  },
 
+  eggTimer: null,
   nests: null,
   birds: null, // or perhaps birds only need to be referenced by nests?
   badges: null,
@@ -20,8 +22,7 @@ var Player = Backbone.Model.extend({
   },
 
   lay: function() {
-    this.eggs = this.eggs + this.eggFrequency;
-    console.log("eggs: " + this.eggs);
+    this.set("eggs", this.get("eggs") + this.get("eggFrequency"));
   },
 
   buyBird: function (bird) {
