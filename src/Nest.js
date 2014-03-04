@@ -5,7 +5,7 @@ var Nest = Backbone.Model.extend({
   capacity: 0,
   cost: 0,
 
-  birds: [],
+  birds: null,
 
   initialize: function (data) {
     this.name = data.name;
@@ -13,6 +13,8 @@ var Nest = Backbone.Model.extend({
     this.description = data.description;
     this.capacity = data.capacity;
     this.cost = data.cost;
+
+    this.birds = new Birds;
   },
 
   addBird: function (bird) {
@@ -25,13 +27,6 @@ var Nest = Backbone.Model.extend({
   },
 
   removeBird: function (bird) {
-    for (var i = 0; i < this.birds.length; ++i) {
-      if (this.birds[i] == bird) {
-        this.birds.splice(i, 1);
-        return bird;
-      }
-    }
-
-    return false;
+    return this.birds.remove(bird);
   }
 });
