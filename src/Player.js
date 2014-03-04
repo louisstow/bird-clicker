@@ -1,3 +1,5 @@
+var DEPRECIATION = 0.5;
+
 var Player = Backbone.Model.extend({
   eggs: 0,
   eggTimer: null,
@@ -21,14 +23,25 @@ var Player = Backbone.Model.extend({
   },
 
   buyBird: function (bird) {
+    if (this.eggs < bird.cost) {
+      return false;
+    }
+
     for (var i = 0; i < this.nests.length; ++i) {
       if (!this.nests[i].atCapacity()) {
         this.nests[i].addBird(bird);
         this.eggFrequency += bird.rewardPerTick;
+        this.eggs -= bird.cost;
         return this.nests[i];
       }
     }
 
     return false;
+  },
+
+  sellBird: function (bird) {
+    this.eggFrequency -= bird.rewardPerTick;
+    this.eggs += bird.cost * DEPRECIATION | 0;
+    bird.nest.removeBird(bird);
   }
 });
