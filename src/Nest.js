@@ -1,19 +1,15 @@
 var Nest = Backbone.Model.extend({
-  name: null,
-  description: null,
-  image: null,
-  capacity: 0,
-  cost: 0,
+  defaults: {
+    name: null,
+    description: null,
+    image: null,
+    capacity: 0,
+    cost: 0,
+  },
 
   birds: null,
 
   initialize: function (data) {
-    this.name = data.name;
-    this.image = data.image;
-    this.description = data.description;
-    this.capacity = data.capacity;
-    this.cost = data.cost;
-
     this.birds = new Birds;
   },
 
@@ -28,5 +24,9 @@ var Nest = Backbone.Model.extend({
 
   removeBird: function (bird) {
     return this.birds.remove(bird);
+  },
+
+  atCapacity: function () {
+    return this.birds.length >= this.capacity;
   }
 });
