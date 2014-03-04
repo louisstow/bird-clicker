@@ -1,37 +1,48 @@
 var Challenge = Backbone.Model.extend({
-  description: null,
-  probability: 0.00, // 0.00 - 1.00 range
-  timeout: 10, //unit: seconds
+  defaults: {
+    description: null,
+    probability: 0.00, // 0.00 - 1.00 range
+    timeout: 10, //unit: seconds
+  },
 
-  initilize: function() {
-		this.on("process", function(playerObj) {
-		  this.process(playerObj);
-		});
+  initialize: function() {
+    this.on("start", function() {
+      this.displayDescription();
+      console.log("starting");
+      this.start();
+    }, this);
+
+    this.on("process", function(playerObj) {
+      this.process(playerObj);
+    }, this);
   },
 
   displayDescription: function() {
-    // code to show description to user
+    console.log("description : " + this.get("description"));
   },
 
   start: function(playerObj) {
-  	setTimeout(function(){
-     this.trigger("process", playerObj);
-    },timeout * 1000);
+    console.log("timeout: " + this.get("timeout"));
+    var that = this;
+    setTimeout(function(){
+     that.trigger("process", playerObj);
+   }, this.get("timeout") * 1000);
   },
 
   process: function(playerObj) {
-  	this.verify(playerObj) ? this.onSuccess(playerObj) : this.onFailure(playerObj);
+    this.verify(playerObj) ? this.onSuccess(playerObj) : this.onFailure(playerObj);
   },
 
   verify: function(playerObj) {
     return true;
   },
 
-  onSucess: function(playerObj) {
+  onSuccess: function(playerObj) {
+    console.log("Success");
 
   },
   
   onFailure: function(playerObj) {
-
+    console.log("Failure");
   }
 });

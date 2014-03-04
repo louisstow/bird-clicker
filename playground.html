@@ -11,3 +11,12 @@
 <script src="./src/Player.js"></script>
 <script src="./content/nests.js"></script>
 <script src="playground.js"></script>
+
+<script type="text/javascript">
+
+var challenge = new Challenge({description: "basic challenge"});
+challenge.displayDescription = function() {
+	console.log(this.get("description"));
+};
+challenge.trigger("start");
+</script>
