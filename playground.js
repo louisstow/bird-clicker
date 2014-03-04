@@ -20,7 +20,7 @@ document.onready = function() {
   challenge.trigger("start", player);
 
   $("#click_button").click(function() {player.trigger("performClick");});
-	$("#hatchButton").click(() => player.lay());
+	$("#hatchButton").click(() => player.trigger("performClick"));
   $("#buyNestButton").click(() => player.buyNest(new Nest));
   $("#buyBirdButton").click(() => player.buyBird(new Bird));
 }
