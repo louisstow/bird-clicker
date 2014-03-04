@@ -3,7 +3,7 @@ var Nest = Backbone.Model.extend({
     name: null,
     description: null,
     image: null,
-    capacity: 0,
+    capacity: 1,
     cost: 0,
   },
 
@@ -29,6 +29,6 @@ var Nest = Backbone.Model.extend({
   },
 
   atCapacity: function () {
-    return this.birds.length >= this.capacity;
+    return this.birds.length >= this.get("capacity");
   }
 });

@@ -14,4 +14,5 @@ document.onready = function() {
 	challenge.trigger("start");
 
 	$("#click_button").click(function() {player.trigger("performClick");});
+	$("#buyBirdButton").click(() => player.buyBird(new Bird));
 }

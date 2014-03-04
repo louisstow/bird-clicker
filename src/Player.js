@@ -13,6 +13,7 @@ var Player = Backbone.Model.extend({
 
   initialize: function(data) {
     this.nests = new Nests;
+    this.nests.add(new Nest);
 
     this.on("performClick", () => {
       this.performClick();
@@ -28,18 +29,20 @@ var Player = Backbone.Model.extend({
   },
 
   buyBird: function (bird) {
-    if (this.eggs < bird.cost) {
+    if (this.get("eggs") < bird.get("cost")) {
+      console.warn(this.get("eggs") + " insufficient to buy " + bird.get("cost"));
       return false;
     }
 
     for (var i = 0; i < this.nests.length; ++i) {
-      if (!this.nests[i].atCapacity()) {
-        this.nests[i].addBird(bird);
+      var nest = this.nests.at(i);
+      if (!nest.atCapacity()) {
+        nest.addBird(bird);
 
         this.set("eggIncrement", this.get("eggIncrement") + bird.get("rewardPerTick"));
-        this.set("eggs", this.get("eggs") - bird.get("rewardPerTick"));
+        this.set("eggs", this.get("eggs") - bird.get("cost"));
 
-        return this.nests[i];
+        return nest;
       }
     }
 
