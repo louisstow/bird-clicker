@@ -14,7 +14,7 @@ var Challenge = Backbone.Model.extend({
   	setTimeout(function(){
   		           this.trigger("process", playerObj);
                },timeout * 1000);
-  }
+  },
   process: function(playerObj) {
   	this.verify(playerObj) ? this.onSuccess(playerObj) : this.onFailure(playerObj);
   },
