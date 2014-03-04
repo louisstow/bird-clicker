@@ -1,71 +1,74 @@
 <html>
-	<head>
-		<title>Twitcher</title>
-		<link rel="stylesheet" type="text/css" href="vendor/brick/brick-1.0.0rc1.css"/>
-		<link rel="stylesheet" type="text/css" href="style.css"/>
-		<script src="vendor/brick/brick-1.0.0rc1.js"></script>
-		<script type="text/javascript" src="vendor/underscore.js"></script>
-		<script type="text/javascript" src="vendor/backbone.js"></script>
-		<script type="text/javascript" src="vendor/jquery.js"></script>
-		
-		<script src="./src/Bird.js"></script>
-		<script src="./src/Birds.js"></script>
-		<script src="./src/Nest.js"></script>
-		<script src="./src/Nests.js"></script>
-		<script src="./src/Event.js"></script>
-		<script src="./src/Challenge.js"></script>
-		<script src="./src/Badge.js"></script>
-		<script src="./src/Player.js"></script>
-		<script src="./src/Scoreboard.js"></script>
-		<script src="./content/nests.js"></script>
-		<script src="playground.js"></script>
-	</head>
-	<body>
-		
-		<x-layout id="layout">
-			<header>
-				<x-tabbar>
-				    <x-tabbar-tab target-selector="#home">Home</x-tabbar-tab>
-				    <x-tabbar-tab target-selector="#store">Store</x-tabbar-tab>
-				    <x-tabbar-tab target-selector="#awards">Awards</x-tabbar-tab>
-				    <x-tabbar-tab target-selector="#stats">Stats</x-tabbar-tab>
-				</x-tabbar>
-			</header>
+  <head>
+    <title>Twitcher</title>
+    <link rel="stylesheet" type="text/css" href="vendor/brick/brick-1.0.0rc1.css"/>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="vendor/brick/brick-1.0.0rc1.js"></script>
+    <script type="text/javascript" src="vendor/underscore.js"></script>
+    <script type="text/javascript" src="vendor/backbone.js"></script>
+    <script type="text/javascript" src="vendor/jquery.js"></script>
+    
+    <script src="./src/Bird.js"></script>
+    <script src="./src/Birds.js"></script>
+    <script src="./src/Nest.js"></script>
+    <script src="./src/Nests.js"></script>
+    <script src="./src/Event.js"></script>
+    <script src="./src/Challenge.js"></script>
+    <script src="./src/Challenges.js"></script>
+    <script src="./src/Badge.js"></script>
+    <script src="./src/Player.js"></script>
+    <script src="./src/Scoreboard.js"></script>
+    <script src="./content/nests.js"></script>
+    <script src="./content/birds.js"></script>
+    <script src="./content/challenges.js"></script>
+    <script src="playground.js"></script>
+  </head>
+  <body>
+    
+    <x-layout id="layout">
+      <header>
+        <x-tabbar>
+            <x-tabbar-tab target-selector="#home">Home</x-tabbar-tab>
+            <x-tabbar-tab target-selector="#store">Store</x-tabbar-tab>
+            <x-tabbar-tab target-selector="#awards">Awards</x-tabbar-tab>
+            <x-tabbar-tab target-selector="#stats">Stats</x-tabbar-tab>
+        </x-tabbar>
+      </header>
 
-			<section>
-				<x-deck id="main" selected-index="0" transition-type="slide-left">
-					<x-card id="home">
-						<h1>Nest</h1>
-					</x-card>
+      <section>
+        <x-deck id="main" selected-index="0" transition-type="slide-left">
+          <x-card id="home">
+            <h1>Nest</h1>
+          </x-card>
 
-					<x-card id="store">
-						<h1>Store</h1>
+          <x-card id="store">
+            <h1>Store</h1>
 
-						<ul id="items">
-							<button id="buyNestButton">Buy Nest</button>
-							<button id="buyBirdButton">Buy Bird</button>
-						</ul>
-					</x-card>
+            <ul id="items">
+              <button id="buyNestButton">Buy Nest</button>
+              <button id="buyBirdButton">Buy Bird</button>
+            </ul>
+          </x-card>
 
-					<x-card id="awards">
-						<h1>Awards</h1>
-					</x-card>
+          <x-card id="awards">
+            <h1>Awards</h1>
+          </x-card>
 
-					<x-card id="stats">
-						<h1>Stats</h1>
-					</x-card>
-				</x-deck>
-			</section>
-		</x-layout>
+          <x-card id="stats">
+            <h1>Stats</h1>
+          </x-card>
+        </x-deck>
+      </section>
+    </x-layout>
 
-		<div id="clicker">
-			<button id="hatchButton">Hatch!</button>
-		</div>
+    <div id="clicker">
+      <button id="hatchButton">Hatch!</button>
+    </div>
 
-		<div id="stats">
-			<div id="scoreboard">0</div>s
-			<h1>10,000,000</h1>
-			<h2>per second 5,000</h2>
-		</div>
-	</body>
+    <div id="stats">
+      <div id="scoreboard">0</div>s
+      <h1>10,000,000</h1>
+      <h2>per second 5,000</h2>
+    </div>
+  </body>
 </html>
