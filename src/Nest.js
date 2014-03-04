@@ -19,10 +19,12 @@ var Nest = Backbone.Model.extend({
     }
 
     this.birds.push(bird);
+    bird.nest = this;
     return bird;
   },
 
   removeBird: function (bird) {
+    bird.nest = null;
     return this.birds.remove(bird);
   },
 
