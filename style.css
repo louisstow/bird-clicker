@@ -3,6 +3,21 @@ body, html {
 	padding: 0;
 }
 
-x-card {
-	background: red;
+#layout {
+	height: 60%;
+}
+
+#clicker {
+	height: 20%;
+	text-align: center;
+}
+
+#clicker button {
+	width: 50%;
+	height: 100%;
+	margin: auto;
+}
+
+#stats {
+	height: 20%;
 }
