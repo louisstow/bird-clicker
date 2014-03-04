@@ -2,7 +2,7 @@ var Bird = Backbone.Model.extend({
   name: null,
   description: null,
   image: null,
-  cost: null, // unit: eggs
-  rewardPerTick: null, // unit: eggs
+  cost: 1, // unit: eggs
+  rewardPerTick: 1, // unit: eggs
   showAfterEggCount: 1,
 });
