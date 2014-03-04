@@ -2,6 +2,7 @@
 <script type="text/javascript" src="vendor/brick-1.0.0/brick-1.0.0.js"></script>
 <script type="text/javascript" src="vendor/underscore.js"></script>
 <script type="text/javascript" src="vendor/backbone.js"></script>
+<script type="text/javascript" src="vendor/jquery.js"></script>
 <script src="./src/Bird.js"></script>
 <script src="./src/Birds.js"></script>
 <script src="./src/Nest.js"></script>
@@ -10,5 +11,17 @@
 <script src="./src/Challenge.js"></script>
 <script src="./src/Badge.js"></script>
 <script src="./src/Player.js"></script>
+<script src="./src/Scoreboard.js"></script>
 <script src="./content/nests.js"></script>
 <script src="playground.js"></script>
+
+<script type="text/javascript">
+
+var challenge = new Challenge({description: "basic challenge"});
+challenge.displayDescription = function() {
+	console.log(this.get("description"));
+};
+challenge.trigger("start");
+</script>
+
+<div id="scoreboard"></div>

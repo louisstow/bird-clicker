@@ -1,10 +1,12 @@
 var DEPRECIATION = 0.5;
 
 var Player = Backbone.Model.extend({
-  eggs: 0,
-  eggTimer: null,
-  eggFrequency: 1, // per lay
+  defaults: {
+    eggs: 0,
+    eggIncrement: 1, // per lay
+  },
 
+  eggTimer: null,
   nests: null,
   birds: null, // or perhaps birds only need to be referenced by nests?
   badges: null,
@@ -18,8 +20,7 @@ var Player = Backbone.Model.extend({
   },
 
   lay: function() {
-    this.eggs = this.eggs + this.eggFrequency;
-    console.log("eggs: " + this.eggs);
+    this.set("eggs", this.get("eggs") + this.get("eggIncrement"));
   },
 
   buyBird: function (bird) {
@@ -30,8 +31,10 @@ var Player = Backbone.Model.extend({
     for (var i = 0; i < this.nests.length; ++i) {
       if (!this.nests[i].atCapacity()) {
         this.nests[i].addBird(bird);
-        this.eggFrequency += bird.rewardPerTick;
-        this.eggs -= bird.cost;
+
+        this.set("eggIncrement", this.get("eggIncrement") + bird.get("rewardPerTick"));
+        this.set("eggs", this.get("eggs") - bird.get("rewardPerTick"));
+
         return this.nests[i];
       }
     }
@@ -40,8 +43,8 @@ var Player = Backbone.Model.extend({
   },
 
   sellBird: function (bird) {
-    this.eggFrequency -= bird.rewardPerTick;
-    this.eggs += bird.cost * DEPRECIATION | 0;
+    this.set("eggIncrement", this.get("eggIncrement") - bird.get("rewardPerTick"));
+    this.set("eggs", this.get("eggs") + bird.get("cost") * DEPRECIATION | 0);
     bird.nest.removeBird(bird);
   }
 });
