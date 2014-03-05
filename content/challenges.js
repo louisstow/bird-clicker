@@ -24,7 +24,7 @@ var challengeData = [{
   }, 
   {
     description: "Don't manually collect any eggs for 5 seconds",
-    probability: 0.01,
+    probability: 0.001,
     timeout: 5,
     setup: function(playerObject) {
       this.manualClicks = playerObject.get("manualClicks");

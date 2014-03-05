@@ -36,11 +36,7 @@ var Game = Backbone.Model.extend({
     console.log("events: " + this.events.length);
     console.log("challenges: " + this.challenges.length);
 
-    // var id = Math.floor(Math.random() * challenges.length);
 
-    // var challenge = challenges.at(id);
-
-    // challenge.trigger("start", player);
   },
 
   populate: function(list, collection) {
@@ -74,6 +70,32 @@ var Game = Backbone.Model.extend({
     console.log(this.get("totalTime"));
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
       console.log("check for events & challanges");
+      var funType = Math.random();
+      if(funType > 0.5 && funType <= 0.75) {
+        var possibleChallenges = [];
+        for (var i = 0; i < this.challenges.length; ++i) {
+          var x = Math.random();
+          if (this.challenges.at(i).probability >= x) {
+            possibleChallenges.push(this.challenges.at(i));
+          }
+        }
+        if(possibleChallenges.length > 0) {
+          var id = Math.floor(Math.random() * possibleChallenges.length);
+          possibleChallenges.at(id).trigger("start", player);
+        }
+      } else if (funType > 0.75) {
+        var possibleEvents = [];
+        for (var i = 0; i < this.events.length; ++i) {
+          var x = Math.random();
+          if (this.events.at(i).probability >= x) {
+            possibleEvents.push(this.events.at(i));
+          }
+        }
+        if(possibleEvents.length > 0) {
+          var id = Math.floor(Math.random() * possibleEvents.length);
+          possibleEvents.at(id).trigger("start", player);
+        }        
+      }
     }
     this.player.lay();
   },
