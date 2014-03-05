@@ -27,6 +27,8 @@ var Challenge = Backbone.Model.extend({
   initialize: function() {
     console.log("init challenge " + this.get("id"));
     this.on("start", () => {
+
+      game.inChallenge = true;
       console.log("starting challenge " + this.get("id"));
 
       this.view = new ChallengeView({ model: this });
@@ -48,14 +50,15 @@ var Challenge = Backbone.Model.extend({
   proceed: function() {
     console.log("proceed");
 
-    this.view.remove();
+    this.view.hide();
     this.setup();
     this.start();
   },
 
   cancel: function() {
+    game.inChallenge = false;
     console.log("cancel");
-    this.view.remove();
+    this.view.hide();
   },
 
   setup: function() {
@@ -70,6 +73,7 @@ var Challenge = Backbone.Model.extend({
 
   process: function() {
     this.verify() ? this.onSuccess() : this.onFailure();
+    game.inChallenge = false;
   },
 
   verify: function() {

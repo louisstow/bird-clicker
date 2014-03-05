@@ -1,6 +1,6 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
-  EVENT_INTERVAL: 2, //in seconds
+  EVENT_INTERVAL: 10, //in seconds
 
   defaults: {
     totalTime: 0,
@@ -63,7 +63,8 @@ var Game = Backbone.Model.extend({
   mainLoop: function() {
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
       var funType = Math.random();
-      if(true || (funType > 0.5 && funType <= 0.75)) {
+      console.log("game.inChallenge " + game.inChallenge);
+      if((true || (funType > 0.5 && funType <= 0.75)) && !game.inChallenge) {
         console.log("challenges go go ");
 
         var possibleChallenges = [];

@@ -1,7 +1,7 @@
 var challengeData = [{
     id: "collect_eggs",
     description: "Manually collect 10 eggs in 10 seconds.\nSuccess : 10 eggs\nPenalty: 10 eggs",
-    probability: 0.3,
+    probability: 0.03,
     timeout: 10,
 
     setup: function() {
@@ -15,12 +15,12 @@ var challengeData = [{
 
     onSuccess: function() {
       alert("challenge success - you win 10 eggs");
-      Game.player.set("eggs", game.player.get("eggs") + 10);
+      game.player.set("eggs", game.player.get("eggs") + 10);
     }, 
 
     onFailure: function() {
       alert("challenge failure - you lose 10 eggs");
-      Game.player.set("eggs", game.player.get("eggs") - 10);
+      game.player.set("eggs", game.player.get("eggs") - 10);
     }
   }, 
   {
