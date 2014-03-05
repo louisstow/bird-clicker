@@ -2,8 +2,10 @@ var Player = Backbone.Model.extend({
   defaults: {
     eggs: 0,
     eggIncrement: 1, // per lay
+    eggMultiplier: 1,
     manualClicks: 0,
     manualClickIncrement: 1,
+    manualMultiplier: 1,
   },
 
   nests: null,
@@ -25,7 +27,7 @@ var Player = Backbone.Model.extend({
   },
 
   lay: function() {
-    this.inc("eggs", this.get("eggIncrement"));
+    this.inc("eggs", this.get("eggIncrement") * this.get("eggMultiplier"));
   },
 
   buyNest: function (nest) {
@@ -67,6 +69,6 @@ var Player = Backbone.Model.extend({
 
   hatch: function() {
     this.inc("manualClicks", 1);
-    this.inc("eggs", this.get("manualClickIncrement"));
+    this.inc("eggs", this.get("manualClickIncrement") * this.get("manualMultiplier"));
   }
 });

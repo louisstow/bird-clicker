@@ -1,9 +1,15 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 7, //in seconds
+
+  defaults: {
+    totalTime: 0,
+  },
+
   player: null,
   scoreboard: null,
   challenges: null,
+  events: null,
   birds: null,
   nests: null,
   eggTimer: null,
@@ -24,11 +30,13 @@ var Game = Backbone.Model.extend({
     this.challenges = new Challenges();
     this.populate(challengeData, this.challenges);
 
-    // var id = Math.floor(Math.random() * challenges.length);
+    this.events = new Events();
+    this.populate(eventData, this.events);
 
-    // var challenge = challenges.at(id);
+    console.log("events: " + this.events.length);
+    console.log("challenges: " + this.challenges.length);
 
-    // challenge.trigger("start", player);
+
   },
 
   populate: function(list, collection) {
@@ -52,11 +60,50 @@ var Game = Backbone.Model.extend({
   },
 
   start: function() {
-    this.eggTimer = setInterval(() => this.mainLoop(), 1000);
+    this.eggTimer = setInterval(() => {
+      this.set("totalTime", this.get("totalTime") + 1);
+      this.mainLoop()
+    } , 1000);
   },
 
   mainLoop: function() {
-    //TODO calculate if event or challange fires 
+    console.log(this.get("totalTime"));
+    if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
+      console.log("check for events & challanges");
+      var funType = Math.random();
+      if(funType > 0.5 && funType <= 0.75) {
+        console.log("challenge type");
+        var possibleChallenges = [];
+        for (var i = 0; i < this.challenges.length; ++i) {
+          var x = Math.random();
+          if (this.challenges.at(i).probability >= x) {
+            possibleChallenges.push(this.challenges.at(i));
+            console.log("add possible challenge ");
+          }
+        }
+        if(possibleChallenges.length > 0) {
+          var id = Math.floor(Math.random() * possibleChallenges.length);
+          possibleChallenges.at(id).trigger("start", player);
+        }
+      } else if (funType > 0.75) {
+        console.log("event type");
+        var possibleEvents = [];
+        for (var i = 0; i < this.events.length; ++i) {
+          var x = Math.random();
+          if (this.events.at(i).probability >= x) {
+            possibleEvents.push(this.events.at(i));
+
+            console.log("add possible event ");
+          }
+        }
+        if(possibleEvents.length > 0) {
+          var id = Math.floor(Math.random() * possibleEvents.length);
+          possibleEvents.at(id).trigger("start", player);
+        }        
+      } else {
+        console.log("no fun this time");
+      }
+    }
     this.player.lay();
   },
 
