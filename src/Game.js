@@ -15,13 +15,6 @@ var Game = Backbone.Model.extend({
 
     this.addEventListeners();
     
-    this.challenges = new Challenges();
-
-    challengeData.forEach((data) => {
-      this.challenges.add(data);
-    });
-
-
     this.nests = new Nests();
     this.populate(nestData, this.nests);
 
