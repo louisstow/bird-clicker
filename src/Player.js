@@ -3,7 +3,7 @@ var Player = Backbone.Model.extend({
     eggs: 0,
     eggIncrement: 1, // per lay
     eggMultiplier: 1,
-    manualClicks: 0
+    manualClicks: 0,
     birdCount: 0,
     nestCount: 0
   },
