@@ -1,9 +1,15 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 7, //in seconds
+
+  defaults: {
+    totalTime: 0,
+  },
+
   player: null,
   scoreboard: null,
   challenges: null,
+  events: null,
   birds: null,
   nests: null,
   eggTimer: null,
@@ -23,6 +29,12 @@ var Game = Backbone.Model.extend({
 
     this.challenges = new Challenges();
     this.populate(challengeData, this.challenges);
+
+    this.events = new Events();
+    this.populate(eventData, this.events);
+
+    console.log("events: " + this.events.length);
+    console.log("challenges: " + this.challenges.length);
 
     // var id = Math.floor(Math.random() * challenges.length);
 
@@ -52,11 +64,17 @@ var Game = Backbone.Model.extend({
   },
 
   start: function() {
-    this.eggTimer = setInterval(() => this.mainLoop(), 1000);
+    this.eggTimer = setInterval(() => {
+      this.set("totalTime", this.get("totalTime") + 1);
+      this.mainLoop()
+    } , 1000);
   },
 
   mainLoop: function() {
-    //TODO calculate if event or challange fires 
+    console.log(this.get("totalTime"));
+    if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
+      console.log("check for events & challanges");
+    }
     this.player.lay();
   },
 
