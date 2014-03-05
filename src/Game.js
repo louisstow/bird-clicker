@@ -25,21 +25,12 @@ var Game = Backbone.Model.extend({
     this.nests = new Nests(nestData);
     this.nests.each((nest) => new NestView({ model: nest }));
 
-    this.birds = new Birds();
-    this.populate(birdData, this.birds);
+    this.birds = new Birds(birdData);
 
-    this.challenges = new Challenges();
-    this.populate(challengeData, this.challenges);
+    this.challenges = new Challenges(challengeData);
 
-    this.events = new Events();
-    this.populate(eventData, this.events);
+    this.events = new Events(eventData);
     
-  },
-
-  populate: function(list, collection) {
-    list.forEach((data) => {
-      collection.add(data);
-    });  
   },
 
   addEventListeners: function() {
@@ -66,19 +57,22 @@ var Game = Backbone.Model.extend({
   mainLoop: function() {
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
       var funType = Math.random();
-      if(funType > 0.5 && funType <= 0.75) {
+      if(true || (funType > 0.5 && funType <= 0.75)) {
+        console.log("challenges go go ");
 
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
           var probability = this.challenges.at(i).get("probability");
+          console.log(this.challenges.at(i).get("probability") + ": x = " + x + " - prob = " + this.challenges.at(i).get("probability"));
           if (probability >= x) {
             possibleChallenges.push(this.challenges.at(i));
           }
         }
         if(possibleChallenges.length > 0) {
           var id = Math.floor(Math.random() * possibleChallenges.length);
-          possibleChallenges[id].trigger("start", this.player);
+          console.log("starting challenge: " + possibleChallenges[id].get("id"));
+          possibleChallenges[id].trigger("start", this);
         }
       } else if (funType > 0.75) {
         var possibleEvents = [];

@@ -1,6 +1,6 @@
 var Challenge = Backbone.Model.extend({
   defaults: {
-    name: null,
+    id: null, // unique
     description: null,
     probability: 0.00, // 0.00 - 1.00 range
     timeout: 10, //unit: seconds
@@ -25,45 +25,62 @@ var Challenge = Backbone.Model.extend({
   },
 
   initialize: function() {
-    this.on("start", (playerObject) => {
-      if(this.challengeUser()) {
-        this.setup(playerObject);
-        this.start(playerObject);
-      }
+    console.log("init challenge " + this.get("id"));
+    this.on("start", () => {
+      console.log("starting challenge " + this.get("id"));
+
+      this.view = new ChallengeView({ model: this });
+            
     });
 
-    this.on("challengeTimeout", (playerObj) => {
-      this.process(playerObj);
+    this.on("challengeTimeout", () => {
+      this.process();
+    });
+    this.on("proceed", () => {
+      this.proceed();
+    });
+
+    this.on("cancel", () => {
+      this.cancel();
     });
   },
 
-  challengeUser: function() {
-    return confirm(this.get("description"));
+  proceed: function() {
+    console.log("proceed");
+
+    this.view.remove();
+    this.setup();
+    this.start();
   },
 
-  setup: function(playerObj) {
+  cancel: function() {
+    console.log("cancel");
+    this.view.remove();
+  },
+
+  setup: function() {
     // perform setup operations here
   },
 
-  start: function(playerObj) {
+  start: function() {
     setTimeout(() => {
-      this.trigger("challengeTimeout", playerObj);
+      this.trigger("challengeTimeout");
     }, this.get("timeout") * 1000);
   },
 
-  process: function(playerObj) {
-    this.verify(playerObj) ? this.onSuccess(playerObj) : this.onFailure(playerObj);
+  process: function() {
+    this.verify() ? this.onSuccess() : this.onFailure();
   },
 
-  verify: function(playerObj) {
+  verify: function() {
     return true;
   },
 
-  onSuccess: function(playerObj) {
+  onSuccess: function() {
     console.log("challenge success");
   },
   
-  onFailure: function(playerObj) {
+  onFailure: function() {
     console.log("challenge failure");
   }
 });
