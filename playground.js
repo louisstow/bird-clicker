@@ -6,6 +6,10 @@ var game;
 
 document.onready = function() {
   game = new Game();
+
+  new TreeView();
+  new StoreView();
+
   game.start();
 
   $("#hatchButton").click(() => game.trigger("hatch"));

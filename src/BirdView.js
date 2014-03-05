@@ -1,9 +1,7 @@
 var BirdView = Backbone.View.extend({
-  id: function() { return this.model.get("name") + "BirdView" },
 
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
-    $("#items").append(this.render().$el);
   },
 
   template: _.template('<img width=24 height=24 src="<%- image %>">'),
@@ -12,6 +10,10 @@ var BirdView = Backbone.View.extend({
     this.$el.html(this.template(this.model.attributes));
     return this;
   },
+
+});
+
+var BuyableBirdView = BirdView.extend({
 
   events: {
     "click": "buy",

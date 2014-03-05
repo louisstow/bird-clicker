@@ -1,26 +1,25 @@
 var TreeView = Backbone.View.extend({
 
+  el: "#tree",
+
   initialize: function() {
-    this.listenTo(this.model, "change", this.render);
+    this.listenTo(game.player.nests, 'all', this.render);
     this.render();
   },
 
   template: _.template(''),
 
-  nestTemplate: _.template('<img width=24 height=24 src="<%- image %>">'),
-  birdTemplate: _.template('<img width=24 height=24 src="<%- image %>">'),
-
   render: function() {
-    this.$el.html(this.template(this.model.attributes));
+    this.$el.html(this.template());
 
-    this.model.nests.forEach((nest) => {
-      this.$el.append(this.nestTemplate(nest.attributes));
-      nest.birds.forEach((bird) => {
-        this.$el.append(this.birdTemplate(bird.attributes));
-      });
-    });
+    game.player.nests.each(this.renderNest, this);
 
     return this;
+  },
+
+  renderNest: function(nest) {
+    var view = new NestView({ model: nest });
+    this.$el.append(view.render().el);
   },
 
 });

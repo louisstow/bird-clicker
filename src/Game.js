@@ -28,8 +28,6 @@ var Game = Backbone.Model.extend({
     nest.addBird(bird);
     this.player = new Player({ nest: nest });
 
-    new TreeView({ model: this.player, el: $("#tree") });
-
     this.scoreboard = new Scoreboard({ model: this.player });
     this.stats = new Stats({ model: this.player });
     console.log(this.player.attributes);
@@ -55,11 +53,11 @@ var Game = Backbone.Model.extend({
     });
 
     this.on("buyNest", (nest) => {
-      this.player.buyNest(nest || new Nest);
+      this.player.buyNest(nest ? new Nest(_.clone(nest.attributes)) : new Nest);
     });
 
     this.on("buyBird", (bird) => {
-      this.player.buyBird(bird || new Bird);
+      this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
     });
   },
 
