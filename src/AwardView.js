@@ -8,6 +8,7 @@ var AwardView = Backbone.View.extend({
   },
 
   template: _.template('<div class="award">' + 
+  	'<p class="name"><%- name %></p>' +
   	'<p class="description"><%- description %></p>' +
   	'</div>'),
 
