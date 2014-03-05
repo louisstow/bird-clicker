@@ -9,6 +9,9 @@
     <script type="text/javascript" src="vendor/jquery.js"></script>
     
     <script src="./src/Game.js"></script>
+    <script src="./src/Award.js"></script>
+    <script src="./src/Awards.js"></script>
+    <script src="./src/AwardView.js"></script>
     <script src="./src/Bird.js"></script>
     <script src="./src/Birds.js"></script>
     <script src="./src/BirdView.js"></script>
@@ -25,7 +28,10 @@
     <script src="./src/Player.js"></script>
     <script src="./src/Scoreboard.js"></script>
     <script src="./src/Stats.js"></script>
+    <script src="./src/StoreView.js"></script>
+    <script src="./src/TreeView.js"></script>
     <script src="./content/nests.js"></script>
+    <script src="./content/awards.js"></script>
     <script src="./content/birds.js"></script>
     <script src="./content/challenges.js"></script>
     <script src="./content/events.js"></script>
@@ -36,7 +42,7 @@
     <x-layout id="layout">
       <header>
         <x-tabbar>
-            <x-tabbar-tab target-selector="#home">Home</x-tabbar-tab>
+            <x-tabbar-tab target-selector="#tree">Tree</x-tabbar-tab>
             <x-tabbar-tab target-selector="#store">Store</x-tabbar-tab>
             <x-tabbar-tab target-selector="#awards">Awards</x-tabbar-tab>
             <x-tabbar-tab target-selector="#stats">Stats</x-tabbar-tab>
@@ -45,8 +51,7 @@
 
       <section>
         <x-deck id="main" selected-index="0" transition-type="slide-left">
-          <x-card id="home">
-            <h1>Nest</h1>
+          <x-card id="tree">
           </x-card>
 
           <x-card id="store">

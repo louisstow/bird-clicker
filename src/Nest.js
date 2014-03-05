@@ -11,6 +11,7 @@ var Nest = Backbone.Model.extend({
 
   initialize: function (data) {
     this.birds = new Birds;
+    this.birds.init();
   },
 
   addBird: function (bird) {

@@ -3,14 +3,17 @@ var Player = Backbone.Model.extend({
     eggs: 0,
     eggIncrement: 1, // per lay
     eggMultiplier: 1,
-    manualClicks: 0
+    manualClicks: 0,
+    birdCount: 0,
+    nestCount: 0
   },
 
   nests: null,
   badges: null,
 
-  initialize: function({ nest }) {
+  load: function({ nest }) {
     this.nests = new Nests;
+    this.nests.init();
     this.nests.add(nest);
   },
 
