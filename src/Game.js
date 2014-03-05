@@ -16,10 +16,7 @@ var Game = Backbone.Model.extend({
   eggTimer: null,
 
   initialize: function() {
-
     this.player = new Player();
- 
-    
   },
 
   load: function() {

@@ -11,9 +11,6 @@ var EventView = Backbone.View.extend({
   	'<p class="description"><%- description %></p>' +
   	'</div>'),
 
-  events: {
-  },
-
   render: function() {
     this.$el.html(this.template(this.model.attributes));
     return this;

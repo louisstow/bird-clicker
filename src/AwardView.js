@@ -11,9 +11,6 @@ var AwardView = Backbone.View.extend({
   	'<p class="description"><%- description %></p>' +
   	'</div>'),
 
-  Awards: {
-  },
-
   render: function() {
     this.$el.html(this.template(this.model.attributes));
     return this;
