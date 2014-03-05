@@ -16,16 +16,22 @@ var Game = Backbone.Model.extend({
 
   initialize: function() {
 
-    this.player = new Player();
-    this.scoreboard = new Scoreboard({ model: this.player });
-    this.stats = new Stats({ model: this.player });
-    console.log(this.player.attributes)
-    this.addEventListeners();
-
     this.nests = new Nests(nestData);
     this.nests.each((nest) => new NestView({ model: nest }));
 
     this.birds = new Birds(birdData);
+    this.birds.each((bird) => new BirdView({ model: bird }));
+
+    // XXX Maybe Nest and Bird should have "clone" methods.
+    var nest = new Nest(_.clone(this.nests.at(0).attributes));
+    var bird = new Bird(_.clone(this.birds.at(0).attributes));
+    nest.addBird(bird);
+    this.player = new Player({ nest: nest });
+
+    this.scoreboard = new Scoreboard({ model: this.player });
+    this.stats = new Stats({ model: this.player });
+    console.log(this.player.attributes);
+    this.addEventListeners();
 
     this.challenges = new Challenges(challengeData);
 
@@ -42,8 +48,8 @@ var Game = Backbone.Model.extend({
       this.player.buyNest(nest || new Nest);
     });
 
-    this.on("buyBird", () => {
-      this.player.buyBird(new Bird);
+    this.on("buyBird", (bird) => {
+      this.player.buyBird(bird || new Bird);
     });
   },
 
