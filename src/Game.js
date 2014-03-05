@@ -45,8 +45,8 @@ var Game = Backbone.Model.extend({
   },
 
   addEventListeners: function() {
-    this.on("performClick", () => {
-      this.player.performClick();
+    this.on("hatch", () => {
+      this.player.hatch();
     });
 
     this.on("buyNest", () => {
