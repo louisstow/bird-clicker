@@ -2,6 +2,7 @@ var Award = Backbone.Model.extend({
 defaults: {
     id: null,
     description: null,
+    awarded: false
   },
 
   constructor: function(data) {
@@ -21,9 +22,9 @@ defaults: {
     });
   },
   process: function() {
-    if(!this.awarded) {
+    if(!this.get("awarded")) {
       if(this.verify()) {
-        this.awarded = true;
+        this.set("awarded", true);
         this.trigger("start");
       }
     }
