@@ -28,6 +28,8 @@ var Game = Backbone.Model.extend({
     nest.addBird(bird);
     this.player = new Player({ nest: nest });
 
+    new TreeView({ model: this.player, el: $("#tree") });
+
     this.scoreboard = new Scoreboard({ model: this.player });
     this.stats = new Stats({ model: this.player });
     console.log(this.player.attributes);
