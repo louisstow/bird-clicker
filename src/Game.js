@@ -33,11 +33,7 @@ var Game = Backbone.Model.extend({
 
     this.events = new Events();
     this.populate(eventData, this.events);
-
-    console.log("events: " + this.events.length);
-    console.log("challenges: " + this.challenges.length);
-
-
+    
   },
 
   populate: function(list, collection) {

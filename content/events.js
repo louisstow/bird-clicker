@@ -23,7 +23,7 @@ var eventData = [{
     }
   }, 
   {
-    description: "Tom Jones phones you one day and all your birds get excited and lay double eggs for 5 seconds.",
+    description: "Tom Jones phones you one day and all your birds get excited and lay double eggs for 20 seconds.",
     probability: 0.02,
 
     process: function(playerObject) {
@@ -32,7 +32,7 @@ var eventData = [{
 	    setTimeout(() => {
         playerObject.set("eggMultiplier", playerObject.get("eggMultiplier") / 2);
         playerObject.set("manualMultiplier", playerObject.get("manualMultiplier") / 2);
-	    }, 5000);
+	    }, 20 * 1000);
     }
   }
 ];
