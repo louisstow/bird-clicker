@@ -1,5 +1,3 @@
-var DEPRECIATION = 0.5;
-
 var Player = Backbone.Model.extend({
   defaults: {
     eggs: 0,
@@ -8,27 +6,14 @@ var Player = Backbone.Model.extend({
     manualClickIncrement: 1,
   },
 
-  eggTimer: null,
   nests: null,
   birds: null, // or perhaps birds only need to be referenced by nests?
   badges: null,
 
-  initialize: function(data) {
+  initialize: function(game) {
+    this.game = game;
     this.nests = new Nests;
     this.nests.add(new Nest);
-
-    this.on("performClick", () => {
-      this.performClick();
-    });
-  },
-
-  start: function() {
-    this.eggTimer = setInterval(() => this.mainLoop(), 1000);
-  },
-
-  mainLoop: function() {
-    //TODO calculate if event or challange fires 
-    this.lay();
   },
 
   lay: function() {
