@@ -1,6 +1,6 @@
 var eventData = [{
     description: "Oh no - you have bird flu. 25 eggs are destroyed",
-    probability: 0.01,
+    probability: 0.02,
 
     process: function(playerObject) {
       playerObject.dec("eggs", 25);
@@ -8,7 +8,7 @@ var eventData = [{
   }, 
   {
     description: "Batman swoops down and sleeps on one of your nests for a few hours.  You gain 100 eggs.",
-    probability: 0.01,
+    probability: 0.02,
 
     process: function(playerObject) {
       playerObject.inc("eggs", 100);
@@ -16,7 +16,7 @@ var eventData = [{
   }, 
   {
     description: "Your Dad comes around and falls on one of your nests.  Loose 10 eggs.",
-    probability: 0.01,
+    probability: 0.02,
 
     process: function(playerObject) {
       playerObject.dec("eggs", 10);
@@ -24,7 +24,7 @@ var eventData = [{
   }, 
   {
     description: "Tom Jones phones you one day and all your birds get excited and lay double eggs for 5 seconds.",
-    probability: 0.01,
+    probability: 0.02,
 
     process: function(playerObject) {
       playerObject.set("eggMultiplier", playerObject.get("eggMultiplier") * 2);

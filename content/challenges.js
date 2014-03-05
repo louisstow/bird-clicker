@@ -1,6 +1,6 @@
 var challengeData = [{
     description: "Manually collect 10 eggs in 10 seconds.\nSuccess : 10 eggs\nPenalty: 10 eggs",
-    probability: 0.01,
+    probability: 0.03,
     timeout: 10,
 
     setup: function(playerObject) {
@@ -24,7 +24,7 @@ var challengeData = [{
   }, 
   {
     description: "Don't manually collect any eggs for 5 seconds",
-    probability: 0.001,
+    probability: 0.02,
     timeout: 5,
     setup: function(playerObject) {
       this.manualClicks = playerObject.get("manualClicks");
