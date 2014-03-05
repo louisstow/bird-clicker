@@ -24,8 +24,8 @@ body, html {
 	height: 20%;
 }
 
-#store {
-	overflow: auto;
+x-card {
+	overflow: auto !important;
 }
 
 #notifications {
