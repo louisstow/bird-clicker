@@ -76,7 +76,7 @@ var Game = Backbone.Model.extend({
           var id = Math.floor(Math.random() * possibleChallenges.length);
           possibleChallenges[id].trigger("start", this);
         }
-      } else if (funType > 0.75) {
+      } else if (true || funType > 0.75) {
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();

@@ -13,10 +13,13 @@ defaults: {
     }
   },
   initialize: function() {
-    this.on("start", (playerObject) => {
-    	  alert(this.get("description"));
-        this.process(playerObject);
+    this.on("start", () => {
+      this.view = new EventView({ model: this });
+      setTimeout(() => {
+        this.view.hide();
+      }, 5 * 1000);
+      this.process();
     });
   },
-  process: function(playerObj) {},
+  process: function() {},
 });

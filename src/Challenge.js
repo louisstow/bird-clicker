@@ -25,14 +25,9 @@ var Challenge = Backbone.Model.extend({
   },
 
   initialize: function() {
-    console.log("init challenge " + this.get("id"));
     this.on("start", () => {
-
       game.inChallenge = true;
-      console.log("starting challenge " + this.get("id"));
-
       this.view = new ChallengeView({ model: this });
-            
     });
 
     this.on("challengeTimeout", () => {
