@@ -14,9 +14,9 @@ var Game = Backbone.Model.extend({
     this.scoreboard = new Scoreboard({ model: this.player });
 
     this.addEventListeners();
-    
-    this.nests = new Nests();
-    this.populate(nestData, this.nests);
+
+    this.nests = new Nests(nestData);
+    this.nests.each((nest) => new NestView({ model: nest, player: this.player }));
 
     this.birds = new Birds();
     this.populate(birdData, this.birds);
