@@ -63,7 +63,7 @@ var Game = Backbone.Model.extend({
   mainLoop: function() {
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
       var funType = Math.random();
-      if((funType > 0.5 && funType <= 0.75) && !game.inChallenge) {
+      if(false && (funType > 0.5 && funType <= 0.75) && !game.inChallenge) {
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
@@ -76,7 +76,8 @@ var Game = Backbone.Model.extend({
           var id = Math.floor(Math.random() * possibleChallenges.length);
           possibleChallenges[id].trigger("start", this);
         }
-      } else if (funType > 0.75) {
+      } else if (true || funType > 0.75) {
+        console.log("in events");
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();

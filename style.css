@@ -30,11 +30,16 @@ body, html {
   height:75px;
 }
 
-#notifications .challenge {
+#notifications .challenge, #notifications .event {
   position:absolute;
 	background-color: #eee;
 	width: 100%;
 	height:75px; 
+}
+
+#notifications .description {
+  text-align: center;
+	width: 100%;
 }
 
 #notifications button {
