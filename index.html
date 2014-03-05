@@ -17,8 +17,10 @@
     <script src="./src/NestView.js"></script>
     <script src="./src/Event.js"></script>
     <script src="./src/Events.js"></script>
+    <script src="./src/EventView.js"></script>
     <script src="./src/Challenge.js"></script>
     <script src="./src/Challenges.js"></script>
+    <script src="./src/ChallengeView.js"></script>
     <script src="./src/Badge.js"></script>
     <script src="./src/Player.js"></script>
     <script src="./src/Scoreboard.js"></script>
@@ -61,6 +63,8 @@
 
           <x-card id="stats">
             <h1>Stats</h1>
+
+            <div id="statdata"></div>
           </x-card>
         </x-deck>
       </section>
@@ -70,8 +74,12 @@
       <button id="hatchButton">Hatch!</button>
     </div>
 
-    <div id="stats">
-      <div id="scoreboard">0</div>s
+    <div id="numbers">
+      <h1 id="eggs"></h1>
+      <h2 id="increment"></h2>
+    </div>
+
+    <div id="notifications">
     </div>
   </body>
 </html>
