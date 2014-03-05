@@ -23,7 +23,7 @@ var Game = Backbone.Model.extend({
     this.addEventListeners();
 
     this.nests = new Nests(nestData);
-    this.nests.each((nest) => new NestView({ model: nest, player: this.player }));
+    this.nests.each((nest) => new NestView({ model: nest }));
 
     this.birds = new Birds();
     this.populate(birdData, this.birds);
@@ -47,8 +47,8 @@ var Game = Backbone.Model.extend({
       this.player.hatch();
     });
 
-    this.on("buyNest", () => {
-      this.player.buyNest(new Nest);
+    this.on("buyNest", (nest) => {
+      this.player.buyNest(nest || new Nest);
     });
 
     this.on("buyBird", () => {
