@@ -69,45 +69,36 @@ var Game = Backbone.Model.extend({
 
   mainLoop: function() {
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
-      console.log("check for events & challanges");
       var funType = Math.random();
       if(funType > 0.5 && funType <= 0.75) {
-        console.log("challenge type");
+
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
           var probability = this.challenges.at(i).get("probability");
-          console.log("x:" + x + " >= " + probability);
           if (probability >= x) {
             possibleChallenges.push(this.challenges.at(i));
-            console.log("add possible challenge ");
           }
         }
         if(possibleChallenges.length > 0) {
           var id = Math.floor(Math.random() * possibleChallenges.length);
-          console.log("challenges: " + id);
           possibleChallenges[id].trigger("start", this.player);
         }
       } else if (funType > 0.75) {
-        console.log("event type");
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();
-
           var probability = this.events.at(i).get("probability");
           if (probability >= x) {
             possibleEvents.push(this.events.at(i));
-
-            console.log("add possible event ");
           }
         }
         if(possibleEvents.length > 0) {
           var id = Math.floor(Math.random() * possibleEvents.length);
-          console.log("event: " + id);
           possibleEvents[id].trigger("start", this.player);
         }        
       } else {
-        console.log("no fun this time");
+        // NO-OP
       }
     }
     this.player.lay();
