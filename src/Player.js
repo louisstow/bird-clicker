@@ -9,13 +9,11 @@ var Player = Backbone.Model.extend({
   },
 
   nests: null,
-  birds: null, // or perhaps birds only need to be referenced by nests?
   badges: null,
 
-  initialize: function() {
-    //this.game = game;
+  initialize: function({ nest }) {
     this.nests = new Nests;
-    this.nests.add(new Nest);
+    this.nests.add(nest);
   },
 
   inc: function (prop, diff) {

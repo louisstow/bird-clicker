@@ -1,5 +1,5 @@
-var NestView = Backbone.View.extend({
-  id: function() { return this.model.get("name") + "NestView" },
+var BirdView = Backbone.View.extend({
+  id: function() { return this.model.get("name") + "BirdView" },
 
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
@@ -18,7 +18,7 @@ var NestView = Backbone.View.extend({
   },
 
   buy: function() {
-    game.trigger("buyNest", this.model);
+    game.trigger("buyBird", this.model);
   },
 
 });

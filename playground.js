@@ -1,7 +1,11 @@
 Backbone.$ = $;
 
+// The global singleton representing the game as a whole.  Initializes game,
+// dispatches events between views and models, just generally runs the show.
+var game;
+
 document.onready = function() {
-  var game = new Game();
+  game = new Game();
   game.start();
 
   $("#hatchButton").click(() => game.trigger("hatch"));
