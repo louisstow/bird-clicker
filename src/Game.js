@@ -72,11 +72,13 @@ var Game = Backbone.Model.extend({
       console.log("check for events & challanges");
       var funType = Math.random();
       if(funType > 0.5 && funType <= 0.75) {
+        console.log("challenge type");
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
           if (this.challenges.at(i).probability >= x) {
             possibleChallenges.push(this.challenges.at(i));
+            console.log("add possible challenge ");
           }
         }
         if(possibleChallenges.length > 0) {
@@ -84,17 +86,22 @@ var Game = Backbone.Model.extend({
           possibleChallenges.at(id).trigger("start", player);
         }
       } else if (funType > 0.75) {
+        console.log("event type");
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();
           if (this.events.at(i).probability >= x) {
             possibleEvents.push(this.events.at(i));
+
+            console.log("add possible event ");
           }
         }
         if(possibleEvents.length > 0) {
           var id = Math.floor(Math.random() * possibleEvents.length);
           possibleEvents.at(id).trigger("start", player);
         }        
+      } else {
+        console.log("no fun this time");
       }
     }
     this.player.lay();
