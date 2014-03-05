@@ -16,9 +16,10 @@ var Game = Backbone.Model.extend({
 
   initialize: function() {
 
-    this.player = new Player(this);
+    this.player = new Player();
     this.scoreboard = new Scoreboard({ model: this.player });
-
+    this.stats = new Stats({ model: this.player });
+    console.log(this.player.attributes)
     this.addEventListeners();
     
     this.nests = new Nests();
@@ -67,7 +68,6 @@ var Game = Backbone.Model.extend({
   },
 
   mainLoop: function() {
-    console.log(this.get("totalTime"));
     if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
       console.log("check for events & challanges");
       var funType = Math.random();
