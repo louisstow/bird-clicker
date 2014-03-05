@@ -1,14 +1,14 @@
 var birdData = [
   {
-    name: "Basic",
-    image: "http://imgs.steps.dragoart.com/how-to-draw-baby-birds-step-8_1_000000010078_5.jpg",
+    name: "Round Robin",
+    image: "./assets/robin.png",
     description: "A scrawny little tweeter",
     cost: 10
   },
    {
-    name: "Basic2",
-    image: "http://imgs.steps.dragoart.com/how-to-draw-baby-birds-step-8_1_000000010078_5.jpg",
-    description: "A scrawny little tweeter",
+    name: "Blue Tit",
+    image: "./assets/bluetit.png",
+    description: "Like bags of sand",
     cost: 20
   } 
 ];

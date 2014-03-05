@@ -6,7 +6,7 @@ var NestView = Backbone.View.extend({
     $("#items").append(this.render().$el);
   },
 
-  template: _.template('<img width=24 height=24 src="<%- image %>">'),
+  template: _.template('<img height=64 src="<%- image %>">'),
 
   render: function() {
     this.$el.html(this.template(this.model.attributes));
