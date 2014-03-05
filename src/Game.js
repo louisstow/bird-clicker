@@ -9,6 +9,7 @@ var Game = Backbone.Model.extend({
   player: null,
   scoreboard: null,
   challenges: null,
+  awards: null,
   events: null,
   birds: null,
   nests: null,
@@ -16,6 +17,12 @@ var Game = Backbone.Model.extend({
 
   initialize: function() {
 
+    this.player = new Player();
+ 
+    
+  },
+
+  load: function() {
     this.nests = new Nests(nestData);
     this.nests.each((nest) => new NestView({ model: nest }));
 
@@ -26,7 +33,7 @@ var Game = Backbone.Model.extend({
     var nest = new Nest(_.clone(this.nests.at(0).attributes));
     var bird = new Bird(_.clone(this.birds.at(0).attributes));
     nest.addBird(bird);
-    this.player = new Player({ nest: nest });
+    this.player.load({ nest: nest });
 
     this.scoreboard = new Scoreboard({ model: this.player });
     this.stats = new Stats({ model: this.player });
@@ -34,9 +41,8 @@ var Game = Backbone.Model.extend({
     this.addEventListeners();
 
     this.challenges = new Challenges(challengeData);
-
     this.events = new Events(eventData);
-    
+    this.awards = new Awards(awardData);
   },
 
   addEventListeners: function() {
@@ -93,6 +99,7 @@ var Game = Backbone.Model.extend({
         // NO-OP
       }
     }
+    this.awards.each((award) => award.process());
     this.player.lay();
   },
 

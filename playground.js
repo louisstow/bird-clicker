@@ -6,6 +6,7 @@ var game;
 
 document.onready = function() {
   game = new Game();
+  game.load();
   game.start();
 
   $("#hatchButton").click(() => game.trigger("hatch"));

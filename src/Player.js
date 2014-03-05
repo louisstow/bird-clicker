@@ -6,13 +6,16 @@ var Player = Backbone.Model.extend({
     manualClicks: 0,
     manualClickIncrement: 1,
     manualMultiplier: 1,
+    birdCount: 0,
+    nestCount: 0
   },
 
   nests: null,
   badges: null,
 
-  initialize: function({ nest }) {
+  load: function({ nest }) {
     this.nests = new Nests;
+    this.nests.init();
     this.nests.add(nest);
   },
 
