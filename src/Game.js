@@ -51,11 +51,11 @@ var Game = Backbone.Model.extend({
     });
 
     this.on("buyNest", (nest) => {
-      this.player.buyNest(nest || new Nest);
+      this.player.buyNest(nest ? new Nest(_.clone(nest.attributes)) : new Nest);
     });
 
     this.on("buyBird", (bird) => {
-      this.player.buyBird(bird || new Bird);
+      this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
     });
   },
 
