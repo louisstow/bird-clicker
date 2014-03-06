@@ -65,8 +65,8 @@ var Game = Backbone.Model.extend({
   },
 
   addEventListeners: function() {
-    this.on("layButtonClick", () => {
-      this.player.manualLay();
+    this.on("layButtonClick", (event) => {
+      this.player.manualLay(event);
     });
 
     this.on("buyNest", (nest) => {
