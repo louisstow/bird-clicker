@@ -62,6 +62,29 @@ var eventData = [{
       } while(bird == null);
       nest.birds.remove(bird);
       game.player.dec("birdCount", 1);
+      game.player.dec("eggIncrement", bird.get("rewardPerTick"));
+    }
+  }, 
+  {
+    description: "Cookie production multiplied - x7 for 77 seconds",
+    probability: 0.005,
+
+    process: function() {
+      game.player.set("eggMultiplier", game.player.get("eggMultiplier") * 7);
+      setTimeout(() => {
+        game.player.set("eggMultiplier", game.player.get("eggMultiplier") / 7);
+      }, 77 * 1000);
+    }
+  }, 
+  {
+    description: "Cookie production multiplied - x7 for 77 seconds",
+    probability: 0.005,
+
+    process: function() {
+      game.player.set("eggMultiplier", game.player.get("eggMultiplier") * 7);
+      setTimeout(() => {
+        game.player.set("eggMultiplier", game.player.get("eggMultiplier") / 7);
+      }, 77 * 1000);
     }
   }
 ];
