@@ -2,10 +2,6 @@ var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 10, //in seconds
 
-  defaults: {
-    totalTime: 0,
-  },
-
   player: null,
   scoreboard: null,
   challenges: null,
@@ -38,7 +34,7 @@ var Game = Backbone.Model.extend({
     this.player.load({ nest: nest });
 
     this.scoreboard = new Scoreboard({ model: this.player });
-    this.stats = new Stats({ model: this.player });
+    this.stats = new StatsView({ model: this.player });
     this.receivedAwards = new AwardListView({model: this.awards });
     console.log(this.player.attributes);
     this.addEventListeners();
@@ -61,13 +57,13 @@ var Game = Backbone.Model.extend({
 
   start: function() {
     this.eggTimer = setInterval(() => {
-      this.set("totalTime", this.get("totalTime") + 1);
+      this.player.inc("totalTimePlayed", 1);
       this.mainLoop()
     } , 1000);
   },
 
   mainLoop: function() {
-    if(this.get("totalTime") % this.EVENT_INTERVAL == 0) {
+    if(this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0) {
       var funType = Math.random();
       if((funType > 0.5 && funType <= 0.75) && !game.inChallenge) {
         var possibleChallenges = [];

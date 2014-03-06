@@ -5,7 +5,9 @@ var Player = Backbone.Model.extend({
     eggMultiplier: 1,
     manualClicks: 0,
     birdCount: 0,
-    nestCount: 0
+    nestCount: 0,
+    challengesCompleted: 0,
+    totalTimePlayed: 0,
   },
 
   nests: null,
