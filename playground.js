@@ -5,6 +5,7 @@ Backbone.$ = $;
 var game;
 var nestDataMap = {};
 var birdDataMap = {};
+var awardDataMap = {};
 
 document.onready = function() {
   for (var i = 0; i < birdData.length; ++i) {
@@ -13,6 +14,10 @@ document.onready = function() {
 
   for (i = 0; i < nestData.length; ++i) {
     nestDataMap[nestData[i].name] = nestData[i];
+  }
+
+  for (i = 0; i < awardData.length; ++i) {
+    awardDataMap[awardData[i].id] = awardData[i];
   }
 
   game = new Game();

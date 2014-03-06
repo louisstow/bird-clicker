@@ -104,6 +104,7 @@ var Game = Backbone.Model.extend({
     _.extend(obj, this.attributes);
     obj.player = _.extend({}, this.player.attributes);
     obj.player.nests = [];
+    obj.awards = [];
 
     this.player.nests.each((n) => {
       var i = obj.player.nests.push({name: n.attributes.name}) - 1;
@@ -112,6 +113,12 @@ var Game = Backbone.Model.extend({
       n.birds.each((b) => {
         obj.player.nests[i].birds.push({name: b.attributes.name});
       });
+    });
+
+    this.awards.each((a) => {
+      if (a.attributes.awarded) {
+        obj.awards.push({id: a.attributes.id});
+      }
     });
 
     return obj
@@ -139,6 +146,16 @@ var Game = Backbone.Model.extend({
     this.player.set(obj.player);
 
     delete obj.player;
+
+    this.awards.reset();
+    for (i = 0; i < obj.awards.length; ++i) {
+      var content = awardDataMap[obj.awards[i].id];
+      var a = new Award(content);
+      a.set("awarded", true);
+      this.awards.push(a);
+    }
+
+    delete obj.awards;
 
     this.set(obj);
   },
