@@ -43,7 +43,7 @@ var eventData = [{
   }, 
   {
     description: "Someone has cooked one of your birds.  Sorry.",
-    probability: 10.005,
+    probability: 0.005,
 
     process: function() {
       if(game.player.get("birdCount") < 1) {
