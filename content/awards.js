@@ -25,7 +25,7 @@ var awardData = [
     name: "Bird Collector",
     description: "You've collected your 100 birds",
     verify: function() {
-         return game.player.get("birdCount") >= 10;
+         return game.player.get("birdCount") >= 100;
     }
   }, {
     id: "100_clicks",
@@ -96,6 +96,13 @@ var awardData = [
     description: "You have one hundred robins.",
     verify: function() {
          return game.birds.at(0).get("numberOwned") >= 100;
+    }
+  }, {
+    id: "one_hundred_blue_tit",
+    name: "Many blue tits",
+    description: "You have one hundred blue tits.",
+    verify: function() {
+         return game.birds.at(1).get("numberOwned") >= 100;
     }
   }
 ];

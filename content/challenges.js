@@ -1,11 +1,10 @@
 var challengeData = [{
-    id: "collect_eggs",
+    id: "collect_10_eggs_in_1_second",
     description: "Manually collect 10 eggs in 1 second.",
     probability: 0.03,
     timeout: 1,
     successMessage: "Challenge success - you win 10 eggs",
     failMessage: "Challenge failure - you lose 10 eggs",
-
 
     setup: function() {
       this.manualClicks = game.player.get("manualClicks");
@@ -24,7 +23,7 @@ var challengeData = [{
       game.player.set("eggs", game.player.get("eggs") - 10);
     }
   }, {
-    id: "collect_eggs",
+    id: "collect_100_eggs_in_10_second",
     description: "Manually collect 100 eggs in 10 seconds.",
     probability: 0.002,
     timeout: 10,
