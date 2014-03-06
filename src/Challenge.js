@@ -29,7 +29,14 @@ var Challenge = Backbone.Model.extend({
   initialize: function() {
     this.on("start", () => {
       game.inChallenge = true;
-      this.view = new ChallengeView({ model: this });
+      $.notify({
+        title: this.get("description"),
+      }, { 
+        style: 'challenge',
+        autoHide: true,
+        clickToHide: false
+      });
+      //this.view = new ChallengeView({ model: this });
     });
 
     this.on("challengeTimeout", () => {
@@ -47,7 +54,7 @@ var Challenge = Backbone.Model.extend({
   proceed: function() {
     console.log("proceed");
 
-    this.view.hide();
+    //this.view.hide();
     this.setup();
     this.start();
   },
@@ -55,7 +62,7 @@ var Challenge = Backbone.Model.extend({
   cancel: function() {
     game.inChallenge = false;
     console.log("cancel");
-    this.view.hide();
+    //this.view.hide();
   },
 
   setup: function() {

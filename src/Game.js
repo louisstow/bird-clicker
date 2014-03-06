@@ -1,6 +1,6 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
-  EVENT_INTERVAL: 10, //in seconds
+  EVENT_INTERVAL: 2, //in seconds
 
   player: null,
   scoreboard: null,
@@ -38,6 +38,26 @@ var Game = Backbone.Model.extend({
     this.rewardedAwards = new RewardedAwardListView({model: this.awards });
     console.log(this.player.attributes);
     this.addEventListeners();
+    this.setupNotifyStyles();
+
+  },
+
+  setupNotifyStyles: function() {
+
+    $.notify.addStyle('challenge', {
+      html: "<div>" +
+            "<div class='clearfix'>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='buttons'>" +
+              "<button class='no'>Cancel</button>" +
+              "<button class='yes'>Accept Challenge</button>" +
+            "</div>" +
+            "</div></div>" 
+    });
+    $.notify.addStyle('award', {
+      html: "<div><div class='clearfix'><div data-notify-text='name'/><br /><div data-notify-text='description'/></div></div>"
+    });
+
 
   },
 
@@ -65,7 +85,7 @@ var Game = Backbone.Model.extend({
   mainLoop: function() {
     if(this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0) {
       var funType = Math.random();
-      if((funType > 0.5 && funType <= 0.75) && !game.inChallenge) {
+      if((funType > 0.0 && funType <= 0.75) && !game.inChallenge) {
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();

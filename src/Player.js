@@ -9,6 +9,7 @@ var Player = Backbone.Model.extend({
     nestCount: 0,
     challengesCompleted: 0,
     totalTimePlayed: 0,
+    rewardedAwards: 0
   },
 
   nests: null,

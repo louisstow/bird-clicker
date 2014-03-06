@@ -61,3 +61,58 @@ x-card {
 	border:0;
 	margin:2px;
 }
+
+
+.notifyjs-challenge-base {
+  background: #F5F5F5;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.notifyjs-challenge-base .title {
+  margin: 10px 0 0 10px;
+  text-align: right;
+}
+
+.notifyjs-challenge-base .buttons {
+  width: 70px;
+  display:inline;
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.notifyjs-challenge-base button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+  width: 60px;
+}
+
+.notifyjs-award-base {
+  background: gold;
+  color:black;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.notifyjs-award-base .name {
+  margin: 10px 0 0 10px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.notifyjs-award-base .buttons {
+  width: 70px;
+  display:inline;
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+}
+
+.notifyjs-award-base button {
+  font-size: 9px;
+  padding: 5px;
+  margin: 2px;
+  width: 60px;
+}

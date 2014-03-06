@@ -7,7 +7,6 @@ defaults: {
   },
 
   constructor: function(data) {
-
     Backbone.Model.apply(this, arguments);
 
     if(data.verify) {
@@ -16,10 +15,16 @@ defaults: {
   },
   initialize: function() {
     this.on("start", () => {
-      this.view = new AwardView({ model: this });
-      setTimeout(() => {
-        this.view.hide();
-      }, 5 * 1000);
+      console.log("award rewarded: " + this.get("name"));
+      $.notify({
+        name: this.get("name"),
+        description: this.get("description")
+      }, { 
+        style: 'award',
+        autoHide: true,
+        clickToHide: false
+      });    
+      game.player.inc("rewardedAwards", 1);
     });
   },
   process: function() {

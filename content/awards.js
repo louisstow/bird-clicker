@@ -27,6 +27,13 @@ var awardData = [
     verify: function() {
     	 return game.player.get("manualClicks") >= 100;
     }
+  },{
+    id: "10_clicks",
+    name: "Mouse User!",
+    description: "You've clicked 10 times",
+    verify: function() {
+    	 return game.player.get("manualClicks") >= 10;
+    }
   }, {
     id: "100_egg_inc",
     name: "Prolific Layer",
