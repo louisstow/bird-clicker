@@ -14,10 +14,7 @@ defaults: {
   },
   initialize: function() {
     this.on("start", () => {
-      this.view = new EventView({ model: this });
-      setTimeout(() => {
-        this.view.hide();
-      }, 5 * 1000);
+    	$.notify(this.get("description"), "info");
       this.process();
     });
   },

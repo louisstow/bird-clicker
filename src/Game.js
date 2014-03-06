@@ -1,6 +1,6 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
-  EVENT_INTERVAL: 10, //in seconds
+  EVENT_INTERVAL: 7, //in seconds
 
   player: null,
   scoreboard: null,
@@ -38,6 +38,26 @@ var Game = Backbone.Model.extend({
     this.rewardedAwards = new RewardedAwardListView({model: this.awards });
     console.log(this.player.attributes);
     this.addEventListeners();
+    this.setupNotifyStyles();
+
+  },
+
+  setupNotifyStyles: function() {
+
+    $.notify.addStyle('challenge', {
+      html: "<div>" +
+            "<div class='clearfix'>" +
+            "<div class='title' data-notify-html='title'/>" +
+            "<div class='buttons'>" +
+              "<button class='no'>Cancel</button>" +
+              "<button class='yes'>Accept Challenge</button>" +
+            "</div>" +
+            "</div></div>" 
+    });
+    $.notify.addStyle('award', {
+      html: "<div><div class='clearfix'><div data-notify-text='name'/><br /><div data-notify-text='description'/></div></div>"
+    });
+
 
   },
 

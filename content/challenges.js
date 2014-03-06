@@ -1,7 +1,7 @@
 var challengeData = [{
     id: "collect_eggs",
     description: "Manually collect 10 eggs in 10 seconds.\nSuccess : 10 eggs\nPenalty: 10 eggs",
-    probability: 1,
+    probability: 0.03,
     timeout: 10,
     successMessage: "challenge success - you win 10 eggs",
     failMessage: "challenge failure - you lose 10 eggs",

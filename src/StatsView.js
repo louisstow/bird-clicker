@@ -5,7 +5,8 @@ var StatsView = Backbone.View.extend({
     '<dt>Total Clicks</dt><dd><%= manualClicks %></dd>' + 
     '<dt>Eggs per second</dt><dd><%= eggIncrement %></dd>' + 
     '<dt>Challenges completed</dt><dd><%= challengesCompleted %></dd>' + 
-    '<dt>Time played</dt><dd><%= totalTimePlayed %> seconds</dd>' + 
+    '<dt>Time played</dt><dd><%= totalTimePlayed %> seconds</dd>' +  
+    '<dt>Rewarded awards</dt><dd><%= rewardedAwards %></dd>' + 
     '</dl>'),
 
   initialize: function() {
