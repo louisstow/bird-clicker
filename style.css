@@ -196,6 +196,7 @@ div.hidden {
 
 #store .nest, #store .bird {
   clear: both;
+  cursor: pointer;
 }
 
 #store .stats {

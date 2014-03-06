@@ -18,6 +18,7 @@ var BuyableBirdView = BirdView.extend({
 
   initialize: function(data) {
     this.listenTo(game.player, "lay", this.process);
+    this.listenTo(game.player, "forceRenderStore", this.process);
   },
 
   template: _.template('<div class="bird <%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>"><div class="profile"><img width=64 height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"></div><div class="info"><strong><%- model.name %></strong><p><%- model.description %></p></div><div class="stats"><span class="owned"><%- model.numberOwned %> owned</span><span class="cost"><%- model.cost %> eggs</span></div><div class="clear"></div></div>'),
@@ -29,7 +30,7 @@ var BuyableBirdView = BirdView.extend({
     var shown = this.model.get("shown");
     var disabled = this.model.get("disabled");
     var canAfford = game.player.get("eggs") > this.model.get("cost");
-    
+
     if(forceRender) {
       render = true;
       this.model.set("forceRender", false);      

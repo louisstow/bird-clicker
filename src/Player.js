@@ -56,6 +56,7 @@ var Player = Backbone.Model.extend({
     nestObject.set("numberOwned", nestObject.get("numberOwned") + 1);
     nestObject.set("cost", game.getPrice(nestObject.get("baseCost"), nestObject.get("numberOwned")));
     nestObject.set("forceRender", true);
+    this.trigger("forceRenderStore");
   },
 
   buyBird: function (bird) {
@@ -77,6 +78,7 @@ var Player = Backbone.Model.extend({
         birdObject.set("numberOwned", birdObject.get("numberOwned") + 1);
         birdObject.set("cost", game.getPrice(birdObject.get("baseCost"), birdObject.get("numberOwned")));
         birdObject.set("forceRender", true);
+        this.trigger("forceRenderStore");
         return nest;
       }
     }

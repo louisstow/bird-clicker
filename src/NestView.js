@@ -27,6 +27,7 @@ var BuyableNestView = NestView.extend({
 
  initialize: function(data) {
     this.listenTo(game.player, "lay", this.process);
+    this.listenTo(game.player, "forceRenderStore", this.process);
   },
 
   process: function() {
