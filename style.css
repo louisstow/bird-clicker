@@ -151,6 +151,10 @@ x-card {
   margin: 2px;
 }
 
+.clear {
+  clear:both;
+}
+
 .notifyjs-award-base button {
   font-size: 9px;
   padding: 5px;
