@@ -89,7 +89,9 @@ var challengeData = [{
 
     onSuccess: function() {
         var nestLength = game.nests.length;
-        var nest = game.nests.at(Math.round(Math.random() * nestLength));
+        var id = Math.round(Math.random() * nestLength-1);
+        console.log("nest", id, nestLength)
+        var nest = game.nests.at(id);
         game.player.addNest(nest);
     }, 
 
@@ -113,7 +115,7 @@ var challengeData = [{
     }, 
 
     onSuccess: function() {
-        
+
     }, 
 
     onFailure: function() {

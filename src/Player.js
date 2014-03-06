@@ -48,7 +48,7 @@ var Player = Backbone.Model.extend({
       return;
     }
     this.dec("eggs", nest.get("cost"));
-    addNest(nest);
+    this.addNest(nest);
   },
 
   addNest: function(nest) {

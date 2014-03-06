@@ -1,4 +1,5 @@
 var Challenge = Backbone.Model.extend({
+  autoHideDelaySeconds: 4,
   defaults: {
     id: null, // unique
     description: null,
@@ -34,15 +35,21 @@ var Challenge = Backbone.Model.extend({
       }, { 
         style: 'challenge',
         autoHide: true,
-        autoHideDelay: 4000,
+        autoHideDelay: this.autoHideDelaySeconds * 1000,
         clickToHide: false
       });
 
       $(document).on('click', '.notifyjs-challenge-base .yes', (data) => {
+        clearTimeout(this.challengeTimer);
         $(data.target).trigger('notify-hide');
         this.trigger("proceed");
         this.removeListeners();
       });
+
+    this.challengeTimer = setTimeout(() => {
+      console.log("MISSED TIMEOUT");
+      this.cancel();
+    }, this.autoHideDelaySeconds * 1000);
 
     });
 
