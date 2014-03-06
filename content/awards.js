@@ -29,8 +29,8 @@ var awardData = [
     }
   }, {
     id: "100_egg_inc",
-    name: "Prolific Hatcher",
-    description: "You're getting 100 eggs on each hatch - well done",
+    name: "Prolific Layer",
+    description: "You're getting 100 eggs on each lay - well done",
     verify: function() {
     	 return game.player.get("eggIncrement") >= 100;
     }
