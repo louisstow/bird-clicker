@@ -143,10 +143,11 @@ x-card {
 }
 
 .notifyjs-challenge-base button {
-  font-size: 9px;
   padding: 5px;
+  height:30px;
   margin: 2px;
-  width: 60px;
+  width: 80%;
+  margin: 5px 10% 0;
 }
 
 .notifyjs-award-base {
