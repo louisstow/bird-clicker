@@ -65,8 +65,8 @@ var birdData = [
     rewardPerTick: 98765
   },
    {
-    name: "Terrordactyl",
-    image: "./assets/terrordactyl.png",
+    name: "Pterodactyl",
+    image: "./assets/pterodactyl.png",
     description: "Pterrifying!",
     baseCost: 1234567890, 
     rewardPerTick: 987654
