@@ -169,14 +169,16 @@ var Game = Backbone.Model.extend({
     delete obj.player;
 
     this.awards.reset();
-    for (i = 0; i < obj.awards.length; ++i) {
-      var content = awardDataMap[obj.awards[i].id];
-      var a = new Award(content);
-      a.set("awarded", true);
-      this.awards.push(a);
-    }
+    if (obj.awards) {
+      for (i = 0; i < obj.awards.length; ++i) {
+        var content = awardDataMap[obj.awards[i].id];
+        var a = new Award(content);
+        a.set("awarded", true);
+        this.awards.push(a);
+      }
 
-    delete obj.awards;
+      delete obj.awards;
+    }
 
     this.set(obj);
   },
