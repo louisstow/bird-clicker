@@ -42,9 +42,14 @@ x-card {
 	height:75px; 
 }
 
-#notifications .description {
+#notifications .name, #notifications .description {
   text-align: center;
 	width: 100%;
+	display:block;
+}
+
+#notifications .name {
+	font-weight: bold;
 }
 
 #notifications button {

@@ -8,6 +8,7 @@ var AwardView = Backbone.View.extend({
   },
 
   template: _.template('<div class="award">' + 
+  	'<p class="name"><%- name %></p>' +
   	'<p class="description"><%- description %></p>' +
   	'</div>'),
 
@@ -20,7 +21,7 @@ var AwardView = Backbone.View.extend({
     this.view.animate({bottom: "-75px", opacity: 0}, () => {
     	this.remove();
     });
-
   } 
-
 });
+
+

@@ -1,6 +1,7 @@
 var Award = Backbone.Model.extend({
 defaults: {
     id: null,
+    name: null,
     description: null,
     awarded: false
   },
