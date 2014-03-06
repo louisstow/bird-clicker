@@ -36,7 +36,18 @@ var Challenge = Backbone.Model.extend({
         autoHide: true,
         clickToHide: false
       });
-      //this.view = new ChallengeView({ model: this });
+
+      $(document).on('click', '.notifyjs-challenge-base .no', (data) => {
+        $(data.target).trigger('notify-hide');
+        this.trigger("cancel");
+        this.removeListeners();
+      });
+      $(document).on('click', '.notifyjs-challenge-base .yes', (data) => {
+        $(data.target).trigger('notify-hide');
+        this.trigger("proceed");
+        this.removeListeners();
+      });
+
     });
 
     this.on("challengeTimeout", () => {
@@ -50,6 +61,11 @@ var Challenge = Backbone.Model.extend({
       this.cancel();
     });
   },
+
+  removeListeners: function() {
+    $(document).off('click', '.notifyjs-challenge-base .yes');
+    $(document).off('click', '.notifyjs-challenge-base .no');
+  }, 
 
   proceed: function() {
     console.log("proceed");
