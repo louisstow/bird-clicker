@@ -145,9 +145,9 @@ var Game = Backbone.Model.extend({
   },
 
   parse: function (obj) {
-
-    this.player.nests.reset();
-
+    // Build an array of nests and then reset the player's nests collection
+    // all at once to trigger one change event instead of one per nest/bird.
+    var nests = [];
     for (var i = 0; i < obj.player.nests.length; ++i) {
       var content = nestDataMap[obj.player.nests[i].name];
       console.log(obj.player.nests[i].name, content)
@@ -159,8 +159,9 @@ var Game = Backbone.Model.extend({
         n.birds.push(b);
       }
 
-      this.player.nests.push(n);
+      nests.push(n);
     }
+    this.player.nests.reset(nests);
 
     delete obj.player.nests;
     this.player.set(obj.player);
