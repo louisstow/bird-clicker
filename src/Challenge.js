@@ -34,6 +34,7 @@ var Challenge = Backbone.Model.extend({
       }, { 
         style: 'challenge',
         autoHide: true,
+        autoHideDelay: 4000,
         clickToHide: false
       });
 

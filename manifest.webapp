@@ -1,0 +1,8 @@
+{
+    "name": "Twitcher",
+    "description": "Click birds to get eggs",
+    "launch_path": "/index.html",
+    "icons": {
+        "128": ""
+    }
+}
