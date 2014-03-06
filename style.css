@@ -1,8 +1,24 @@
+@import url(http://fonts.googleapis.com/css?family=Londrina+Solid);
+@import url(http://fonts.googleapis.com/css?family=Sniglet);
+
 body, html {
 	margin: 0;
 	padding: 0;
-  font-family: "Fira Sans","Fira Sans","Segoe UI",Frutiger,"Frutiger Linotype","Dejavu Sans","Helvetica Neue",Arial,sans-serif;
+  font-family: "Sniglet", sans-serif;
   overflow: hidden;
+}
+
+x-tabbar {
+  background: green;
+  border-bottom: 2px solid rgb(2, 96, 2);
+}
+
+x-tabbar-tab {
+  font-family: "Sniglet";
+}
+
+x-tabbar-tab:hover {
+  background: rgb(2, 96, 2);
 }
 
 #layout {
@@ -10,7 +26,7 @@ body, html {
 }
 
 #clicker {
-	height: 20%;
+	height: 25%;
 	text-align: center;
 }
 
@@ -18,14 +34,17 @@ body, html {
 	width: 50%;
 	height: 100%;
 	margin: auto;
+  border: 2px solid #444;
+  background: url('./assets/EGG.jpg') no-repeat 50% 0;
 }
 
 #numbers {
-	height: 20%;
+	height: 15%;
 }
 
 x-card {
 	overflow: auto !important;
+  padding: 0 5px;
 }
 
 #notifications {
@@ -183,7 +202,8 @@ div.hidden {
 
 #store .info {
   float: left;
-  margin-top: 5px;
+  margin-top: 8px;
+  width: 50%;
 }
 
 #store .info p {
@@ -192,12 +212,14 @@ div.hidden {
 
 #store .nest, #store .bird {
   clear: both;
+  border-bottom: 1px solid #ccc;
 }
 
 #store .stats {
   float: right;
   margin-right: 10px;
   margin-top: 10px;
+  color: #0022ee;
 }
 
 #store .stats span {
@@ -209,6 +231,15 @@ ul#items {
   margin: 0;
 }
 
-ul#items > div:nth-child(odd) {
-  background: #eee;
+#numbers {
+  font-family: 'Londrina Solid', cursive;
+  text-align: center;
+}
+
+#numbers h1 {
+  margin: 0;
+  font-size: 44px;
+}
+#numbers h2 {
+  margin: -8px 0 0 0;
 }
