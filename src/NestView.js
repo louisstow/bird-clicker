@@ -69,7 +69,14 @@ var BuyableNestView = NestView.extend({
     "click": "buy",
   },
 
-  template: _.template('<div class="nest <%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled" %>"><div class="profile"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"></div><div class="info"><strong><%- model.name %></strong> - can hold <%= model.capacity%> birds<p><%- model.description %></p></div><div class="stats"><span class="owned"><%- model.numberOwned %> owned</span><span class="cost"><%- model.cost %> eggs</span></div><div class="clear"></div></div>'),
+  template: _.template('<div class="nest <%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled" %>">' +
+    '<div class="profile"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"></div>' +
+    '<div class="info"><strong><%- model.name %></strong> - bird capacity: <%= model.capacity%><p><%- model.description %></p></div>' +
+    '<div class="stats">' +
+      '<span class="owned"><%- model.numberOwned %> owned</span>' +
+      '<span class="cost"><%- model.cost %> eggs</span>' +
+    '</div>' +    
+    '<div class="clear"></div></div>'),
 
   buy: function() {
     if(this.model.get("cost") < game.player.get("eggs")) {
