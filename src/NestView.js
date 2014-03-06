@@ -33,7 +33,7 @@ var BuyableNestView = NestView.extend({
     "click": "buy",
   },
 
-  template: _.template('<div class="<%= eggs > model.cost ? "" : "disabled" %>"><img height=64 src="<%- model.image %>" alt="<%- model.description %>"> - <%- model.cost %> eggs</div>'),
+  template: _.template('<div class="<%= eggs > model.cost ? "" : "disabled" %>"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"> - <%- model.cost %> eggs</div>'),
 
   buy: function() {
     game.trigger("buyNest", this.model);
