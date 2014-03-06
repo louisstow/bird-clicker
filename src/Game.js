@@ -150,7 +150,7 @@ var Game = Backbone.Model.extend({
     var nests = [];
     for (var i = 0; i < obj.player.nests.length; ++i) {
       var content = nestDataMap[obj.player.nests[i].name];
-      console.log(obj.player.nests[i].name, content)
+      // console.log(obj.player.nests[i].name, content);
       var n = new Nest(content);
 
       for (var j = 0; j < obj.player.nests[i].birds.length; ++j) {
