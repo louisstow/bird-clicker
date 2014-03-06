@@ -90,5 +90,12 @@ var awardData = [
     verify: function() {
          return game.get("totalTime") >= 60 * 60 * 24;
     }
+  }, {
+    id: "one_hundred_robins",
+    name: "You're still not batman",
+    description: "You have one hundred robins.",
+    verify: function() {
+         return game.birds.at(0).get("numberOwned") >= 100;
+    }
   }
 ];
