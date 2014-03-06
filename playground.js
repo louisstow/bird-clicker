@@ -45,3 +45,10 @@ document.onready = function() {
     }, 60 * 1000);
   }
 }
+
+$(window).unload(function() {
+  // Save game state so the user can start up where they left off next time!
+  if (window.localStorage) {
+    localStorage.data = JSON.stringify(game.toJSON());
+  }
+});
