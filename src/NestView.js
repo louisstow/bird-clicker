@@ -26,17 +26,26 @@ var NestView = Backbone.View.extend({
 var BuyableNestView = NestView.extend({
 
  initialize: function(data) {
-    this.listenTo(game.player, "lay", this.render);
+    this.listenTo(game.player, "lay", this.process);
+  },
+
+  process: function() {
+    if(game.player.get("eggs") > this.model.get("cost")) {
+      this.model.set("shown", true);
+    }
+    this.render();
   },
 
   events: {
     "click": "buy",
   },
 
-  template: _.template('<div class="<%= eggs > model.cost ? "" : "disabled" %>"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"> - <%- model.cost %> eggs</div>'),
+  template: _.template('<div class="<%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled" %>"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"> - <%- model.cost %> eggs</div>'),
 
   buy: function() {
-    game.trigger("buyNest", this.model);
+    if(this.model.get("cost") < game.player.get("eggs")) {
+      game.trigger("buyNest", this.model);
+    }    
   },
 
 });

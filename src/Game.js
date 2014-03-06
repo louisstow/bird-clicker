@@ -1,6 +1,7 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 7, //in seconds
+  PURCHASE_COST_MULTIPLIER: 1.15,
 
   player: null,
   scoreboard: null,
@@ -186,5 +187,10 @@ var Game = Backbone.Model.extend({
   notify: function(description) {
     new NotificationView({ model: new Backbone.Model({ description: description }) });
   },
+
+  getPrice: function(basePrice, amount) {
+    console.log("getPrice", basePrice, game.PURCHASE_COST_MULTIPLIER, amount, Math.pow(game.PURCHASE_COST_MULTIPLIER, amount));
+    return Math.ceil(basePrice*Math.pow(game.PURCHASE_COST_MULTIPLIER, amount));
+  }
 
 });

@@ -149,3 +149,7 @@ x-card {
 div.disabled {
 	opacity:0.15;
 }
+
+div.hidden {
+  display:none;
+}

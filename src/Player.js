@@ -44,7 +44,7 @@ var Player = Backbone.Model.extend({
 
   buyNest: function (nest) {
     if (this.get("eggs") < nest.get("cost")) {
-      $.notify(this.get("eggs") + " eggs isn't enough to buy a nest that costs " + nest.get("cost") + " eggs!");
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a nest that costs " + nest.get("cost") + " eggs!");
       return;
     }
 
@@ -52,13 +52,15 @@ var Player = Backbone.Model.extend({
     this.dec("eggs", nest.get("cost"));
 
     var nestObject = game.nests.findWhere({name:nest.get("name")});
-    nestObject.set("cost", Math.round(nestObject.get("cost") * 1.5));
+
+    nestObject.set("numberOwned", nestObject.get("numberOwned") + 1);
+    nestObject.set("cost", game.getPrice(nestObject.get("baseCost"), nestObject.get("numberOwned")));
   },
 
   buyBird: function (bird) {
     console.log("Try to purchase bird for", bird.get("cost"));
     if (this.get("eggs") < bird.get("cost")) {
-      $.notify(this.get("eggs") + " eggs isn't enough to buy a bird that costs " + bird.get("cost") + " eggs!");
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a bird that costs " + bird.get("cost") + " eggs!");
       return false;
     }
 
@@ -71,7 +73,8 @@ var Player = Backbone.Model.extend({
         this.dec("eggs", bird.get("cost"));
 
         var birdObject = game.birds.findWhere({"name":bird.get("name")});
-        birdObject.set("cost", Math.round(birdObject.get("cost") * 1.5));
+        birdObject.set("numberOwned", birdObject.get("numberOwned") + 1);
+        birdObject.set("cost", game.getPrice(birdObject.get("baseCost"), birdObject.get("numberOwned")));
 
         return nest;
       }
