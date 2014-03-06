@@ -21,17 +21,17 @@ var nestData = [
     capacity: 4
   },
   {
-    name: "Splash!",
+    name: "Splash",
     image: "./assets/water-nest.png",
     description: "Like a water bed, but for birds",
     baseCost: 20000,
-    capacity: 15
+    capacity: 10
   },
   {
-    name: "Hot!",
+    name: "Hot",
     image: "./assets/fire-nest.png",
     description: "A huge ball of fire",
     baseCost: 100000,
-    capacity: 40
+    capacity: 20
   },
 ];

@@ -47,6 +47,10 @@ x-card {
   padding: 0 5px;
 }
 
+x-card#store {
+  padding: 0;
+}
+
 #notifications {
   position:absolute;
   bottom:0;
@@ -65,22 +69,37 @@ x-card {
 	top: -10px;
 }
 
-#tree .bird:nth-child(2) {
+#tree .bird:nth-child(even) {
+  top: -15px;
+}
+
+#tree .Basic .bird:nth-child(2) {
+	left: 30px;
+	top: -15px;
+}
+
+#tree .Purty .bird:nth-child(2) {
 	left: 15px;
-	top: -15px;
 }
 
-#tree .bird:nth-child(3) {
-	left: 25px;
+#tree .Purty .bird:nth-child(3) {
+  left: 45px;
 }
 
-#tree .bird:nth-child(4) {
-	left: 35px;
-	top: -15px;
+#tree .Bricky .bird:nth-child(2) {
+  left: 10px;
 }
 
-#tree .bird:nth-child(5) {
-	left: 45px;
+#tree .Bricky .bird:nth-child(3) {
+  left: 25px;
+}
+
+#tree .Bricky .bird:nth-child(4) {
+  left: 45px;
+}
+
+#tree .Bricky .bird:nth-child(5) {
+  left: 55px;
 }
 
 #notifications .challenge, #notifications .event {
@@ -200,7 +219,7 @@ div.hidden {
 
 #store .profile {
   float: left;
-  width: 125px;
+  width: 120px;
   text-align: center;
 }
 
@@ -246,7 +265,7 @@ ul#items {
   font-size: 44px;
 }
 #numbers h2 {
-  margin: -8px 0 0 0;
+  margin: -10px 0 0 0;
 }
 
 #stats dt {

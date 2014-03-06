@@ -23,7 +23,7 @@ var BuyableBirdView = BirdView.extend({
 
   template: _.template('<div class="bird <%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>">' +
     '<div class="profile"><img width=64 height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"></div>' +
-    '<div class="info"><strong><%- model.name %></strong> - generates <%= model.rewardPerTick%> eggs a second<p><%- model.description %></p></div>' + 
+    '<div class="info"><strong><%- model.name %></strong> <small>generates <%= model.rewardPerTick%> eggs a second</small><p><%- model.description %></p></div>' + 
     '<div class="stats">' +
       '<span class="owned"><%- model.numberOwned %> owned</span>' +
       '<span class="cost"><%- model.cost %> eggs</span>' +
