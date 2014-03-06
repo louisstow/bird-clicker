@@ -174,3 +174,41 @@ div.hidden {
 #tree {
   padding-top: 20px;
 }
+
+#store .profile {
+  float: left;
+  width: 125px;
+  text-align: center;
+}
+
+#store .info {
+  float: left;
+  margin-top: 5px;
+}
+
+#store .info p {
+  margin: 5px 0 0 0;
+}
+
+#store .nest, #store .bird {
+  clear: both;
+}
+
+#store .stats {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+#store .stats span {
+  display: block;
+}
+
+ul#items {
+  padding: 0;
+  margin: 0;
+}
+
+ul#items > div:nth-child(odd) {
+  background: #eee;
+}
