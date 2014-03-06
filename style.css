@@ -116,3 +116,7 @@ x-card {
   margin: 2px;
   width: 60px;
 }
+
+div.disabled {
+	opacity:0.15;
+}

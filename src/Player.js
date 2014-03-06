@@ -19,6 +19,10 @@ var Player = Backbone.Model.extend({
     this.nests = new Nests;
     this.nests.init();
     this.nests.add(nest);
+
+    this.on("lay", () => {
+      this.performLay();
+    });
   },
 
   inc: function (prop, diff) {
@@ -30,6 +34,10 @@ var Player = Backbone.Model.extend({
   },
 
   lay: function() {
+    this.trigger("lay");
+  },
+
+  performLay: function() {
     this.inc("totalEggs", this.get("eggIncrement") * this.get("eggMultiplier"));
     this.inc("eggs", this.get("eggIncrement") * this.get("eggMultiplier"));
   },
@@ -42,9 +50,13 @@ var Player = Backbone.Model.extend({
 
     this.nests.add(nest);
     this.dec("eggs", nest.get("cost"));
+
+    var nestObject = game.nests.findWhere({name:nest.get("name")});
+    nestObject.set("cost", Math.round(nestObject.get("cost") * 1.5));
   },
 
   buyBird: function (bird) {
+    console.log("Try to purchase bird for", bird.get("cost"));
     if (this.get("eggs") < bird.get("cost")) {
       $.notify(this.get("eggs") + " eggs isn't enough to buy a bird that costs " + bird.get("cost") + " eggs!");
       return false;
@@ -57,6 +69,9 @@ var Player = Backbone.Model.extend({
 
         this.inc("eggIncrement", bird.get("rewardPerTick"));
         this.dec("eggs", bird.get("cost"));
+
+        var birdObject = game.birds.findWhere({"name":bird.get("name")});
+        birdObject.set("cost", Math.round(birdObject.get("cost") * 1.5));
 
         return nest;
       }
