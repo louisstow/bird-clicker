@@ -31,7 +31,7 @@ var Player = Backbone.Model.extend({
 
   buyNest: function (nest) {
     if (this.get("eggs") < nest.get("cost")) {
-      console.warn(this.get("eggs") + " eggs isn't enough to buy a nest for " + nest.get("cost") + ".");
+      game.notify(this.get("eggs") + " eggs isn't enough to buy a nest that costs " + nest.get("cost") + " eggs!");
       return;
     }
 
@@ -41,7 +41,7 @@ var Player = Backbone.Model.extend({
 
   buyBird: function (bird) {
     if (this.get("eggs") < bird.get("cost")) {
-      console.warn(this.get("eggs") + " eggs isn't enough to buy a bird for " + bird.get("cost") + ".");
+      game.notify(this.get("eggs") + " eggs isn't enough to buy a bird that costs " + bird.get("cost") + " eggs!");
       return false;
     }
 
@@ -57,6 +57,7 @@ var Player = Backbone.Model.extend({
       }
     }
 
+    game.notify("Your nests are already full of birds!");
     return false;
   },
 

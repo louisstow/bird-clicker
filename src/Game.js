@@ -100,4 +100,8 @@ var Game = Backbone.Model.extend({
     this.player.lay();
   },
 
+  notify: function(description) {
+    new NotificationView({ model: new Backbone.Model({ description: description }) });
+  },
+
 });
