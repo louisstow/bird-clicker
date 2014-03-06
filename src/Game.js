@@ -116,6 +116,7 @@ var Game = Backbone.Model.extend({
         // NO-OP
       }
     }
+    
     this.awards.each((award) => award.process());
     this.player.lay();
   },
@@ -146,9 +147,22 @@ var Game = Backbone.Model.extend({
   },
 
   parse: function (obj) {
+
+    for (i = 0; i < obj.awards.length; ++i) {
+      var id = obj.awards[i].id;
+      this.awards.each((a) => {
+        if (a.attributes.id == id) {
+          a.set("awarded", true); 
+        }
+      });
+    }
+
+    delete obj.awards;
+
     // Build an array of nests and then reset the player's nests collection
     // all at once to trigger one change event instead of one per nest/bird.
     var nests = [];
+
     for (var i = 0; i < obj.player.nests.length; ++i) {
       var content = nestDataMap[obj.player.nests[i].name];
       // console.log(obj.player.nests[i].name, content);
@@ -168,19 +182,6 @@ var Game = Backbone.Model.extend({
     this.player.set(obj.player);
 
     delete obj.player;
-
-    this.awards.reset();
-    if (obj.awards) {
-      for (i = 0; i < obj.awards.length; ++i) {
-        var content = awardDataMap[obj.awards[i].id];
-        var a = new Award(content);
-        a.set("awarded", true);
-        this.awards.push(a);
-      }
-
-      delete obj.awards;
-    }
-
     this.set(obj);
   },
 

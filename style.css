@@ -91,6 +91,18 @@ x-card {
 	margin:2px;
 }
 
+.notifyjs-wrapper span {
+  max-width: 300px;
+  display: block;
+}
+
+.notifyjs-arrow {
+  display: none !important;
+}
+
+.notifyjs-bootstrap-base {
+  white-space: normal !important;
+}
 
 .notifyjs-challenge-base {
   background: #F5F5F5;
@@ -144,6 +156,11 @@ x-card {
   padding: 5px;
   margin: 2px;
   width: 60px;
+}
+
+.notifyjs-bootstrap-base {
+  background-image: none !important;
+  padding: 8px 15px !important;
 }
 
 div.disabled {
