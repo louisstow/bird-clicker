@@ -96,6 +96,10 @@ x-card {
   display: block;
 }
 
+.notifyjs-arrow {
+  display: none !important;
+}
+
 .notifyjs-bootstrap-base {
   white-space: normal !important;
 }
@@ -152,6 +156,11 @@ x-card {
   padding: 5px;
   margin: 2px;
   width: 60px;
+}
+
+.notifyjs-bootstrap-base {
+  background-image: none !important;
+  padding: 8px 15px !important;
 }
 
 div.disabled {
