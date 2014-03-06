@@ -91,6 +91,14 @@ x-card {
 	margin:2px;
 }
 
+.notifyjs-wrapper span {
+  max-width: 300px;
+  display: block;
+}
+
+.notifyjs-bootstrap-base {
+  white-space: normal !important;
+}
 
 .notifyjs-challenge-base {
   background: #F5F5F5;
