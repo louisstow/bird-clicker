@@ -1,6 +1,6 @@
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
-  EVENT_INTERVAL: 2, //in seconds
+  EVENT_INTERVAL: 7, //in seconds
 
   player: null,
   scoreboard: null,
