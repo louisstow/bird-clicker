@@ -39,21 +39,21 @@ var birdData = [
    {
     name: "Magpie",
     image: "./assets/magpie.png",
-    description: "Collect things",
+    description: "Collect all the shiny things",
     baseCost: 40000, 
     rewardPerTick: 100
   },
    {
     name: "Potato",
     image: "./assets/potato.png",
-    description: "Delicious Fried",
+    description: "Delicious Fried Friend",
     baseCost: 200000, 
     rewardPerTick: 400
   },
    {
-    name: "Robin",
-    image: "./assets/robin.png",
-    description: "Where's Batman?",
+    name: "Lorikeet",
+    image: "./assets/lorikeet.png",
+    description: "Colour me impressed",
     baseCost: 1666666, 
     rewardPerTick: 6666
   },
