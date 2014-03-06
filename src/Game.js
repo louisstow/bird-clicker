@@ -100,4 +100,47 @@ var Game = Backbone.Model.extend({
     this.player.lay();
   },
 
+  toJSON: function () {
+    var obj = {};
+    _.extend(obj, this.attributes);
+    obj.player = _.extend({}, this.player.attributes);
+    obj.player.nests = [];
+
+    this.player.nests.each((n) => {
+      var i = obj.player.nests.push({name: n.attributes.name}) - 1;
+      obj.player.nests[i].birds = [];
+
+      n.birds.each((b) => {
+        obj.player.nests[i].birds.push({name: b.attributes.name});
+      });
+    });
+
+    return obj
+  },
+
+  parse: function (obj) {
+
+    this.player.nests.reset();
+
+    for (var i = 0; i < obj.player.nests.length; ++i) {
+      var content = nestDataMap[obj.player.nests[i].name];
+      console.log(obj.player.nests[i].name, content)
+      var n = new Nest(content);
+
+      for (var j = 0; j < obj.player.nests[i].birds.length; ++j) {
+        content = birdDataMap[obj.player.nests[i].birds[j].name];
+        var b = new Bird(content);
+        n.birds.push(b);
+      }
+
+      this.player.nests.push(n);
+    }
+
+    delete obj.player.nests;
+    this.player.set(obj.player);
+
+    delete obj.player;
+
+    this.set(obj);
+  }
 });
