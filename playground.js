@@ -8,6 +8,7 @@ var birdDataMap = {};
 var awardDataMap = {};
 
 document.onready = function() {
+	delete localStorage.data;
   for (var i = 0; i < birdData.length; ++i) {
     birdDataMap[birdData[i].name] = birdData[i];
   }
