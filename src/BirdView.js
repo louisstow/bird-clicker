@@ -20,13 +20,30 @@ var BuyableBirdView = BirdView.extend({
     this.listenTo(game.player, "lay", this.process);
   },
 
-  template: _.template('<div class="<%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>"><img width=64 height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"> - <%- model.cost %> eggs</div>'),
+  template: _.template('<div class="<%= (eggs > model.cost) || model.shown ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>"><img width=64 height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"> - <span clss="owned"><%- model.numberOwned %> owned</span><span clss="cost"><%- model.cost %> eggs</span></div>'),
 
   process: function() {
-    if(game.player.get("eggs") > this.model.get("cost")) {
-      this.model.set("shown", true);
+    var render = false;
+    var shown = this.model.get("shown");
+    var disabled = this.model.get("disabled");
+    var canAfford = game.player.get("eggs") > this.model.get("cost");
+
+    if(canAfford) {
+      if(!shown) {
+        this.model.set("shown", true);
+        render = true;
+      }
+      if(shown && disabled) {
+        this.model.set("disabled", false);
+        render = true;
+      }
+    } else if (shown && !disabled) {
+      render = true;
+      this.model.set("disabled", true);
     }
-    this.render();
+    if(render) {
+      this.render();
+    }
   },
 
   events: {

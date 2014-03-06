@@ -31,6 +31,8 @@ var Game = Backbone.Model.extend({
     // XXX Maybe Nest and Bird should have "clone" methods.
     var nest = new Nest(_.clone(this.nests.at(0).attributes));
     var bird = new Bird(_.clone(this.birds.at(0).attributes));
+    this.birds.at(0).set("numberOwned", 1);
+    this.nests.at(0).set("numberOwned", 1);
     nest.addBird(bird);
     this.player.load({ nest: nest });
 
@@ -190,8 +192,7 @@ var Game = Backbone.Model.extend({
   },
 
   getPrice: function(basePrice, amount) {
-    console.log("getPrice", basePrice, game.PURCHASE_COST_MULTIPLIER, amount, Math.pow(game.PURCHASE_COST_MULTIPLIER, amount));
-    return Math.ceil(basePrice*Math.pow(game.PURCHASE_COST_MULTIPLIER, amount));
+    return Math.ceil(basePrice * Math.pow(game.PURCHASE_COST_MULTIPLIER, amount));
   }
 
 });
