@@ -83,7 +83,7 @@ var awardData = [
     verify: function() {
          return game.get("totalTime") >= 60 * 60;
     }
-  }{
+  }, {
     id: "one_day",
     name: "Energy Waster",
     description: "You've played for an entire day.  It doesn't count if you just leave your browser open!",
