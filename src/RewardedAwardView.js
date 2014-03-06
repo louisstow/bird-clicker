@@ -5,8 +5,8 @@ var RewardedAwardView = Backbone.View.extend({
   	this.listenTo(this.model, "change", this.render);
   },
 
-  template: _.template('<dt class="name"><%- name %></dt>' +
-  	'<dd class="description"><%- description %></dd>'),
+  template: _.template('<div class="name"><%- name %></div>' +
+  	'<div class="description"><%- description %></div>'),
 
   render: function() {
     if(this.model.get("awarded")) {
