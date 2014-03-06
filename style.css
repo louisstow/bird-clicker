@@ -170,3 +170,7 @@ div.disabled {
 div.hidden {
   display:none;
 }
+
+#tree {
+  padding-top: 20px;
+}
