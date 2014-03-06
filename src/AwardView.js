@@ -21,7 +21,7 @@ var AwardView = Backbone.View.extend({
     this.view.animate({bottom: "-75px", opacity: 0}, () => {
     	this.remove();
     });
-
   } 
-
 });
+
+

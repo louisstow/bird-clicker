@@ -80,6 +80,7 @@ var Challenge = Backbone.Model.extend({
   challengePassed: function() {
     // TODO Show success message once notification view coded
     alert(this.get("successMessage"));
+    game.player.inc("challengesCompleted", 1);
     this.onSuccess();
   },
 
