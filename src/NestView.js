@@ -31,10 +31,15 @@ var BuyableNestView = NestView.extend({
 
   process: function() {
     var render = false;
+    var numberOwned = this.model.get("numberOwned");
     var shown = this.model.get("shown");
     var disabled = this.model.get("disabled");
     var canAfford = game.player.get("eggs") > this.model.get("cost");
-
+    if(numberOwned > 0 && !shown && disabled) {
+      render = true;
+      this.model.set("shown", true);
+      shown = true;
+    }
     if(canAfford) {
       if(!shown) {
         this.model.set("shown", true);

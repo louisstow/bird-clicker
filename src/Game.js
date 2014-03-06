@@ -129,6 +129,21 @@ var Game = Backbone.Model.extend({
     obj.player = _.extend({}, this.player.attributes);
     obj.player.nests = [];
     obj.awards = [];
+    obj.game = {};
+    obj.game.nests = [];
+    obj.game.birds = [];
+
+
+    game.nests.each((n) => {
+      console.log("nest:", n.attributes.name, n.attributes.cost, n.attributes.numberOwned);
+      obj.game.nests.push({name: n.attributes.name, cost: n.attributes.cost, numberOwned: n.attributes.numberOwned});
+    });    
+
+
+    game.birds.each((b) => {
+      console.log("bird:", b.attributes.name, b.attributes.cost, b.attributes.numberOwned);
+      obj.game.birds.push({name: b.attributes.name, cost: b.attributes.cost, numberOwned: b.attributes.numberOwned});
+    });
 
     this.player.nests.each((n) => {
       var i = obj.player.nests.push({name: n.attributes.name}) - 1;
@@ -180,11 +195,29 @@ var Game = Backbone.Model.extend({
     }
     this.player.nests.reset(nests);
 
+    for (var i = 0; i < obj.game.nests.length; ++i) {
+      var name = obj.game.nests[i].name;
+      var nest = game.nests.findWhere({name:name});
+      nest.attributes.cost = obj.game.nests[i].cost;
+      nest.attributes.numberOwned = obj.game.nests[i].numberOwned;
+    }
+    delete obj.game.nests;
+
+    for (var i = 0; i < obj.game.birds.length; ++i) {
+      var name = obj.game.birds[i].name;
+      var bird = game.birds.findWhere({name:name});
+      bird.attributes.cost = obj.game.birds[i].cost;
+      bird.attributes.numberOwned = obj.game.birds[i].numberOwned;
+    }
+    delete obj.game.birds;
+
     delete obj.player.nests;
     this.player.set(obj.player);
 
     delete obj.player;
     this.set(obj);
+
+
   },
 
   notify: function(description) {
