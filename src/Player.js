@@ -43,11 +43,12 @@ var Player = Backbone.Model.extend({
   },
 
   buyNest: function (nest) {
-    if (this.get("eggs") < nest.get("cost")) {
-      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a nest that costs " + nest.get("cost") + " eggs!");
+    var nestObject = game.nests.findWhere({name:nest.get("name")});
+    if (this.get("eggs") < nestObject.get("cost")) {
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a nest that costs " + nestObject.get("cost") + " eggs!");
       return;
     }
-    this.dec("eggs", nest.get("cost"));
+    this.dec("eggs", nestObject.get("cost"));
     this.addNest(nest);
   },
 
@@ -55,7 +56,6 @@ var Player = Backbone.Model.extend({
     this.nests.add(nest);
 
     var nestObject = game.nests.findWhere({name:nest.get("name")});
-
     nestObject.set("numberOwned", nestObject.get("numberOwned") + 1);
     nestObject.set("cost", game.getPrice(nestObject.get("baseCost"), nestObject.get("numberOwned")));
     nestObject.set("forceRender", true);
@@ -63,9 +63,11 @@ var Player = Backbone.Model.extend({
   },
 
   buyBird: function (bird) {
-    console.log("Try to purchase bird for", bird.get("cost"));
-    if (this.get("eggs") < bird.get("cost")) {
-      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a bird that costs " + bird.get("cost") + " eggs!");
+
+    var birdObject = game.birds.findWhere({"name":bird.get("name")});
+    console.log("Try to purchase bird for", birdObject.get("cost"));
+    if (this.get("eggs") < birdObject.get("cost")) {
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a bird that costs " + birdObject.get("cost") + " eggs!");
       return false;
     }
 
@@ -75,9 +77,8 @@ var Player = Backbone.Model.extend({
         nest.addBird(bird);
 
         this.inc("eggIncrement", bird.get("rewardPerTick"));
-        this.dec("eggs", bird.get("cost"));
+        this.dec("eggs", birdObject.get("cost"));
 
-        var birdObject = game.birds.findWhere({"name":bird.get("name")});
         birdObject.set("numberOwned", birdObject.get("numberOwned") + 1);
         birdObject.set("cost", game.getPrice(birdObject.get("baseCost"), birdObject.get("numberOwned")));
         birdObject.set("forceRender", true);
