@@ -99,10 +99,10 @@ var challengeData = [{
     }
   }, 
   {
-    id: "bug_a_bird",
+    id: "buy_a_bird",
     description: "Go buy a bird now...QUICKLY!!",
     probability: 0.001,
-    timeout: 60,
+    timeout: 3,
     successMessage: "You now have one more bird. Congrats!",
     failMessage: "You had one job...",
     setup: function() {
@@ -112,6 +112,52 @@ var challengeData = [{
     verify: function() {
         var additionBirdCount = game.player.get("birdCount") - this.birdCount;
         return additionBirdCount > 0;
+    }, 
+
+    onSuccess: function() {
+
+    }, 
+
+    onFailure: function() {
+    }
+  }, 
+  {
+    id: "buy_a_nest",
+    description: "Go buy a nest now...QUICKLY!!",
+    probability: 0.001,
+    timeout: 3,
+    successMessage: "You now have one more nest. Congrats!",
+    failMessage: "You had one job...",
+    setup: function() {
+      this.nestCount = game.player.get("nestCount");
+    },
+
+    verify: function() {
+        var additionNestCount = game.player.get("nestCount") - this.nestCount;
+        return additionNestCount > 0;
+    }, 
+
+    onSuccess: function() {
+
+    }, 
+
+    onFailure: function() {
+    }
+  }, 
+  {
+    id: "buy_a_nest",
+    description: "Go buy a nest now...QUICKLY!!",
+    probability: 0.001,
+    timeout: 3,
+    successMessage: "You now have one more nest. Congrats!",
+    failMessage: "You had one job...",
+    setup: function() {
+      this.nestCount = game.player.get("nestCount");
+    },
+
+    verify: function() {
+        var additionNestCount = game.player.get("nestCount") - this.nestCount;
+        return additionNestCount > 0;
     }, 
 
     onSuccess: function() {
