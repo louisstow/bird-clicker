@@ -1,5 +1,5 @@
-var AchievedAwardView = Backbone.View.extend({
-  id: function() { return this.model.get("id") + "AchievedAwardView" },
+var RewardedAwardView = Backbone.View.extend({
+  id: function() { return this.model.get("id") + "RewardedAwardsView" },
 
   initialize: function(data) {
   	this.listenTo(this.model, "change", this.render);

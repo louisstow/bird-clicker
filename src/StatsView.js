@@ -1,6 +1,7 @@
 var StatsView = Backbone.View.extend({
   el: "#statdata",
-  template: _.template('<dl><dt>Total Eggs</dt><dd><%= eggs %></dd>' + 
+  template: _.template('<dl><dt>Total Eggs</dt><dd><%= totalEggs %></dd>' + 
+    '<dt>Current Eggs</dt><dd><%= eggs %></dd>' + 
     '<dt>Total Clicks</dt><dd><%= manualClicks %></dd>' + 
     '<dt>Eggs per second</dt><dd><%= eggIncrement %></dd>' + 
     '<dt>Challenges completed</dt><dd><%= challengesCompleted %></dd>' + 

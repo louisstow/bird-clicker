@@ -35,15 +35,15 @@ var Game = Backbone.Model.extend({
 
     this.scoreboard = new Scoreboard({ model: this.player });
     this.stats = new StatsView({ model: this.player });
-    this.receivedAwards = new AwardListView({model: this.awards });
+    this.rewardedAwards = new RewardedAwardListView({model: this.awards });
     console.log(this.player.attributes);
     this.addEventListeners();
 
   },
 
   addEventListeners: function() {
-    this.on("hatch", () => {
-      this.player.hatch();
+    this.on("layButtonClick", () => {
+      this.player.manualLay();
     });
 
     this.on("buyNest", (nest) => {

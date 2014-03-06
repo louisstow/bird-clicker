@@ -1,4 +1,4 @@
-var AwardListView = Backbone.View.extend({
+var RewardedAwardListView = Backbone.View.extend({
 
   el: "#award-items",
 
@@ -17,7 +17,7 @@ var AwardListView = Backbone.View.extend({
   },
 
   renderAward: function(award) {
-    var view = new AchievedAwardView({ model: award });
+    var view = new RewardedAwardView({ model: award });
     this.$el.append(view.render().el);
   },
 
