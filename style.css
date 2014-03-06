@@ -35,6 +35,35 @@ x-card {
   height:75px;
 }
 
+#tree .nest {
+	position: relative;
+	float: left;
+}
+
+#tree .bird {
+	position: absolute;
+	left: 0px;
+	top: -10px;
+}
+
+#tree .bird:nth-child(2) {
+	left: 15px;
+	top: -15px;
+}
+
+#tree .bird:nth-child(3) {
+	left: 25px;
+}
+
+#tree .bird:nth-child(4) {
+	left: 35px;
+	top: -15px;
+}
+
+#tree .bird:nth-child(5) {
+	left: 45px;
+}
+
 #notifications .challenge, #notifications .event {
   position:absolute;
 	background-color: #eee;
