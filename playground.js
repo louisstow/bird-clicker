@@ -26,4 +26,16 @@ document.onready = function() {
   $("#layButton").click(() => game.trigger("layButtonClick"));
   $("#buyNestButton").click(() => game.trigger("buyNest"));
   $("#buyBirdButton").click(() => game.trigger("buyBird"));
+
+  if (window.localStorage) {
+    if (localStorage.data) {
+      game.parse(JSON.parse(localStorage.data));
+    }
+
+    setInterval(function () {
+      $.notify("Game Saved", "success");
+
+      localStorage.data = JSON.stringify(game.toJSON());
+    }, 60 * 1000);
+  }
 }
