@@ -4,6 +4,8 @@ var Challenge = Backbone.Model.extend({
     description: null,
     probability: 0.00, // 0.00 - 1.00 range
     timeout: 10, //unit: seconds
+    successMessage: null,
+    failMessage: null
   },
 
   constructor: function(data) {
@@ -67,12 +69,24 @@ var Challenge = Backbone.Model.extend({
   },
 
   process: function() {
-    this.verify() ? this.onSuccess() : this.onFailure();
+    this.verify() ? this.challengePassed() : this.challengeFailed();
     game.inChallenge = false;
   },
 
   verify: function() {
     return true;
+  },
+
+  challengePassed: function() {
+    // TODO Show success message once notification view coded
+    alert(this.get("successMessage"));
+    this.onSuccess();
+  },
+
+  challengeFailed: function() {
+    // TODO Show failure message once notification view coded
+    alert(this.get("failureMessage"));
+    this.onFailure();
   },
 
   onSuccess: function() {

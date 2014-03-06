@@ -24,8 +24,8 @@ body, html {
 	height: 20%;
 }
 
-#store {
-	overflow: auto;
+x-card {
+	overflow: auto !important;
 }
 
 #notifications {
@@ -42,9 +42,13 @@ body, html {
 	height:75px; 
 }
 
-#notifications .description {
+#notifications .name, #notifications .description {
   text-align: center;
 	width: 100%;
+	display:block;
+}
+#notifications .name {
+	font-weight: bold;
 }
 
 #notifications button {

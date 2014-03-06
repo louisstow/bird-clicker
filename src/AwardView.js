@@ -8,11 +8,9 @@ var AwardView = Backbone.View.extend({
   },
 
   template: _.template('<div class="award">' + 
+  	'<p class="name"><%- name %></p>' +
   	'<p class="description"><%- description %></p>' +
   	'</div>'),
-
-  Awards: {
-  },
 
   render: function() {
     this.$el.html(this.template(this.model.attributes));
