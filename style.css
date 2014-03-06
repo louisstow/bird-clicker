@@ -257,6 +257,7 @@ div.hidden {
   margin-right: 10px;
   margin-top: 10px;
   color: #0022ee;
+  text-align: right;
 }
 
 #store .stats span {

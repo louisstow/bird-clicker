@@ -3,6 +3,6 @@
     "description": "Click birds to get eggs",
     "launch_path": "/index.html",
     "icons": {
-        "128": ""
+        "128": "/assets/128.png"
     }
 }
