@@ -75,7 +75,7 @@ x-card#store {
 }
 
 #tree .bird:nth-child(even) {
-  top: -9px;
+  top: -11px;
 }
 
 #tree .Purty .bird {
@@ -92,6 +92,26 @@ x-card#store {
 
 #tree .Bricky .bird img {
   margin-left: -8px;
+}
+
+#tree .Splash .bird {
+  margin-left: -100px;
+}
+
+#tree .Splash .bird img {
+  margin-left: 30px;
+}
+
+#tree .Hot {
+  width: 138px;
+}
+
+#tree .Hot .bird {
+  margin-left: -98px;
+}
+
+#tree .Hot .bird img {
+  margin-left: 30px;
 }
 
 #notifications .challenge, #notifications .event {
