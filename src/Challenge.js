@@ -1,4 +1,5 @@
 var Challenge = Backbone.Model.extend({
+  autoHideDelaySeconds: 4,
   defaults: {
     id: null, // unique
     description: null,
@@ -34,19 +35,21 @@ var Challenge = Backbone.Model.extend({
       }, { 
         style: 'challenge',
         autoHide: true,
+        autoHideDelay: this.autoHideDelaySeconds * 1000,
         clickToHide: false
       });
 
-      $(document).on('click', '.notifyjs-challenge-base .no', (data) => {
-        $(data.target).trigger('notify-hide');
-        this.trigger("cancel");
-        this.removeListeners();
-      });
       $(document).on('click', '.notifyjs-challenge-base .yes', (data) => {
+        clearTimeout(this.challengeTimer);
         $(data.target).trigger('notify-hide');
         this.trigger("proceed");
         this.removeListeners();
       });
+
+    this.challengeTimer = setTimeout(() => {
+      console.log("MISSED TIMEOUT");
+      this.cancel();
+    }, this.autoHideDelaySeconds * 1000);
 
     });
 
@@ -57,14 +60,10 @@ var Challenge = Backbone.Model.extend({
       this.proceed();
     });
 
-    this.on("cancel", () => {
-      this.cancel();
-    });
   },
 
   removeListeners: function() {
     $(document).off('click', '.notifyjs-challenge-base .yes');
-    $(document).off('click', '.notifyjs-challenge-base .no');
   }, 
 
   proceed: function() {
@@ -78,7 +77,6 @@ var Challenge = Backbone.Model.extend({
   cancel: function() {
     game.inChallenge = false;
     console.log("cancel");
-    //this.view.hide();
   },
 
   setup: function() {

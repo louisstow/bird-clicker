@@ -47,9 +47,12 @@ var Player = Backbone.Model.extend({
       $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy a nest that costs " + nest.get("cost") + " eggs!");
       return;
     }
-
-    this.nests.add(nest);
     this.dec("eggs", nest.get("cost"));
+    this.addNest(nest);
+  },
+
+  addNest: function(nest) {
+    this.nests.add(nest);
 
     var nestObject = game.nests.findWhere({name:nest.get("name")});
 
