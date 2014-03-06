@@ -2,8 +2,10 @@ var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 14, //in seconds
   PURCHASE_COST_MULTIPLIER: 1.15,
-  FORCE_CHALLENGES: false,
-  FORCE_EVENTS: false,
+
+  DEBUG_FORCE_CHALLENGES: false,
+  DEBUG_FORCE_EVENTS: false,
+  DEBUG_EVENT_INTERVAL: 14, //in seconds
 
   player: null,
   scoreboard: null,
@@ -87,9 +89,10 @@ var Game = Backbone.Model.extend({
   },
 
   mainLoop: function() {
-    if(this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0) {
-      var funType = Math.random();
-      if(this.FORCE_CHALLENGES || (funType > 0.5 && funType <= 0.75) && !game.inChallenge) {
+    if(((this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS) && this.player.get("totalTimePlayed") % this.DEBUG_EVENT_INTERVAL == 0) || 
+       (this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0)) {
+      var type = Math.random();
+      if(this.FORCE_CHALLENGES || (type > 0.5 && type <= 0.75) && !game.inChallenge) {
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
@@ -102,7 +105,7 @@ var Game = Backbone.Model.extend({
           var id = Math.floor(Math.random() * possibleChallenges.length);
           possibleChallenges[id].trigger("start", this);
         }
-      } else if (this.FORCE_EVENTS || funType > 0.75) {
+      } else if (this.FORCE_EVENTS || type > 0.75) {
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();
