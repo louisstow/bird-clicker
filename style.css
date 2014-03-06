@@ -170,6 +170,10 @@ x-card {
   margin: 2px;
 }
 
+.clear {
+  clear:both;
+}
+
 .notifyjs-award-base button {
   font-size: 9px;
   padding: 5px;
@@ -213,6 +217,7 @@ div.hidden {
 #store .nest, #store .bird {
   clear: both;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 
 #store .stats {

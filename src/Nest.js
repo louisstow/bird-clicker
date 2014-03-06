@@ -4,8 +4,10 @@ var Nest = Backbone.Model.extend({
     'description': null,
     'image': null,
     'capacity': 1,
-    'baseCost': 5,
-    'cost': 5,
+    'baseCost': -1,
+    'cost': 0,
+    'shown': false,
+    'disabled': true,
     'numberOwned': 0
   },
 
