@@ -119,6 +119,67 @@ var Game = Backbone.Model.extend({
     this.player.lay();
   },
 
+  toJSON: function () {
+    var obj = {};
+    _.extend(obj, this.attributes);
+    obj.player = _.extend({}, this.player.attributes);
+    obj.player.nests = [];
+    obj.awards = [];
+
+    this.player.nests.each((n) => {
+      var i = obj.player.nests.push({name: n.attributes.name}) - 1;
+      obj.player.nests[i].birds = [];
+
+      n.birds.each((b) => {
+        obj.player.nests[i].birds.push({name: b.attributes.name});
+      });
+    });
+
+    this.awards.each((a) => {
+      if (a.attributes.awarded) {
+        obj.awards.push({id: a.attributes.id});
+      }
+    });
+
+    return obj
+  },
+
+  parse: function (obj) {
+
+    this.player.nests.reset();
+
+    for (var i = 0; i < obj.player.nests.length; ++i) {
+      var content = nestDataMap[obj.player.nests[i].name];
+      console.log(obj.player.nests[i].name, content)
+      var n = new Nest(content);
+
+      for (var j = 0; j < obj.player.nests[i].birds.length; ++j) {
+        content = birdDataMap[obj.player.nests[i].birds[j].name];
+        var b = new Bird(content);
+        n.birds.push(b);
+      }
+
+      this.player.nests.push(n);
+    }
+
+    delete obj.player.nests;
+    this.player.set(obj.player);
+
+    delete obj.player;
+
+    this.awards.reset();
+    for (i = 0; i < obj.awards.length; ++i) {
+      var content = awardDataMap[obj.awards[i].id];
+      var a = new Award(content);
+      a.set("awarded", true);
+      this.awards.push(a);
+    }
+
+    delete obj.awards;
+
+    this.set(obj);
+  },
+
   notify: function(description) {
     new NotificationView({ model: new Backbone.Model({ description: description }) });
   },
