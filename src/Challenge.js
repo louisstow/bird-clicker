@@ -38,11 +38,6 @@ var Challenge = Backbone.Model.extend({
         clickToHide: false
       });
 
-      $(document).on('click', '.notifyjs-challenge-base .no', (data) => {
-        $(data.target).trigger('notify-hide');
-        this.trigger("cancel");
-        this.removeListeners();
-      });
       $(document).on('click', '.notifyjs-challenge-base .yes', (data) => {
         $(data.target).trigger('notify-hide');
         this.trigger("proceed");
@@ -58,14 +53,10 @@ var Challenge = Backbone.Model.extend({
       this.proceed();
     });
 
-    this.on("cancel", () => {
-      this.cancel();
-    });
   },
 
   removeListeners: function() {
     $(document).off('click', '.notifyjs-challenge-base .yes');
-    $(document).off('click', '.notifyjs-challenge-base .no');
   }, 
 
   proceed: function() {
@@ -79,7 +70,6 @@ var Challenge = Backbone.Model.extend({
   cancel: function() {
     game.inChallenge = false;
     console.log("cancel");
-    //this.view.hide();
   },
 
   setup: function() {

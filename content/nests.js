@@ -3,7 +3,7 @@ var nestData = [
     name: "Basic",
     image: "./assets/stick-nest.png",
     description: "A clump of sticks and spit",
-    baseCost: 20,
+    baseCost: 50,
     capacity: 1
   },
   {
