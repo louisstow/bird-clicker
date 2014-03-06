@@ -3,6 +3,7 @@ var NestView = Backbone.View.extend({
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model.birds, 'all', this.render);
+    this.$el.addClass("nest");
   },
 
   template: _.template('<img height=64 src="<%- model.image %>">'),

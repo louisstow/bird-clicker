@@ -2,6 +2,7 @@ var BirdView = Backbone.View.extend({
 
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
+    this.$el.addClass("bird");
   },
 
   template: _.template('<img width=64 height=64 src="<%- model.image %>">'),
