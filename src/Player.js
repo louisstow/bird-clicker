@@ -10,6 +10,7 @@ var Player = Backbone.Model.extend({
     challengesCompleted: 0,
     totalTimePlayed: 0,
     rewardedAwards: 0,
+    purchasedUpgrades: 0,
     extraEggs: 0 //how many extra eggs are awarded per second - calculated per second
   },
   manualClickCount: 0,
@@ -116,6 +117,7 @@ var Player = Backbone.Model.extend({
     this.dec("eggs", upgradeObject.get("cost"));
     upgradeObject.set("purchased", true);
     upgradeObject.set("forceRender", true);
+    this.inc("purchasedUpgrades", 1);
     this.trigger("forceRenderStore");
   },
 
