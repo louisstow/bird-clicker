@@ -110,11 +110,11 @@ var challengeData = [{
     },
 
     getSuccessMessage: function() {
-      return "Loser - why didn't you click?  Lose " + this.eggs + " eggs.";
+      return "I like someone who thinks outside the box.  Gain " + this.eggs + " eggs.";
     },
 
     getFailureMessage: function() {
-      return "I like someone who thinks outside the box.  Gain " + this.eggs + " eggs.";
+      return "Loser - why didn't you click?  Lose " + this.eggs + " eggs.";
     },
     verify: function() {
         var additionalClicks = game.player.get("manualClicks") - this.manualClicks;
