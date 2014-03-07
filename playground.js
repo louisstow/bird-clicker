@@ -6,6 +6,7 @@ var game;
 var nestDataMap = {};
 var birdDataMap = {};
 var awardDataMap = {};
+var addonDataMap = {};
 
 var doSave = true;
 
@@ -30,6 +31,9 @@ document.onready = function() {
 
   for (i = 0; i < awardData.length; ++i) {
     awardDataMap[awardData[i].id] = awardData[i];
+  }
+  for (i = 0; i < addonData.length; ++i) {
+    addonDataMap[addonData[i].id] = addonData[i];
   }
 
   game = new Game();

@@ -154,20 +154,23 @@ var Game = Backbone.Model.extend({
     _.extend(obj, this.attributes);
     obj.player = _.extend({}, this.player.attributes);
     obj.player.nests = [];
+    obj.player.addons = [];
     obj.awards = [];
     obj.game = {};
     obj.game.nests = [];
     obj.game.birds = [];
 
 
+    game.player.addons.each((a) => {
+      obj.player.addons.push({id: a.attributes.id});
+    }); 
+
     game.nests.each((n) => {
-      console.log("nest:", n.attributes.name, n.attributes.cost, n.attributes.numberOwned);
       obj.game.nests.push({name: n.attributes.name, cost: n.attributes.cost, numberOwned: n.attributes.numberOwned});
     });    
 
 
     game.birds.each((b) => {
-      console.log("bird:", b.attributes.name, b.attributes.cost, b.attributes.numberOwned);
       obj.game.birds.push({name: b.attributes.name, cost: b.attributes.cost, numberOwned: b.attributes.numberOwned});
     });
 
@@ -201,6 +204,20 @@ var Game = Backbone.Model.extend({
     }
 
     delete obj.awards;
+
+
+    for (i = 0; i < obj.player.addons.length; ++i) {
+      var id = obj.player.addons[i].id;
+      this.addons.each((a) => {
+        if (a.attributes.id == id) {
+          game.player.addons.push(new Addon(_.clone(a.attributes)));
+          a.set("purchased", true);
+          a.set("hidden", true);
+        }
+      });
+    }
+
+    delete obj.addons;    
 
     // Build an array of nests and then reset the player's nests collection
     // all at once to trigger one change event instead of one per nest/bird.

@@ -6,7 +6,7 @@ var addonData = [
     process: function() {
     	game.player.extraEggs += game.birds.at(0).get("numberOwned") * 0.1;
     }
-  }/*, 
+  }, 
   {
     id: "robin_02",
     description: "robins get additional 0.1 addition eggs a second",
@@ -14,5 +14,5 @@ var addonData = [
     process: function() {
     	game.player.extraEggs += game.birds.at(0).get("numberOwned") * 0.1;
     }
-  },*/
+  },
 ];

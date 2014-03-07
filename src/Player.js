@@ -132,7 +132,6 @@ var Player = Backbone.Model.extend({
       addon.calculate();
     });
     var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * this.get("eggMultiplier");
-    console.log("adding "  + this.extraEggs + " + "  + this.get("eggIncrement") + " * " + this.get("eggMultiplier") + " = " + eggsToAdd);
     this.extraEggs = 0;
     return eggsToAdd;
   }
