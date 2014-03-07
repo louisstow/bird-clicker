@@ -159,7 +159,7 @@ var eventData = [{
   {
 
     id:"x777_cookie",
-    probability: 10.005,
+    probability: 0.005,
     init: function() {
 
     },
