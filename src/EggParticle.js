@@ -42,7 +42,7 @@ function EggParticle(x, y) {
     this.x = x || stage.width / 2;
     this.y = y || stage.height / 2;
     this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
-    this.speedY = randomRange(-this.maxSpeed, this.maxSpeed);
+    this.speedY = randomRange(0, -this.maxSpeed);
     this.element = document.createElement("img");
     this.element.style.width = this.width + "px";
     this.element.style.height = this.height + "px";
