@@ -237,6 +237,7 @@ div.hidden {
 
 #tree {
   padding-top: 20px;
+  background: url('./assets/trunk.png') repeat-y 50% 0;
 }
 
 #store .profile {
