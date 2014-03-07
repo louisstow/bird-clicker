@@ -39,7 +39,7 @@ var awardData = [
     name: "Mouse User!",
     description: "You've clicked 50 times",
     verify: function() {
-         return game.player.get("manualClicks") >= 10;
+         return game.player.get("manualClicks") >= 50;
     }
   },{
     id: "100_clicks",
