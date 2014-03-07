@@ -231,7 +231,7 @@ var eventData = [{
       return "One of your birds has come to rest in a quantuum super position. The eggs it laid somehow have never existed. Lose " + this.eggs + " eggs.";
     },
     process: function() {
-      
       game.player.dec("eggs", this.eggs);
+    }
   }
 ];

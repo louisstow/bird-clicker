@@ -223,5 +223,34 @@ var challengeData = [{
 
     onFailure: function() {
     }
+  },
+  {
+    id: "rockyou",
+    probability: 0.002,
+    timeout: 3,
+    setup: function() {
+    },
+    getDescription: function() {
+      return "Play We Will Rock you by clicking";
+    },
+
+    getSuccessMessage: function() {
+      return "Youre a regular Freddie Mercury";
+    },
+
+    getFailureMessage: function() {
+      return "You aint got the jazz";
+    },
+    verify: function() {
+        return Math.random() > 0.5;
+    }, 
+
+    onSuccess: function() {
+      game.player.set("eggs", game.player.get("eggs") * 2);
+    }, 
+
+    onFailure: function() {
+      game.player.set("eggs", game.player.get("eggs") / 2 | 0);
+    }
   }
 ];
