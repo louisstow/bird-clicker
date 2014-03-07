@@ -30,4 +30,12 @@ var addonData = [
       game.player.extraEggs += game.birds.at(0).get("numberOwned") * 2;
     }
   },
+  {
+    id: "nest_01",
+    description: "Get one more egg per second for each nest you have",
+    cost: 150,
+    process: function() {
+      game.player.extraEggs += game.player.get("nestCount");
+    }
+  },
 ];

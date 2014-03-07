@@ -4,9 +4,12 @@ var StoreView = Backbone.View.extend({
 
   initialize: function() {
     this.render();
+
   },
 
-  template: _.template(''),
+  template: _.template('<span id="addoncontainer"><h3>Addons</h3><ul id="addonitems"></ul></span>' +
+    '<span id="nestcontainer"><h3>Nests</h3><ul id="nestitems"></ul></span>' +
+    '<span id="birdcontainer"><h3>Birds</h3><ul id="birditems"></ul></span>'),
 
   render: function() {
     this.$el.html(this.template());
@@ -15,22 +18,42 @@ var StoreView = Backbone.View.extend({
     game.nests.each(this.renderNest, this);
     game.birds.each(this.renderBird, this);
 
+    this.toggleSectionVisibility();
+
     return this;
+  },
+
+  toggleSectionVisibility: function() {
+
+    var displayAddons = false;
+    game.addons.each((addon) => {
+      game.debug("addon", addon.get("id"), addon.get("hidden"), addon.get("shown"));
+      if(!addon.get("hidden") && addon.get("shown")) {
+        displayAddons = true;
+      }
+    });
+    if(!displayAddons) {
+      $("#addoncontainer").hide();
+    } else {
+      $("#addoncontainer").show();
+    }
   },
 
   renderNest: function(nest) {
     var view = new BuyableNestView({ model: nest });
-    this.$el.append(view.render().el);
+    $("#nestitems").append(view.render().el);
   },
 
   renderBird: function(bird) {
     var view = new BuyableBirdView({ model: bird });
-    this.$el.append(view.render().el);
+    $("#birditems").append(view.render().el);
   },
 
   renderAddon: function(addon) {
     var view = new BuyableAddonView({ model: addon });
-    this.$el.append(view.render().el);
+    $("#addonitems").append(view.render().el);
+
+    this.listenTo(addon, "change", this.toggleSectionVisibility);
   },
 
 });

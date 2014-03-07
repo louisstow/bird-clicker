@@ -19,6 +19,7 @@ var Player = Backbone.Model.extend({
 
   // array of functions which return a multiplier value, the product of these with the eggMultiplier attribute make
   // the final multiplier.  See x777_cookie event for demo
+  // use this for short lived, non saved mutators
   multipliers: [],
 
   load: function({ nest }) {
@@ -132,10 +133,12 @@ var Player = Backbone.Model.extend({
   },
 
   calculateEggsPerSecond: function() {
+
+    //calculate addon effects, they will normally add to the extraEggs var
     this.addons.each((addon) => {
       addon.process();
     });
-    
+
     var totalMultiplier = this.get("eggMultiplier");
     _.each(this.multipliers, (func) => {
       totalMultiplier *= func();
@@ -143,6 +146,8 @@ var Player = Backbone.Model.extend({
     game.debug("total multiplier", totalMultiplier);
 
     var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * totalMultiplier;
+
+    //reset extra eggs as this is calculated per second
     this.extraEggs = 0;
     return eggsToAdd;
   }
