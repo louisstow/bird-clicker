@@ -13,25 +13,36 @@ var Challenge = Backbone.Model.extend({
 
     Backbone.Model.apply(this, arguments);
 
-    if(data.onSuccess) {
-      this.onSuccess = data.onSuccess;
-    }
+
     if(data.setup) {
       this.setup = data.setup;
     }
     if(data.verify) {
       this.verify = data.verify;
     }
+
+    if(data.getDescription) {
+      this.getDescription = data.getDescription;
+    }
+    if(data.getSuccessMessage) {
+      this.getSuccessMessage = data.getSuccessMessage;
+    }
+    if(data.getFailureMessage) {
+      this.getFailureMessage = data.getFailureMessage;
+    }
     if(data.onFailure) {
       this.onFailure = data.onFailure;
     }
+    if(data.onSuccess) {
+      this.onSuccess = data.onSuccess;
+    }    
   },
 
   initialize: function() {
     this.on("start", () => {
       game.inChallenge = true;
       $.notify({
-        title: this.get("description"),
+        title: this.getDescription(),
       }, { 
         style: 'challenge',
         autoHide: true,
@@ -78,7 +89,19 @@ var Challenge = Backbone.Model.extend({
   setup: function() {
     // perform setup operations here
   },
+    
+  getDescription: function() {
+    return "";
+  },
 
+  getSuccessMessage: function() {
+    return "you win!";
+  },
+
+  getFailureMessage: function() {
+    return "you lose!";
+
+  },
   start: function() {
     setTimeout(() => {
       this.trigger("challengeTimeout");
@@ -95,13 +118,13 @@ var Challenge = Backbone.Model.extend({
   },
 
   challengePassed: function() {
-    $.notify(this.get("successMessage"), "success");
+    $.notify(this.getSuccessMessage(), "success");
     game.player.inc("challengesCompleted", 1);
     this.onSuccess();
   },
 
   challengeFailed: function() {
-    $.notify(this.get("failMessage"), "warn");
+    $.notify(this.getFailureMessage(), "error");
     this.onFailure();
   },
 
