@@ -1,9 +1,9 @@
 {
     "name": "Twitcher",
     "description": "Click birds to get eggs",
-    "launch_path": "index.html",
+    "launch_path": "/index.html",
     "icons": {
-        "128": "./assets/128.png"
+        "128": "http://louisstow.github.io/bird-clicker/assets/128.png"
     },
     "developer": {
     	"name": "Walker Studios",
