@@ -107,7 +107,7 @@ function EggParticle(x, y) {
 }
 
 EggParticle.prototype = {
-  fadeout: 1000,
+  fadeout: 2000,
   x: 0,
   y: 0,
   width: 32,
@@ -256,7 +256,7 @@ var eggStorm = {
   fps: 1000/24,
   time: 0,
   timeSpeed: .01,
-  numberOfFlakes : 150,
+  numberOfFlakes : 50,
   allFlakes: [],
   emitter: [backstage.width, 40],
 
