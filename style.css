@@ -35,7 +35,7 @@ x-tabbar-tab:hover {
 	height: 100%;
 	margin: auto;
   border: 2px solid #444;
-  background: url('./assets/EGG.jpg') no-repeat 50% 0;
+  background: url('./assets/EGG.jpg') no-repeat 50% 50%;
 }
 
 #numbers {
@@ -75,7 +75,7 @@ x-card#store {
 }
 
 #tree .bird:nth-child(even) {
-  top: -9px;
+  top: -11px;
 }
 
 #tree .Purty .bird {
@@ -92,6 +92,26 @@ x-card#store {
 
 #tree .Bricky .bird img {
   margin-left: -8px;
+}
+
+#tree .Splash .bird {
+  margin-left: -100px;
+}
+
+#tree .Splash .bird img {
+  margin-left: 30px;
+}
+
+#tree .Hot {
+  width: 138px;
+}
+
+#tree .Hot .bird {
+  margin-left: -98px;
+}
+
+#tree .Hot .bird img {
+  margin-left: 30px;
 }
 
 #notifications .challenge, #notifications .event {
@@ -237,6 +257,7 @@ div.hidden {
   margin-right: 10px;
   margin-top: 10px;
   color: #0022ee;
+  text-align: right;
 }
 
 #store .stats span {
