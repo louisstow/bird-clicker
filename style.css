@@ -38,6 +38,11 @@ x-tabbar-tab:hover {
   background: white url('./assets/EGG.jpg') no-repeat 50% 50%;
 }
 
+#items ul {
+  padding: 0;
+  margin: 0;
+}
+
 #numbers {
 	height: 15%;
 }
