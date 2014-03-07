@@ -100,9 +100,6 @@ var Player = Backbone.Model.extend({
     this.inc("manualClicks", 1);
     this.lay();
 
-    var egg = $('<img src="./assets/bluetit.png">');
-    egg.css({ opacity: 1, position: "absolute", left: 0, top: 0 }).animate({ opacity: 0 }, 5000);
-    $("body").append(egg);
-    setTimeout(() => egg.remove(), 5000);
+    new EggParticle(event.clientX, event.clientY);
   }
 });

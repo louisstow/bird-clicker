@@ -29,7 +29,7 @@ document.onready = function() {
 
   game.start();
 
-  $("#layButton").click(() => game.trigger("layButtonClick"));
+  $("#layButton").click((event) => game.trigger("layButtonClick", event));
   $("#buyNestButton").click(() => game.trigger("buyNest"));
   $("#buyBirdButton").click(() => game.trigger("buyBird"));
 
