@@ -201,7 +201,7 @@ var eventData = [{
   }, 
   {
     id:"brendan_eich",
-    probability: 10.008,
+    probability: 0.008,
     init: function() {
        this.seconds = Math.round(Math.random() * 60);
     },
@@ -223,7 +223,7 @@ var eventData = [{
   }, 
   {
     id:"quantuum",
-    probability: 10.008,
+    probability: 0.008,
     init: function() {
        this.eggs = Math.round(game.player.get("eggs") * (Math.random() * 0.1));
     },
@@ -231,7 +231,7 @@ var eventData = [{
       return "One of your birds has come to rest in a quantuum super position. The eggs it laid somehow have never existed. Lose " + this.eggs + " eggs.";
     },
     process: function() {
-      
       game.player.dec("eggs", this.eggs);
+    }
   }
 ];

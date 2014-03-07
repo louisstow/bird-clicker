@@ -155,7 +155,8 @@ var Game = Backbone.Model.extend({
         }
         if(possibleChallenges.length > 0) {  
           var id = Math.floor(Math.random() * possibleChallenges.length);
-          possibleChallenges[id].trigger("start", this);
+          var challengeInstance = new Challenge(_.clone(possibleChallenges[id].attributes))
+          challengeInstance.trigger("start", this);
         }
 
       } else if (((this.DEBUG_FORCE_EVENTS && !this.DEBUG_FORCE_CHALLENGES) || (type > 0.75)) && !game.ongoingEvent) {
@@ -171,7 +172,8 @@ var Game = Backbone.Model.extend({
         }
         if(possibleEvents.length > 0) {
           var id = Math.floor(Math.random() * possibleEvents.length);
-          possibleEvents[id].trigger("start", this.player);
+          var eventInstance = new Event(_.clone(possibleEvents[id].attributes))
+          eventInstance.trigger("start", this.player);       
         }        
       }
     }
