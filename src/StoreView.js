@@ -7,14 +7,14 @@ var StoreView = Backbone.View.extend({
 
   },
 
-  template: _.template('<span id="addoncontainer"><h3>Addons</h3><ul id="addonitems"></ul></span>' +
+  template: _.template('<span id="upgradecontainer"><h3>Upgrades</h3><ul id="upgradeitems"></ul></span>' +
     '<span id="nestcontainer"><h3>Nests</h3><ul id="nestitems"></ul></span>' +
     '<span id="birdcontainer"><h3>Birds</h3><ul id="birditems"></ul></span>'),
 
   render: function() {
     this.$el.html(this.template());
 
-    game.addons.each(this.renderAddon, this);
+    game.upgrades.each(this.renderUpgrade, this);
     game.nests.each(this.renderNest, this);
     game.birds.each(this.renderBird, this);
 
@@ -25,17 +25,17 @@ var StoreView = Backbone.View.extend({
 
   toggleSectionVisibility: function() {
 
-    var displayAddons = false;
-    game.addons.each((addon) => {
-      game.debug("addon", addon.get("id"), addon.get("hidden"), addon.get("shown"));
-      if(!addon.get("hidden") && addon.get("shown")) {
-        displayAddons = true;
+    var displayUpgrades = false;
+    game.upgrades.each((upgrade) => {
+      game.debug("upgrade", upgrade.get("id"), upgrade.get("hidden"), upgrade.get("shown"));
+      if(!upgrade.get("hidden") && upgrade.get("shown")) {
+        displayUpgrades = true;
       }
     });
-    if(!displayAddons) {
-      $("#addoncontainer").hide();
+    if(!displayUpgrades) {
+      $("#upgradecontainer").hide();
     } else {
-      $("#addoncontainer").show();
+      $("#upgradecontainer").show();
     }
   },
 
@@ -49,11 +49,11 @@ var StoreView = Backbone.View.extend({
     $("#birditems").append(view.render().el);
   },
 
-  renderAddon: function(addon) {
-    var view = new BuyableAddonView({ model: addon });
-    $("#addonitems").append(view.render().el);
+  renderUpgrade: function(upgrade) {
+    var view = new BuyableUpgradeView({ model: upgrade });
+    $("#upgradeitems").append(view.render().el);
 
-    this.listenTo(addon, "change", this.toggleSectionVisibility);
+    this.listenTo(upgrade, "change", this.toggleSectionVisibility);
   },
 
 });

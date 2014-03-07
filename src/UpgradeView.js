@@ -1,11 +1,11 @@
-var AddonView = Backbone.View.extend({
+var UpgradeView = Backbone.View.extend({
 
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
-    this.$el.addClass("addon");
+    this.$el.addClass("upgrade");
   },
 
-  template: _.template('<p><%- model.description %></p>'),
+  template: _.template('<li><%- model.description %></li>'),
 
   render: function() {
     this.$el.html(this.template({model: this.model.attributes, eggs: game.player.get("eggs")}));
@@ -14,13 +14,13 @@ var AddonView = Backbone.View.extend({
 
 });
 
-var BuyableAddonView = AddonView.extend({
+var BuyableUpgradeView = UpgradeView.extend({
   initialize: function(data) {
     this.listenTo(game.player, "lay", this.process);
     this.listenTo(game.player, "forceRenderStore", this.process);
   },
 
-  template: _.template('<div class="addon <%= !model.hidden && (eggs > model.cost || model.shown) ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>">' +
+  template: _.template('<div class="upgrade <%= !model.hidden && (eggs > model.cost || model.shown) ? "" : "hidden"  %> <%= eggs > model.cost ? "" : "disabled"  %>">' +
     '<div class="info"><p><%- model.description %></p></div>' + 
     '<div class="stats">' +
     '<span class="cost"><%- model.cost %> eggs</span>' +
@@ -31,7 +31,7 @@ var BuyableAddonView = AddonView.extend({
 
     var render = false;
     var forceRender = this.model.get("forceRender");
-    var purchased = this.model.get("purchased");  //has this addon been purchased?  if so it should not be displayed in the store
+    var purchased = this.model.get("purchased");  //has this upgrade been purchased?  if so it should not be displayed in the store
     var shown = this.model.get("shown"); // has
     var disabled = this.model.get("disabled");
     var hidden = this.model.get("hidden");
@@ -43,7 +43,7 @@ var BuyableAddonView = AddonView.extend({
     }
     if(!purchased && canAfford) {
       if(disabled && this.model.canShow()) {
-        // probably the user has just got enough money or fulfilled other requirements to show this addon
+        // probably the user has just got enough money or fulfilled other requirements to show this upgrade
         // set it to show in the store page
         render = true;
         this.model.set("disabled", false);
@@ -57,7 +57,7 @@ var BuyableAddonView = AddonView.extend({
 
       render = true;
     } else if (!purchased && shown && !disabled && !canAfford) {
-      // user has probably just spent some cash and now we need to set the display on this addon to show they cant afford it
+      // user has probably just spent some cash and now we need to set the display on this upgrade to show they cant afford it
       render = true;
       this.model.set("disabled", true);     
     } 
@@ -73,7 +73,7 @@ var BuyableAddonView = AddonView.extend({
 
   buy: function() {
     if(!this.model.get("purchased") && this.model.get("cost") < game.player.get("eggs")) {
-      game.trigger("buyAddon", this.model);
+      game.trigger("buyUpgrade", this.model);
     }
   },
 

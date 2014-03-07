@@ -22,7 +22,9 @@ var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 8, //in seconds
   PURCHASE_COST_MULTIPLIER: 1.15,
-
+  REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD: 25,
+  
+  DEBUG: false,
   DEBUG_FORCE_CHALLENGES: false,
   DEBUG_FORCE_EVENTS: false,
   DEBUG_EVENT_INTERVAL: 2, //in seconds
@@ -34,12 +36,12 @@ var Game = Backbone.Model.extend({
   events: null,
   birds: null,
   nests: null,
-  addons: null,
+  upgrades: null,
   eggTimer: null,
 
   initialize: function() {
     this.player = new Player();
-    this.DEBUG = this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS;
+    this.DEBUG = this.DEBUG || this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS;
     this.debug("IN DEBUG MODE");
   },
 
@@ -61,8 +63,8 @@ var Game = Backbone.Model.extend({
     this.birds = new Birds(birdData);
     this.birds.each((bird) => new BirdView({ model: bird }));
 
-    this.addons = new Addons(addonData);
-    this.addons.each((addon) => new AddonView({ model: addon }));  
+    this.upgrades = new Upgrades(upgradeData);
+    this.upgrades.each((upgrade) => new UpgradeView({ model: upgrade }));  
 
     this.challenges = new Challenges(challengeData);
     this.events = new Events(eventData);
@@ -116,8 +118,8 @@ var Game = Backbone.Model.extend({
       this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
     });
 
-    this.on("buyAddon", (addon) => {
-      this.player.buyAddon(addon ? new Addon(_.clone(addon.attributes)) : new Addon);
+    this.on("buyUpgrade", (upgrade) => {
+      this.player.buyUpgrade(upgrade ? new Upgrade(_.clone(upgrade.attributes)) : new Upgrade);
     });
   },
 
@@ -129,6 +131,11 @@ var Game = Backbone.Model.extend({
   },
 
   mainLoop: function() {
+    this.debug("Manual click count", this.player.manualClickCount);
+    if(this.player.manualClickCount > this.REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD) {
+      alert("You're cheating!");
+      window.location.href = "http://www.youtube.com/watch?v=oHg5SJYRHA0";
+    }
     if(((this.DEBUG) && this.player.get("totalTimePlayed") % this.DEBUG_EVENT_INTERVAL == 0) || 
        (this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0)) {
 
@@ -171,6 +178,7 @@ var Game = Backbone.Model.extend({
     
     this.awards.each((award) => award.process());
     this.player.lay();
+    this.player.manualClickCount = 0;
   },
 
   toJSON: function () {
@@ -178,15 +186,15 @@ var Game = Backbone.Model.extend({
     _.extend(obj, this.attributes);
     obj.player = _.extend({}, this.player.attributes);
     obj.player.nests = [];
-    obj.player.addons = [];
+    obj.player.upgrades = [];
     obj.awards = [];
     obj.game = {};
     obj.game.nests = [];
     obj.game.birds = [];
 
 
-    game.player.addons.each((a) => {
-      obj.player.addons.push({id: a.attributes.id});
+    game.player.upgrades.each((u) => {
+      obj.player.upgrades.push({id: u.attributes.id});
     }); 
 
     game.nests.each((n) => {
@@ -230,18 +238,18 @@ var Game = Backbone.Model.extend({
     delete obj.awards;
 
 
-    for (i = 0; i < obj.player.addons.length; ++i) {
-      var id = obj.player.addons[i].id;
-      this.addons.each((a) => {
+    for (i = 0; i < obj.player.upgrades.length; ++i) {
+      var id = obj.player.upgrades[i].id;
+      this.upgrades.each((a) => {
         if (a.attributes.id == id) {
-          game.player.addons.push(new Addon(_.clone(a.attributes)));
+          game.player.upgrades.push(new Upgrade(_.clone(a.attributes)));
           a.set("purchased", true);
           a.set("hidden", true);
         }
       });
     }
 
-    delete obj.addons;    
+    delete obj.upgrades;    
 
     // Build an array of nests and then reset the player's nests collection
     // all at once to trigger one change event instead of one per nest/bird.

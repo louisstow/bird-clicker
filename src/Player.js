@@ -2,7 +2,7 @@ var Player = Backbone.Model.extend({
   defaults: {
     totalEggs: 0,
     eggs: 0,
-    eggIncrement: 1, // per lay
+    eggIncrement: 0.1, // per lay
     eggMultiplier: 1,
     manualClicks: 0,
     birdCount: 0,
@@ -12,10 +12,10 @@ var Player = Backbone.Model.extend({
     rewardedAwards: 0,
     extraEggs: 0 //how many extra eggs are awarded per second - calculated per second
   },
-
+  manualClickCount: 0,
   nests: null,
   badges: null,
-  addons: null,
+  upgrades: null,
 
   // array of functions which return a multiplier value, the product of these with the eggMultiplier attribute make
   // the final multiplier.  See x777_cookie event for demo
@@ -23,7 +23,7 @@ var Player = Backbone.Model.extend({
   multipliers: [],
 
   load: function({ nest }) {
-    this.addons = new Addons;
+    this.upgrades = new Upgrades;
 
     this.nests = new Nests;
     this.nests.init();
@@ -102,20 +102,20 @@ var Player = Backbone.Model.extend({
     $.notify("Your nests are already full of birds!");
     return false;
   },
-  buyAddon: function (addon) {
+  buyUpgrade: function (upgrade) {
 
-    var addonObject = game.addons.findWhere({"id":addon.get("id")});
-    console.log("Try to purchase addon for", addonObject.get("cost"));
-    if (this.get("eggs") < addonObject.get("cost")) {
-      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy as addon that costs " + addonObject.get("cost") + " eggs!");
+    var upgradeObject = game.upgrades.findWhere({"id":upgrade.get("id")});
+    console.log("Try to purchase upgrade for", upgradeObject.get("cost"));
+    if (this.get("eggs") < upgradeObject.get("cost")) {
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy as upgrade that costs " + upgradeObject.get("cost") + " eggs!");
       return false;
     }
 
-    this.addons.add(addon);
+    this.upgrades.add(upgrade);
 
-    this.dec("eggs", addonObject.get("cost"));
-    addonObject.set("purchased", true);
-    addonObject.set("forceRender", true);
+    this.dec("eggs", upgradeObject.get("cost"));
+    upgradeObject.set("purchased", true);
+    upgradeObject.set("forceRender", true);
     this.trigger("forceRenderStore");
   },
 
@@ -126,6 +126,9 @@ var Player = Backbone.Model.extend({
   },
 
   manualLay: function(event) {
+
+    this.manualClickCount++;
+
     this.inc("manualClicks", 1);
     this.lay();
 
@@ -134,9 +137,9 @@ var Player = Backbone.Model.extend({
 
   calculateEggsPerSecond: function() {
 
-    //calculate addon effects, they will normally add to the extraEggs var
-    this.addons.each((addon) => {
-      addon.process();
+    //calculate upgrade effects, they will normally add to the extraEggs var
+    this.upgrades.each((upgrade) => {
+      upgrade.process();
     });
 
     var totalMultiplier = this.get("eggMultiplier");
