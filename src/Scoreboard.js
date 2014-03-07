@@ -1,27 +1,31 @@
 var Scoreboard = Backbone.View.extend({
   id: "scoreboard",
+  interval: null,
 
   initialize: function() {
     this.listenTo(this.model, "change", this.render);
-    var increment = this.model.get("eggIncrement");
-    var step = 0;
-
-    var interval = setInterval(() => {
-    	var n = this.model.get("eggs") + (increment / 20) * (++step);
-    	
-    	if (step == 20) {
-    		step = 0;
-    		increment = this.model.get("eggIncrement");
-    	}
-
-    	$("#eggs").text(n.formatNumber(1));
-    }, 50);
+    this.render();
   },
 
   render: function() {
-    document.title = this.model.get("eggs").formatNumber() + " eggs - Twitcher";
-    
-    $("#increment").text("Laying " + (Math.round(game.player.calculateEggsPerSecond() * 10) / 10).formatNumber() + " eggs per second");
+    var count = this.model.get("eggs");
+    var increment = game.player.calculateEggsPerSecond();
+
+    document.title = count.formatNumber() + " eggs - Twitcher";
+
+    $("#increment").text("Laying " + (Math.round(increment * 10) / 10).formatNumber() + " eggs per second");
+
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    this.interval = setInterval(() => {
+      // The increment is per-second, and we update the egg counter 20 times
+      // per second (i.e. every 50ms), so we divide the increment by 20 to get
+      // our increment per interval.
+      count = count + (increment / 20);
+      $("#eggs").text(count.formatNumber(1));
+    }, 50);
   },
 
 });

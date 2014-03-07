@@ -237,19 +237,18 @@ var Game = Backbone.Model.extend({
 
     delete obj.awards;
 
-
-    for (i = 0; i < obj.player.upgrades.length; ++i) {
-      var id = obj.player.upgrades[i].id;
-      this.upgrades.each((a) => {
-        if (a.attributes.id == id) {
-          game.player.upgrades.push(new Upgrade(_.clone(a.attributes)));
-          a.set("purchased", true);
-          a.set("hidden", true);
-        }
-      });
+    if ("upgrades" in obj.player) {
+      for (i = 0; i < obj.player.upgrades.length; ++i) {
+        var id = obj.player.upgrades[i].id;
+        this.upgrades.each((a) => {
+          if (a.attributes.id == id) {
+            game.player.upgrades.push(new Upgrade(_.clone(a.attributes)));
+            a.set("purchased", true);
+            a.set("hidden", true);
+          }
+        });
+      }
     }
-
-    delete obj.upgrades;    
 
     // Build an array of nests and then reset the player's nests collection
     // all at once to trigger one change event instead of one per nest/bird.
