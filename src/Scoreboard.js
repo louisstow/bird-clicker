@@ -6,6 +6,7 @@ var Scoreboard = Backbone.View.extend({
   },
 
   render: function() {
+    document.title = this.model.get("eggs").formatNumber() + " eggs - Twitcher";
     $("#eggs").text(Math.round(this.model.get("eggs")).formatNumber());
     $("#increment").text("Laying " + (Math.round(this.model.get("eggIncrement") * this.model.get("eggMultiplier") * 1000) / 1000).formatNumber() + " eggs per second");
   },
