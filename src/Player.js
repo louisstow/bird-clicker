@@ -62,7 +62,7 @@ var Player = Backbone.Model.extend({
       return;
     }
     this.dec("eggs", nestObject.get("cost"));
-    this.addNest(nest);
+    return this.addNest(nest);
   },
 
   addNest: function(nest) {
@@ -73,6 +73,7 @@ var Player = Backbone.Model.extend({
     nestObject.set("cost", game.getPrice(nestObject.get("baseCost"), nestObject.get("numberOwned")));
     nestObject.set("forceRender", true);
     this.trigger("forceRenderStore");
+    return nest;
   },
 
   buyBird: function (bird) {
@@ -87,21 +88,28 @@ var Player = Backbone.Model.extend({
     for (var i = 0; i < this.nests.length; ++i) {
       var nest = this.nests.at(i);
       if (!nest.atCapacity()) {
-        nest.addBird(bird);
 
-        this.inc("eggIncrement", bird.get("rewardPerTick"));
         this.dec("eggs", birdObject.get("cost"));
+        addBird(nest, bird);
 
-        birdObject.set("numberOwned", birdObject.get("numberOwned") + 1);
-        birdObject.set("cost", game.getPrice(birdObject.get("baseCost"), birdObject.get("numberOwned")));
-        birdObject.set("forceRender", true);
-        this.trigger("forceRenderStore");
         return nest;
       }
     }
 
     $.notify("Your nests are already full of birds!");
     return false;
+  },
+  addBird: function(nest, bird) {
+
+    var birdObject = game.birds.findWhere({"name":bird.get("name")});
+
+    nest.addBird(bird);
+    this.inc("eggIncrement", bird.get("rewardPerTick"));
+
+    birdObject.set("numberOwned", birdObject.get("numberOwned") + 1);
+    birdObject.set("cost", game.getPrice(birdObject.get("baseCost"), birdObject.get("numberOwned")));
+    birdObject.set("forceRender", true);
+    this.trigger("forceRenderStore");
   },
   buyUpgrade: function (upgrade) {
 

@@ -233,5 +233,41 @@ var eventData = [{
     process: function() {
       game.player.dec("eggs", this.eggs);
     }
+  }, 
+  {
+    id:"single_celled",
+    probability: 0.008,
+    init: function() {
+      this.nestToAddTo = null;
+      for (var i = 0; i < game.player.nests.length; ++i) {
+        var nest = game.player.nests.at(i);
+        if (!nest.atCapacity()) {
+          this.nestToAddTo = nest;
+        }
+      }
+
+      this.birdToDuplicate = null;
+      var birdIndex, nestIndex;
+      do {
+        nestIndex = Math.round(Math.random() * (game.player.get("nestCount")-1));
+        nest = game.player.nests.at(nestIndex);
+        if(nest.birds.length > 0) {
+          birdIndex = Math.round(Math.random() * (nest.birds.length-1));
+          this.birdToDuplicate = nest.birds.at(birdIndex);
+        }
+      } while(this.birdToDuplicate == null);
+    },
+    getDescription: function() {
+      var birdName = this.birdToDuplicate.get("name");
+      var description = "One of your " + birdName + "'s briefly turns in to a single celled amoeba, splits in two and then both sides turn back in to birds again.";
+      if(!this.nestToAddTo) {
+        this.nestToAddTo = game.player.addNest(game.nests.at(0));
+        description += " You also get a free nest for your new " + birdName + ". Lucky!";
+      }
+      return description;
+    },
+    process: function() {
+      game.player.addBird(this.nestToAddTo, new Bird(_.clone(this.birdToDuplicate.attributes)));
+    }
   }
 ];
