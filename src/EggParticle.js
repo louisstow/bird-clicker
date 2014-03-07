@@ -13,31 +13,60 @@ var stage = {
   width: window.innerWidth,
   height: window.innerHeight,
   time: 0,
-  backgroundColor: "transparent",
+
   init: function() {
     this.element = document.createElement("div");
     this.element.style.position = "absolute";
     this.element.style.left = "0";
     this.element.style.top = "0";
-    this.element.style.backgroundColor = this.backgroundColor;
+    this.element.style.backgroundColor = "transparent";
     this.element.style.zIndex = "1";
     this.element.setAttribute("id", "stage");
     document.body.appendChild(this.element);
+
     this.updateSize();
+    window.addEventListener("resize", () => this.updateSize());
   },
-  updateSize : function(){
+
+  updateSize: function() {
+    this.width = window.innerWidth,
+    this.height = window.innerHeight;
     this.element.style.width = this.width + "px";
     this.element.style.height = this.height + "px";
-  }
+  },
 };
 
 $(document).ready(() => stage.init());
 
-window.addEventListener("resize", function() {
-  stage.width = window.innerWidth,
-  stage.height = window.innerHeight;
-  stage.updateSize();
-});
+// Like stage, but with z-index == -1, so stuff appears in background.
+var backstage = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+
+  init: function() {
+    this.element = document.createElement("div");
+    this.element.style.position = "absolute";
+    this.element.style.left = "0";
+    this.element.style.top = "0";
+    this.element.style.backgroundColor = "transparent";
+    this.element.style.zIndex = "-1";
+    this.element.setAttribute("id", "stage");
+    document.body.appendChild(this.element);
+
+    this.updateSize();
+    window.addEventListener("resize", () => this.updateSize());
+  },
+
+  updateSize: function() {
+    this.width = window.innerWidth,
+    this.height = window.innerHeight;
+    this.element.style.width = this.width + "px";
+    this.element.style.height = this.height + "px";
+  },
+};
+
+$(document).ready(() => backstage.init());
+
 
 function EggParticle(x, y) {
   if (particleList.length >= particleMax) {
@@ -209,7 +238,7 @@ function EggFlake() {
     this.element = document.createElement("div");
     this.element.className = "eggflake";
     this.element.style.backgroundColor = this.getRandomColor();
-    stage.element.appendChild(this.element);
+    backstage.element.appendChild(this.element);
   };
 
   this.move = function() {
@@ -229,11 +258,11 @@ var eggStorm = {
   timeSpeed: .01,
   numberOfFlakes : 150,
   allFlakes: [],
-  emitter: [stage.width, 40],
+  emitter: [backstage.width, 40],
 
   init: function() {
-    this.center = [stage.width * .5 - this.emitter[0] * .5,
-    stage.height * .5 - this.emitter[1] * .5];
+    this.center = [backstage.width * .5 - this.emitter[0] * .5,
+    backstage.height * .5 - this.emitter[1] * .5];
 
     for (var i = 0; i < this.numberOfFlakes; i++) {
       var flake = new EggFlake;
@@ -260,8 +289,8 @@ var eggStorm = {
       elem.x += x;
       elem.y += y;
 
-      if ( elem.y <  0 || elem.y > stage.height ||
-           elem.x <  0 || elem.x > stage.width) {
+      if ( elem.y <  0 || elem.y > backstage.height ||
+           elem.x <  0 || elem.x > backstage.width) {
         elem.reset();
       }
 
