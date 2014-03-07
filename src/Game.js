@@ -1,14 +1,20 @@
 Number.prototype.formatNumber = function(c, d, t){
+  if(this == 0) {
+    return "0";
+  }
   if (this < 1) {
     return this.toFixed(1);
   }
-var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 0 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
-    j = (j = i.length) > 3 ? j % 3 : 0;
+  if(this - Math.floor(this) != 0) {
+    c = 1;
+  }
+  var n = this, 
+      c = isNaN(c = Math.abs(c)) ? 0 : c, 
+      d = d == undefined ? "." : d, 
+      t = t == undefined ? "," : t, 
+      s = n < 0 ? "-" : "", 
+      i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+      j = (j = i.length) > 3 ? j % 3 : 0;
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
 
@@ -19,7 +25,7 @@ var Game = Backbone.Model.extend({
 
   DEBUG_FORCE_CHALLENGES: false,
   DEBUG_FORCE_EVENTS: false,
-  DEBUG_EVENT_INTERVAL: 14, //in seconds
+  DEBUG_EVENT_INTERVAL: 2, //in seconds
 
   player: null,
   scoreboard: null,
@@ -28,6 +34,7 @@ var Game = Backbone.Model.extend({
   events: null,
   birds: null,
   nests: null,
+  addons: null,
   eggTimer: null,
 
   initialize: function() {
@@ -41,6 +48,8 @@ var Game = Backbone.Model.extend({
     this.birds = new Birds(birdData);
     this.birds.each((bird) => new BirdView({ model: bird }));
 
+    this.addons = new Addons(addonData);
+    this.addons.each((addon) => new AddonView({ model: addon }));  
 
     this.challenges = new Challenges(challengeData);
     this.events = new Events(eventData);
@@ -93,13 +102,17 @@ var Game = Backbone.Model.extend({
     this.on("buyBird", (bird) => {
       this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
     });
+
+    this.on("buyAddon", (addon) => {
+      this.player.buyAddon(addon ? new Addon(_.clone(addon.attributes)) : new Addon);
+    });
   },
 
   start: function() {
     this.eggTimer = setInterval(() => {
       this.player.inc("totalTimePlayed", 1);
-      this.mainLoop()
-    } , 1000);
+      this.mainLoop();
+    }, 1000);
   },
 
   mainLoop: function() {
@@ -144,20 +157,23 @@ var Game = Backbone.Model.extend({
     _.extend(obj, this.attributes);
     obj.player = _.extend({}, this.player.attributes);
     obj.player.nests = [];
+    obj.player.addons = [];
     obj.awards = [];
     obj.game = {};
     obj.game.nests = [];
     obj.game.birds = [];
 
 
+    game.player.addons.each((a) => {
+      obj.player.addons.push({id: a.attributes.id});
+    }); 
+
     game.nests.each((n) => {
-      console.log("nest:", n.attributes.name, n.attributes.cost, n.attributes.numberOwned);
       obj.game.nests.push({name: n.attributes.name, cost: n.attributes.cost, numberOwned: n.attributes.numberOwned});
     });    
 
 
     game.birds.each((b) => {
-      console.log("bird:", b.attributes.name, b.attributes.cost, b.attributes.numberOwned);
       obj.game.birds.push({name: b.attributes.name, cost: b.attributes.cost, numberOwned: b.attributes.numberOwned});
     });
 
@@ -191,6 +207,20 @@ var Game = Backbone.Model.extend({
     }
 
     delete obj.awards;
+
+
+    for (i = 0; i < obj.player.addons.length; ++i) {
+      var id = obj.player.addons[i].id;
+      this.addons.each((a) => {
+        if (a.attributes.id == id) {
+          game.player.addons.push(new Addon(_.clone(a.attributes)));
+          a.set("purchased", true);
+          a.set("hidden", true);
+        }
+      });
+    }
+
+    delete obj.addons;    
 
     // Build an array of nests and then reset the player's nests collection
     // all at once to trigger one change event instead of one per nest/bird.
