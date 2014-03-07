@@ -222,8 +222,12 @@ var Game = Backbone.Model.extend({
     for (var i = 0; i < obj.game.birds.length; ++i) {
       var name = obj.game.birds[i].name;
       var bird = game.birds.findWhere({name:name});
-      bird.attributes.cost = obj.game.birds[i].cost;
-      bird.attributes.numberOwned = obj.game.birds[i].numberOwned;
+      if (bird) {
+        bird.attributes.cost = obj.game.birds[i].cost;
+        bird.attributes.numberOwned = obj.game.birds[i].numberOwned;
+      } else {
+        console.warn("couldn't restore bird " + name);
+      }
     }
     delete obj.game.birds;
 
