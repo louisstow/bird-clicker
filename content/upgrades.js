@@ -9,6 +9,14 @@ var upgradeData = [
     }
   }, 
   {
+    id: "robin_01",
+    description: "Robins get additional 0.1 addition eggs a second",
+    cost: 100,   
+    process: function() {
+      game.player.extraEggs += game.birds.at(0).get("numberOwned") * 0.1;
+    }
+  },   
+  {
     id: "robin_02",
     description: "Robins get additional 0.1 addition eggs a second",
     cost: 1000,
