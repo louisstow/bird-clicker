@@ -17,7 +17,7 @@ var stage = {
       this.element.style.left = "0";
       this.element.style.top = "0";
       this.element.style.backgroundColor = this.backgroundColor;
-      this.element.style.zIndex = "-1";
+      this.element.style.zIndex = "1";
       this.element.setAttribute("id", "stage");
       document.body.appendChild(this.element);
       this.updateSize();
@@ -46,9 +46,10 @@ function EggParticle(x, y) {
     this.element = document.createElement("img");
     this.element.style.width = this.width + "px";
     this.element.style.height = this.height + "px";
-    this.element.style.zIndex = Number.MAX_VALUE;
+    this.element.style.zIndex = 1000;
     this.element.style.position = "absolute";
-    this.element.setAttribute("src", "./assets/egg-particle-big.png");
+    var id = randomRange(1, 5) | 0;
+    this.element.setAttribute("src", "./assets/egg-particle-"+id+".png");
     stage.element.appendChild(this.element);
 
     var requestId;
@@ -74,7 +75,8 @@ EggParticle.prototype = {
     maxSpeed: 10,
     speedX: 5,
     speedY: 5,
-    gravityForce: .4,
+    rotationSpeed: 2,
+    gravityForce: .2,
     bounce: 0,
     allowborder: false,
     wind: 0,
@@ -92,6 +94,7 @@ EggParticle.prototype = {
         //this.forceHeight ? this.height = this.forceHeight : false;
         this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
         this.speedY = randomRange(-this.maxSpeed, this.maxSpeed);
+        this.rotationSpeed = randomRange(-this.rotationSpeed, this.rotationSpeed);
 
       //this.lifeLength = randomRange(0, this.maxLife);
       //this.opacity = 1;
@@ -112,13 +115,16 @@ EggParticle.prototype = {
     },
 
     collisionBorder: function () {
+
         if (this.x > stage.width-this.width || this.x < 0) {
             //this.speedX = this.speedX * -1;
             this.resetParticleAttributes();
+            $(this.element).remove();
         }
         if (this.y > stage.height || this.y < 0) {
             //this.speedY = this.speedY * -1;
             this.resetParticleAttributes();
+            $(this.element).remove();
         }
     },
 
@@ -154,6 +160,8 @@ EggParticle.prototype = {
             //console.log( this.mode)
             this.x += this.speedX;
             this.y += this.speedY;
+            this.speedY += this.gravityForce;
+            this.rotation += this.rotationSpeed;
         }
 
         if (this.mode == "animating") {

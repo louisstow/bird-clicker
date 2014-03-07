@@ -51,6 +51,10 @@ x-card#store {
   padding: 0;
 }
 
+#stage {
+  pointer-events: none;
+}
+
 #notifications {
   position:absolute;
   bottom:0;
