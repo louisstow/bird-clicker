@@ -68,6 +68,7 @@ var Challenge = Backbone.Model.extend({
       this.process();
     }, this);
     this.on("proceed", () => {
+      console.log("proceed " + this.get("id"));
       this.proceed();
     }, this);
 
@@ -84,6 +85,9 @@ var Challenge = Backbone.Model.extend({
 
   cancel: function() {
     game.inChallenge = false;
+    this.off("challengeTimeout");
+    this.off("proceed");
+    
   },
 
   setup: function() {
