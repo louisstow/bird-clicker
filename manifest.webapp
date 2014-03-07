@@ -4,5 +4,10 @@
     "launch_path": "/index.html",
     "icons": {
         "128": "/assets/128.png"
-    }
+    },
+    "developer": {
+    	"name": "Walker Studios",
+    	"url": "http://github.com/louisstow"
+    },
+    "default_locale": "en"
 }
