@@ -3,7 +3,7 @@ var NestView = Backbone.View.extend({
   initialize: function(data) {
     this.listenTo(this.model, "change", this.render);
     this.listenTo(this.model.birds, 'all', this.render);
-    
+
     this.$el.addClass("nest").addClass(this.model.attributes.name);
   },
 
@@ -74,8 +74,8 @@ var BuyableNestView = NestView.extend({
     '<div class="profile"><img height=64 src="<%- model.image %>" title="<%- model.name %> - <%- model.description %>"></div>' +
     '<div class="info"><strong><%- model.name %></strong> <small>bird capacity: <%= model.capacity%></small><p><%- model.description %></p></div>' +
     '<div class="stats">' +
-      '<span class="owned"><%- model.numberOwned %> owned</span>' +
-      '<span class="cost"><%- model.cost %> eggs</span>' +
+      '<span class="owned"><%- model.numberOwned.formatNumber() %> owned</span>' +
+      '<span class="cost"><%- model.cost.formatNumber() %> eggs</span>' +
     '</div>' +    
     '<div class="clear"></div></div>'),
 

@@ -120,9 +120,11 @@ var Player = Backbone.Model.extend({
     bird.nest.removeBird(bird);
   },
 
-  manualLay: function() {
+  manualLay: function(event) {
     this.inc("manualClicks", 1);
     this.lay();
+
+    new EggParticle(event.clientX, event.clientY);
   },
 
   calculateEggsPerSecond: function() {

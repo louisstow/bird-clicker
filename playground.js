@@ -7,8 +7,19 @@ var nestDataMap = {};
 var birdDataMap = {};
 var awardDataMap = {};
 
+var doSave = true;
+
 document.onready = function() {
-	delete localStorage.data;
+  $("#clearbutton").click(function () {
+    if (window.localStorage) {
+      delete localStorage.data;
+      doSave = false;
+      location.reload();
+      $.notify("Save cleared!", "error")
+    }
+  });
+
+	//delete localStorage.data;
   for (var i = 0; i < birdData.length; ++i) {
     birdDataMap[birdData[i].name] = birdData[i];
   }
@@ -29,7 +40,7 @@ document.onready = function() {
 
   game.start();
 
-  $("#layButton").click(() => game.trigger("layButtonClick"));
+  $("#layButton").click((event) => game.trigger("layButtonClick", event));
   $("#buyNestButton").click(() => game.trigger("buyNest"));
   $("#buyBirdButton").click(() => game.trigger("buyBird"));
 
@@ -48,7 +59,7 @@ document.onready = function() {
 
 $(window).unload(function() {
   // Save game state so the user can start up where they left off next time!
-  if (window.localStorage) {
+  if (window.localStorage && doSave) {
     localStorage.data = JSON.stringify(game.toJSON());
   }
 });
