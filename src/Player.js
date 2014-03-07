@@ -90,7 +90,7 @@ var Player = Backbone.Model.extend({
       if (!nest.atCapacity()) {
 
         this.dec("eggs", birdObject.get("cost"));
-        addBird(nest, bird);
+        this.addBird(nest, bird);
 
         return nest;
       }
