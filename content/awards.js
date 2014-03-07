@@ -104,5 +104,20 @@ var awardData = [
     verify: function() {
          return game.birds.at(1).get("numberOwned") >= 100;
     }
+  }, {
+    id: "first_toucan",
+    name: "Who can? Tou can!",
+    description: "You bought your first toucan.",
+    verify: function() {
+         return game.birds.at(8).get("numberOwned") >= 1;
+    }
+  }, {
+    id: "first_pterodactyl",
+    name: "Prehistoric Player",
+    description: "You bought your first Pterodactyl.",
+    verify: function() {
+         return game.birds.at(9).get("numberOwned") >= 1;
+    }
   }
+
 ];
