@@ -28,9 +28,7 @@ var stage = {
     }
 };
 
-window.addEventListener("load", function() {
-    stage.init();
-});
+$(document).ready(() => stage.init());
 
 window.addEventListener("resize", function() {
     stage.width = window.innerWidth,
@@ -175,3 +173,98 @@ EggParticle.prototype = {
         this.move();
     },
 };
+
+function EggFlake() {
+    this.maxSpeed = 10;
+    this.wiggle = 14;
+    this.scale = 1;
+
+    this.colors = ["ffe4e1", "fff0f5", "e6e6fa", "f0f8ff"];
+    this.getRandomColor = function() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)];
+    };
+
+    this.reset = function() {
+        this.width = 4;
+        this.height = 4;
+        this.x = randomRange(-eggStorm.emitter[0], eggStorm.emitter[0]) + eggStorm.center[0];
+        this.y = randomRange(-100, 100);
+
+        this.gravity = 4;
+
+        this.speeX = randomRange(-this.maxSpeed, this.maxSpeed);
+        this.speeY = randomRange(-this.maxSpeed, this.maxSpeed);
+        this.scale = randomRange(.2, .9);
+    };
+
+    this.append = function() {
+        this.element = document.createElement("div");
+        this.element.className = "eggflake";
+        this.element.style.backgroundColor = this.getRandomColor();
+        stage.element.appendChild(this.element);
+    };
+
+    this.move = function() {
+        var transform = 'translateX(' + Math.round(this.x) + 'px) translateY(' +
+                        Math.round(this.y) + 'px) scale(' + this.scale + ')';
+        this.element.style.MozTransform = transform;
+        this.element.style.WebkitTransform = transform;
+        this.element.style.OTransform = transform;
+        this.element.style.transform = transform;
+    };
+
+    this.reset();
+}
+
+var eggStorm = {
+    fps: 1000/24,
+    time: 0,
+    timeSpeed: .01,
+    numberOfFlakes : 150,
+    allFlakes: [],
+    emitter: [stage.width, 40],
+
+    init: function() {
+        this.center = [stage.width * .5 - this.emitter[0] * .5,
+                       stage.height * .5 - this.emitter[1] * .5];
+
+        for (var i = 0; i < this.numberOfFlakes; i++) {
+            var flake = new EggFlake;
+            flake.append();
+            eggStorm.allFlakes.push(flake);
+        };
+
+        this.play();
+    },
+
+    play: function() {
+        window.requestAnimationFrame( () => this.play() );
+        this.update();
+    },
+
+    update: function() {
+        this.time += this.timeSpeed;
+
+        for (var i = 0; i < this.allFlakes.length; i++) {
+            var elem = this.allFlakes[i];
+            var x =  2 * Math.cos( this.time * elem.speeX );
+            var y =  3 * Math.sin( this.time * elem.speeY ) + elem.gravity;
+
+            elem.x += x;
+            elem.y += y;
+
+            if ( elem.y <  0 || elem.y > stage.height ||
+                 elem.x <  0 || elem.x > stage.width) {
+                 elem.reset();
+            }
+
+            elem.move();
+        };
+    },
+
+};
+
+// Don't storm on mobile devices, which can be too slow to handle it.
+if (!navigator.userAgent.contains("Mobi")) {
+    $(document).ready(() => eggStorm.init());
+}

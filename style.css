@@ -308,3 +308,11 @@ ul#items {
   padding: 0;
   font-weight: lighter;
 }
+
+.eggflake {
+  width: 14px;
+  height: 24px;
+  position: absolute;
+  z-index: 999;
+  border-radius: 50%/60% 60% 40% 40%;
+}
