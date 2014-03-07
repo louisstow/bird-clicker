@@ -57,7 +57,7 @@ var eventData = [{
   }, 
   {
     id:"tom_jones",
-    probability: 10.01,  
+    probability: 0.01,  
 
     init: function() {
       this.eggMultiplier = Math.round(Math.random() * 100);

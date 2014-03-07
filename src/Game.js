@@ -24,9 +24,9 @@ var Game = Backbone.Model.extend({
   PURCHASE_COST_MULTIPLIER: 1.15,
   REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD: 25,
   
-  DEBUG: true,
+  DEBUG: false,
   DEBUG_FORCE_CHALLENGES: false,
-  DEBUG_FORCE_EVENTS: true,
+  DEBUG_FORCE_EVENTS: false,
   DEBUG_EVENT_INTERVAL: 2, //in seconds
 
   player: null,
