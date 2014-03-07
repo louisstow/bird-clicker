@@ -35,7 +35,7 @@ x-tabbar-tab:hover {
 	height: 100%;
 	margin: auto;
   border: 2px solid #444;
-  background: url('./assets/EGG.jpg') no-repeat 50% 50%;
+  background: white url('./assets/EGG.jpg') no-repeat 50% 50%;
 }
 
 #numbers {
