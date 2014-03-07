@@ -134,7 +134,6 @@ var eventData = [{
     }
   }, 
   {
-
     id:"x7_cookie",
     probability: 0.005,
     init: function() {
@@ -157,7 +156,6 @@ var eventData = [{
     }
   }, 
   {
-
     id:"x777_cookie",
     probability: 0.005,
     init: function() {
@@ -178,5 +176,62 @@ var eventData = [{
         }
       }, 7 * 1000);
     }
+  }, 
+  {
+    id:"john_travolta",
+    probability: 0.005,
+    init: function() {
+
+    },
+    getDescription: function() {
+      return "John Travolta smooth talks your birds and they stop producing for 10 seconds";
+    },
+    process: function() {
+      this.multiplier = () => {
+        return 0;
+      };
+      game.player.multipliers.push(this.multiplier);
+      this.setEventTimeout(() => {
+        var index = game.player.multipliers.indexOf(this.multiplier);
+        if (index > -1) {
+          game.player.multipliers.splice(index, 1);
+        }
+      }, 10 * 1000);
+    }
+  }, 
+  {
+    id:"brendan_eich",
+    probability: 10.008,
+    init: function() {
+       this.seconds = Math.round(Math.random() * 60);
+    },
+    getDescription: function() {
+      return "One of your birds looks a lot like Brendan Eich and implements an egg based scripting language which gives you a 50% more eggs for a while";
+    },
+    process: function() {
+      this.multiplier = () => {
+        return 2;
+      };
+      game.player.multipliers.push(this.multiplier);
+      this.setEventTimeout(() => {
+        var index = game.player.multipliers.indexOf(this.multiplier);
+        if (index > -1) {
+          game.player.multipliers.splice(index, 1);
+        }
+      }, this.seconds * 1000);
+    }
+  }, 
+  {
+    id:"quantuum",
+    probability: 10.008,
+    init: function() {
+       this.eggs = Math.round(game.player.get("eggs") * (Math.random() * 0.1));
+    },
+    getDescription: function() {
+      return "One of your birds has come to rest in a quantuum super position. The eggs it laid somehow have never existed. Lose " + this.eggs + " eggs.";
+    },
+    process: function() {
+      
+      game.player.dec("eggs", this.eggs);
   }
 ];
