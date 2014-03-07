@@ -11,6 +11,7 @@ var StoreView = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template());
 
+    game.addons.each(this.renderAddon, this);
     game.nests.each(this.renderNest, this);
     game.birds.each(this.renderBird, this);
 
@@ -24,6 +25,11 @@ var StoreView = Backbone.View.extend({
 
   renderBird: function(bird) {
     var view = new BuyableBirdView({ model: bird });
+    this.$el.append(view.render().el);
+  },
+
+  renderAddon: function(addon) {
+    var view = new AddonView({ model: addon });
     this.$el.append(view.render().el);
   },
 
