@@ -20,7 +20,7 @@ Number.prototype.formatNumber = function(c, d, t){
 
 var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
-  EVENT_INTERVAL: 14, //in seconds
+  EVENT_INTERVAL: 8, //in seconds
   PURCHASE_COST_MULTIPLIER: 1.15,
 
   DEBUG_FORCE_CHALLENGES: false,
@@ -39,6 +39,19 @@ var Game = Backbone.Model.extend({
 
   initialize: function() {
     this.player = new Player();
+    this.DEBUG = this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS;
+    this.debug("IN DEBUG MODE");
+  },
+
+  debug: function() {
+    if(this.DEBUG) {
+      var i = -1, l = arguments.length, args = [], fn = 'console.log(args)';
+      while(++i<l){
+          args.push('args['+i+']');
+      };
+      fn = new Function('args',fn.replace(/args/,args.join(',')));
+      fn(arguments);
+    }
   },
 
   load: function() {
@@ -116,10 +129,15 @@ var Game = Backbone.Model.extend({
   },
 
   mainLoop: function() {
-    if(((this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS) && this.player.get("totalTimePlayed") % this.DEBUG_EVENT_INTERVAL == 0) || 
+    if(((this.DEBUG) && this.player.get("totalTimePlayed") % this.DEBUG_EVENT_INTERVAL == 0) || 
        (this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0)) {
+
+      this.debug("force occurance");
       var type = Math.random();
-      if(this.FORCE_CHALLENGES || (type > 0.5 && type <= 0.75) && !game.inChallenge) {
+
+      if(((!this.DEBUG_FORCE_EVENTS && this.DEBUG_FORCE_CHALLENGES) || (type > 0.5 && type <= 0.75)) && !game.inChallenge) {
+        this.debug("force challenge");
+
         var possibleChallenges = [];
         for (var i = 0; i < this.challenges.length; ++i) {
           var x = Math.random();
@@ -128,11 +146,14 @@ var Game = Backbone.Model.extend({
             possibleChallenges.push(this.challenges.at(i));
           }
         }
-        if(possibleChallenges.length > 0) {
+        if(possibleChallenges.length > 0) {  
           var id = Math.floor(Math.random() * possibleChallenges.length);
           possibleChallenges[id].trigger("start", this);
         }
-      } else if (this.FORCE_EVENTS || type > 0.75) {
+
+      } else if (((this.DEBUG_FORCE_EVENTS && !this.DEBUG_FORCE_CHALLENGES) || (type > 0.75)) && !game.ongoingEvent) {
+        this.debug("force event");
+
         var possibleEvents = [];
         for (var i = 0; i < this.events.length; ++i) {
           var x = Math.random();

@@ -17,6 +17,10 @@ var Player = Backbone.Model.extend({
   badges: null,
   addons: null,
 
+  // array of functions which return a multiplier value, the product of these with the eggMultiplier attribute make
+  // the final multiplier.  See x777_cookie event for demo
+  multipliers: [],
+
   load: function({ nest }) {
     this.addons = new Addons;
 
@@ -44,7 +48,7 @@ var Player = Backbone.Model.extend({
   performLay: function() {
     var eps = this.calculateEggsPerSecond();
 
-    console.log("adding " + eps);  
+    //game.debug("adding " + eps + " eggs");  
     this.inc("totalEggs", eps);
     this.inc("eggs", eps);
   },
@@ -131,7 +135,14 @@ var Player = Backbone.Model.extend({
     this.addons.each((addon) => {
       addon.calculate();
     });
-    var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * this.get("eggMultiplier");
+    
+    var totalMultiplier = this.get("eggMultiplier");
+    _.each(this.multipliers, (func) => {
+      totalMultiplier *= func();
+    });
+    game.debug("total multiplier", totalMultiplier);
+
+    var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * totalMultiplier;
     this.extraEggs = 0;
     return eggsToAdd;
   }

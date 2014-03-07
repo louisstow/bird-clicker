@@ -16,17 +16,20 @@ defaults: {
     if(data.process) {
       this.process = data.process;
     }
+    if(data.canShow) {
+      this.canShow = data.canShow;
+    }
   },
   initialize: function() {
 
   },
   calculate: function() {
-  	//if(this.purchased) {
-      this.process();
-  	//}
-
+    this.process();
   },
   process: function() {
 
+  }, 
+  canShow: function() {
+    return true;
   }
 });
