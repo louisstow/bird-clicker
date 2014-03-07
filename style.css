@@ -70,6 +70,7 @@ x-card#store {
 #tree .nest {
 	width: 120px;
 	float: left;
+  padding-left: 20px;
 }
 
 #tree .bird {
