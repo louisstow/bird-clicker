@@ -6,6 +6,9 @@ var randomRange = function (min, max) {
     return Math.random() * (max - min) + min;
 }
 
+var particleList = [];
+var particleMax = 5;
+
 var stage = {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -37,6 +40,15 @@ window.addEventListener("resize", function() {
 });
 
 function EggParticle(x, y) {
+    if (particleList.length >= particleMax) {
+        
+        while (particleList.length >= particleMax) {
+            particleList[0].die();
+        }
+
+        return;
+    }
+
     this.x = x || stage.width / 2;
     this.y = y || stage.height / 2;
     this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
@@ -59,12 +71,14 @@ function EggParticle(x, y) {
     $(this.element).css({ opacity: 1 }).animate({ opacity: 0 }, this.fadeout);
     setTimeout(() => {
         window.cancelAnimationFrame(requestId);
-        $(this.element).remove();
+        this.die();
     }, this.fadeout);
+
+    this.index = particleList.push(this) - 1;
 }
 
 EggParticle.prototype = {
-    fadeout: 3000,
+    fadeout: 1000,
     x: 0,
     y: 0,
     width: 32,
@@ -101,6 +115,11 @@ EggParticle.prototype = {
         //this.scale = randomRange(1, 3);
     },
 
+    die: function () {
+        $(this.element).remove();
+        particleList.splice(this.index, 1);
+    },
+
     move: function () {
         var transform = "translate(" + Math.round(this.x) + "px," + Math.round(this.y) + "px) scale(" + this.scale + ") rotate("+this.rotation+"deg)";
 
@@ -117,12 +136,12 @@ EggParticle.prototype = {
         if (this.x > stage.width-this.width || this.x < 0) {
             //this.speedX = this.speedX * -1;
             this.resetParticleAttributes();
-            $(this.element).remove();
+            this.die();
         }
         if (this.y > stage.height || this.y < 0) {
             //this.speedY = this.speedY * -1;
             this.resetParticleAttributes();
-            $(this.element).remove();
+            this.die();
         }
     },
 
