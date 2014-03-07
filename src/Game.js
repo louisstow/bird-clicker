@@ -25,7 +25,7 @@ var Game = Backbone.Model.extend({
   REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD: 25,
   
   DEBUG: false,
-  DEBUG_FORCE_CHALLENGES: false,
+  DEBUG_FORCE_CHALLENGES: true,
   DEBUG_FORCE_EVENTS: false,
   DEBUG_EVENT_INTERVAL: 2, //in seconds
 
