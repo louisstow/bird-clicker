@@ -1,4 +1,4 @@
-var Addon = Backbone.Model.extend({
+var Upgrade = Backbone.Model.extend({
 defaults: {
     'id': null,
     'cost': null,
@@ -27,7 +27,7 @@ defaults: {
 
   }, 
   canShow: function() {
-    // override to provide functionality as to when this addon can be shown in the store
+    // override to provide functionality as to when this upgrade can be shown in the store
     return true;
   }
 });

@@ -250,7 +250,7 @@ div.hidden {
   margin: 5px 0 0 0;
 }
 
-#store .nest, #store .bird, #store .addon {
+#store .nest, #store .bird, #store .upgrade {
   clear: both;
   border-bottom: 1px solid #ccc;
   cursor: pointer;

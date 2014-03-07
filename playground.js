@@ -6,7 +6,7 @@ var game;
 var nestDataMap = {};
 var birdDataMap = {};
 var awardDataMap = {};
-var addonDataMap = {};
+var upgradeDataMap = {};
 
 var doSave = true;
 
@@ -32,8 +32,8 @@ document.onready = function() {
   for (i = 0; i < awardData.length; ++i) {
     awardDataMap[awardData[i].id] = awardData[i];
   }
-  for (i = 0; i < addonData.length; ++i) {
-    addonDataMap[addonData[i].id] = addonData[i];
+  for (i = 0; i < upgradeData.length; ++i) {
+    upgradeDataMap[upgradeData[i].id] = upgradeData[i];
   }
 
   game = new Game();
@@ -41,6 +41,7 @@ document.onready = function() {
   
   new TreeView();
   new StoreView();
+  new PurchasedUpgradesListView();
 
   game.start();
 
@@ -51,6 +52,7 @@ document.onready = function() {
   if (window.localStorage) {
     if (localStorage.data) {
       game.parse(JSON.parse(localStorage.data));
+      game.trigger("dataRestored");
     }
 
     setInterval(function () {
