@@ -2,7 +2,7 @@ var awardData = [
   {
     id: "10_eggs",
     name: "Amateur twitcher",
-    description: "You've collected your first 10 eggs",
+    description: "You've collected your first 10 eggs.  This is the first step of an adventure you'll never forget.",
     verify: function() {
     	 return game.player.get("eggs") >= 10;
     }
@@ -35,9 +35,9 @@ var awardData = [
     	 return game.player.get("manualClicks") >= 100;
     }
   },{
-    id: "10_clicks",
+    id: "50_clicks",
     name: "Mouse User!",
-    description: "You've clicked 10 times",
+    description: "You've clicked 50 times",
     verify: function() {
          return game.player.get("manualClicks") >= 10;
     }

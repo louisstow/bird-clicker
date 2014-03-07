@@ -11,7 +11,7 @@ var addonData = [
   {
     id: "robin_02",
     description: "robins get additional 0.1 addition eggs a second",
-    cost: 20,
+    cost: 1000,
     canShow: function() {
       return game.player.addons.findWhere({id:"robin_01"}) != null;
     },    

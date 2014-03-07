@@ -23,13 +23,11 @@ defaults: {
   initialize: function() {
 
   },
-  calculate: function() {
-    this.process();
-  },
   process: function() {
 
   }, 
   canShow: function() {
+    // override to provide functionality as to when this addon can be shown in the store
     return true;
   }
 });

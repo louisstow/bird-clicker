@@ -133,7 +133,7 @@ var Player = Backbone.Model.extend({
 
   calculateEggsPerSecond: function() {
     this.addons.each((addon) => {
-      addon.calculate();
+      addon.process();
     });
     
     var totalMultiplier = this.get("eggMultiplier");
