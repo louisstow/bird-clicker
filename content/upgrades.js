@@ -2,7 +2,7 @@ var upgradeData = [
   {
     id: "intro",
     description: "Get one egg per second",
-    cost: 2,
+    cost: 20,
 
     process: function() {
     	game.player.extraEggs += 1;
