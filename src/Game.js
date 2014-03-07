@@ -2,6 +2,9 @@ Number.prototype.formatNumber = function(c, d, t){
   if (this < 1) {
     return this.toFixed(1);
   }
+  if(this - Math.floor(this) != 0) {
+    c = 1;
+  }
 var n = this, 
     c = isNaN(c = Math.abs(c)) ? 0 : c, 
     d = d == undefined ? "." : d, 
@@ -19,7 +22,7 @@ var Game = Backbone.Model.extend({
 
   DEBUG_FORCE_CHALLENGES: false,
   DEBUG_FORCE_EVENTS: false,
-  DEBUG_EVENT_INTERVAL: 14, //in seconds
+  DEBUG_EVENT_INTERVAL: 2, //in seconds
 
   player: null,
   scoreboard: null,
@@ -28,6 +31,7 @@ var Game = Backbone.Model.extend({
   events: null,
   birds: null,
   nests: null,
+  addons: null,
   eggTimer: null,
 
   initialize: function() {
@@ -41,6 +45,8 @@ var Game = Backbone.Model.extend({
     this.birds = new Birds(birdData);
     this.birds.each((bird) => new BirdView({ model: bird }));
 
+    this.addons = new Addons(addonData);
+    this.addons.each((addon) => new AddonView({ model: addon }));  
 
     this.challenges = new Challenges(challengeData);
     this.events = new Events(eventData);
@@ -93,13 +99,17 @@ var Game = Backbone.Model.extend({
     this.on("buyBird", (bird) => {
       this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
     });
+
+    this.on("buyAddon", (addon) => {
+      this.player.buyAddon(addon ? new Addon(_.clone(addon.attributes)) : new Addon);
+    });
   },
 
   start: function() {
     this.eggTimer = setInterval(() => {
       this.player.inc("totalTimePlayed", 1);
-      this.mainLoop()
-    } , 1000);
+      this.mainLoop();
+    }, 1000);
   },
 
   mainLoop: function() {

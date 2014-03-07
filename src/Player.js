@@ -9,13 +9,17 @@ var Player = Backbone.Model.extend({
     nestCount: 0,
     challengesCompleted: 0,
     totalTimePlayed: 0,
-    rewardedAwards: 0
+    rewardedAwards: 0,
+    extraEggs: 0 //how many extra eggs are awarded per second - calculated per second
   },
 
   nests: null,
   badges: null,
+  addons: null,
 
   load: function({ nest }) {
+    this.addons = new Addons;
+
     this.nests = new Nests;
     this.nests.init();
     this.nests.add(nest);
@@ -38,8 +42,11 @@ var Player = Backbone.Model.extend({
   },
 
   performLay: function() {
-    this.inc("totalEggs", this.get("eggIncrement") * this.get("eggMultiplier"));
-    this.inc("eggs", this.get("eggIncrement") * this.get("eggMultiplier"));
+    var eps = this.calculateEggsPerSecond();
+
+    console.log("adding " + eps);  
+    this.inc("totalEggs", eps);
+    this.inc("eggs", eps);
   },
 
   buyNest: function (nest) {
@@ -90,6 +97,22 @@ var Player = Backbone.Model.extend({
     $.notify("Your nests are already full of birds!");
     return false;
   },
+  buyAddon: function (addon) {
+
+    var addonObject = game.addons.findWhere({"id":addon.get("id")});
+    console.log("Try to purchase addon for", addonObject.get("cost"));
+    if (this.get("eggs") < addonObject.get("cost")) {
+      $.notify(Math.round(this.get("eggs")) + " eggs isn't enough to buy as addon that costs " + addonObject.get("cost") + " eggs!");
+      return false;
+    }
+
+    this.addons.add(addon);
+
+    this.dec("eggs", addonObject.get("cost"));
+    addonObject.set("purchased", true);
+    addonObject.set("forceRender", true);
+    this.trigger("forceRenderStore");
+  },
 
   sellBird: function (bird) {
     this.dec("eggIncrement", bird.get("rewardPerTick"));
@@ -102,5 +125,15 @@ var Player = Backbone.Model.extend({
     this.lay();
 
     new EggParticle(event.clientX, event.clientY);
+  },
+
+  calculateEggsPerSecond: function() {
+    this.addons.each((addon) => {
+      addon.calculate();
+    });
+    var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * this.get("eggMultiplier");
+    console.log("adding "  + this.extraEggs + " + "  + this.get("eggIncrement") + " * " + this.get("eggMultiplier") + " = " + eggsToAdd);
+    this.extraEggs = 0;
+    return eggsToAdd;
   }
 });
