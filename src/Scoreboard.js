@@ -21,7 +21,7 @@ var Scoreboard = Backbone.View.extend({
   render: function() {
     document.title = this.model.get("eggs").formatNumber() + " eggs - Twitcher";
     
-    $("#increment").text("Laying " + (Math.round(game.player.calculateEggsPerSecond() * 1000) / 1000).formatNumber() + " eggs per second");
+    $("#increment").text("Laying " + (Math.round(game.player.calculateEggsPerSecond() * 10) / 10).formatNumber() + " eggs per second");
   },
 
 });

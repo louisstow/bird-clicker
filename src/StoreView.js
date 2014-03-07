@@ -29,7 +29,7 @@ var StoreView = Backbone.View.extend({
   },
 
   renderAddon: function(addon) {
-    var view = new AddonView({ model: addon });
+    var view = new BuyableAddonView({ model: addon });
     this.$el.append(view.render().el);
   },
 

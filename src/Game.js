@@ -2,6 +2,9 @@ Number.prototype.formatNumber = function(c, d, t){
   if (this < 1) {
     return this.toFixed(1);
   }
+  if(this - Math.floor(this) != 0) {
+    c = 1;
+  }
 var n = this, 
     c = isNaN(c = Math.abs(c)) ? 0 : c, 
     d = d == undefined ? "." : d, 
