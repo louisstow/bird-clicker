@@ -1,289 +1,277 @@
 var randomColor = function(){
-    return '#' + Math.floor(Math.random() * 16777215).toString(16);
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
 var randomRange = function (min, max) {
-    return Math.random() * (max - min) + min;
+  return Math.random() * (max - min) + min;
 }
 
 var particleList = [];
 var particleMax = 5;
 
 var stage = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    time: 0,
-    backgroundColor: "transparent",
-    init: function() {
-      this.element = document.createElement("div");
-      this.element.style.position = "absolute";
-      this.element.style.left = "0";
-      this.element.style.top = "0";
-      this.element.style.backgroundColor = this.backgroundColor;
-      this.element.style.zIndex = "1";
-      this.element.setAttribute("id", "stage");
-      document.body.appendChild(this.element);
-      this.updateSize();
-    },
-    updateSize : function(){
-      this.element.style.width = this.width + "px";
-      this.element.style.height = this.height + "px";
-    }
+  width: window.innerWidth,
+  height: window.innerHeight,
+  time: 0,
+  backgroundColor: "transparent",
+  init: function() {
+    this.element = document.createElement("div");
+    this.element.style.position = "absolute";
+    this.element.style.left = "0";
+    this.element.style.top = "0";
+    this.element.style.backgroundColor = this.backgroundColor;
+    this.element.style.zIndex = "1";
+    this.element.setAttribute("id", "stage");
+    document.body.appendChild(this.element);
+    this.updateSize();
+  },
+  updateSize : function(){
+    this.element.style.width = this.width + "px";
+    this.element.style.height = this.height + "px";
+  }
 };
 
 $(document).ready(() => stage.init());
 
 window.addEventListener("resize", function() {
-    stage.width = window.innerWidth,
-    stage.height = window.innerHeight;
-    stage.updateSize();
+  stage.width = window.innerWidth,
+  stage.height = window.innerHeight;
+  stage.updateSize();
 });
 
 function EggParticle(x, y) {
-    if (particleList.length >= particleMax) {
-        
-        while (particleList.length >= particleMax) {
-            particleList[0].die();
-        }
+  if (particleList.length >= particleMax) {
 
-        return;
+    while (particleList.length >= particleMax) {
+      particleList[0].die();
     }
 
-    this.x = x || stage.width / 2;
-    this.y = y || stage.height / 2;
-    this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
-    this.speedY = randomRange(0, -this.maxSpeed);
-    this.element = document.createElement("img");
-    this.element.style.width = this.width + "px";
-    this.element.style.height = this.height + "px";
-    this.element.style.zIndex = 1000;
-    this.element.style.position = "absolute";
-    var id = randomRange(1, 5) | 0;
-    this.element.setAttribute("src", "./assets/egg-particle-"+id+".png");
-    stage.element.appendChild(this.element);
+    return;
+  }
 
-    var requestId;
-    var update = () => {
-        requestId = window.requestAnimationFrame(update);
-        this.update();
-    }
-    update();
-    $(this.element).css({ opacity: 1 }).animate({ opacity: 0 }, this.fadeout);
-    setTimeout(() => {
-        window.cancelAnimationFrame(requestId);
-        this.die();
-    }, this.fadeout);
+  this.x = x || stage.width / 2;
+  this.y = y || stage.height / 2;
+  this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
+  this.speedY = randomRange(0, -this.maxSpeed);
+  this.element = document.createElement("img");
+  this.element.style.width = this.width + "px";
+  this.element.style.height = this.height + "px";
+  this.element.style.zIndex = 1000;
+  this.element.style.position = "absolute";
+  var id = randomRange(1, 5) | 0;
+  this.element.setAttribute("src", "./assets/egg-particle-"+id+".png");
+  stage.element.appendChild(this.element);
 
-    this.index = particleList.push(this) - 1;
+  var requestId;
+  var update = () => {
+    requestId = window.requestAnimationFrame(update);
+    this.update();
+  }
+  update();
+  $(this.element).css({ opacity: 1 }).animate({ opacity: 0 }, this.fadeout);
+  setTimeout(() => {
+    window.cancelAnimationFrame(requestId);
+    this.die();
+  }, this.fadeout);
+
+  this.index = particleList.push(this) - 1;
 }
 
 EggParticle.prototype = {
-    fadeout: 1000,
-    x: 0,
-    y: 0,
-    width: 32,
-    height: 32,
-    scale: 1,
-    maxSpeed: 10,
-    speedX: 5,
-    speedY: 5,
-    rotationSpeed: 2,
-    gravityForce: .2,
-    bounce: 0,
-    allowborder: false,
-    wind: 0,
-    time: 0,
-    color: "blue",
-    opacity : 1,
-    rotation : 0,
-    lifeLength : 10,
-    mode: "collision",
+  fadeout: 1000,
+  x: 0,
+  y: 0,
+  width: 32,
+  height: 32,
+  scale: 1,
+  maxSpeed: 10,
+  speedX: 5,
+  speedY: 5,
+  rotationSpeed: 2,
+  gravityForce: .2,
+  bounce: 0,
+  allowborder: false,
+  wind: 0,
+  time: 0,
+  color: "blue",
+  opacity : 1,
+  rotation : 0,
+  lifeLength : 10,
+  mode: "collision",
 
-    resetParticleAttributes : function(){
-      this.x = randomRange( this.x-this.size/2, this.x+this.size/2);
-        this.y = randomRange( this.y-this.size/2, this.y+this.size/2);
-        //this.forceWidth ? this.width = this.forceWidth : false;
-        //this.forceHeight ? this.height = this.forceHeight : false;
-        this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
-        this.speedY = randomRange(-this.maxSpeed, this.maxSpeed);
-        this.rotationSpeed = randomRange(-this.rotationSpeed, this.rotationSpeed);
+  resetParticleAttributes: function() {
+    this.x = randomRange( this.x-this.size/2, this.x+this.size/2);
+    this.y = randomRange( this.y-this.size/2, this.y+this.size/2);
 
-      //this.lifeLength = randomRange(0, this.maxLife);
-      //this.opacity = 1;
-        // this.width = 4;
-        // this.height = 4;
-        //this.scale = randomRange(1, 3);
-    },
+    this.speedX = randomRange(-this.maxSpeed, this.maxSpeed);
+    this.speedY = randomRange(-this.maxSpeed, this.maxSpeed);
+    this.rotationSpeed = randomRange(-this.rotationSpeed, this.rotationSpeed);
+  },
 
-    die: function () {
-        $(this.element).remove();
-        particleList.splice(this.index, 1);
-    },
+  die: function() {
+    $(this.element).remove();
+    particleList.splice(this.index, 1);
+  },
 
-    move: function () {
-        var transform = "translate(" + Math.round(this.x) + "px," + Math.round(this.y) + "px) scale(" + this.scale + ") rotate("+this.rotation+"deg)";
+  move: function() {
+    var transform = "translate(" + Math.round(this.x) + "px," + 
+                    Math.round(this.y) + "px) scale(" + this.scale + 
+                    ") rotate(" + this.rotation + "deg)";
 
-        this.element.style.WebkitTransform = transform;
-        this.element.style.MozTransform = transform;
-        //this.element.style.OTransform = transform;
-        this.element.style.transform = transform;
-        // this.element.style.opacity = this.opacity.toFixed(2);
+    this.element.style.WebkitTransform = transform;
+    this.element.style.MozTransform = transform;
+    this.element.style.transform = transform;
+  },
 
-    },
+  collisionBorder: function() {
+    if (this.x > stage.width - this.width || this.x < 0) {
+      this.resetParticleAttributes();
+      this.die();
+    }
 
-    collisionBorder: function () {
+    if (this.y > stage.height || this.y < 0) {
+      this.resetParticleAttributes();
+      this.die();
+    }
+  },
 
-        if (this.x > stage.width-this.width || this.x < 0) {
-            //this.speedX = this.speedX * -1;
-            this.resetParticleAttributes();
-            this.die();
+  update: function() {
+    if (this.mode == "gravity") {
+      this.speedY += this.gravityForce;
+
+      if (this.y > (stage.height - (this.scale * this.height)) || this.y < 0) {
+        if (this.bounce != 0) {
+          this.speedY *= -this.bounce;
+          this.time = 0;
+        } else {
+          this.y = this.y - (this.y/2);
+          this.speedY = this.gravityForce;
         }
-        if (this.y > stage.height || this.y < 0) {
-            //this.speedY = this.speedY * -1;
-            this.resetParticleAttributes();
-            this.die();
-        }
-    },
+      }
 
-    update: function() {
-        if (this.mode == "gravity") {
+      this.y += this.speedY;
 
-            this.speedY += this.gravityForce;
+      if (this.x >= stage.width - this.width || this.x < 0) { //|
+        this.speedX *= -1;
+      }
 
-            if (this.y > (stage.height - (this.scale * this.height)) || this.y < 0) {
-                if (this.bounce != 0) {
-                    this.speedY *= -this.bounce;
-                    this.time = 0;
-                } else {
-                    this.y = this.y - (this.y/2);
-                    this.speedY = this.gravityForce;
-                }
-            }
+      this.x += this.speedX + this.wind;
 
-            this.y += this.speedY;
+      this.time++;
 
-            if (this.x >= stage.width - this.width || this.x < 0) { //|
-                this.speedX *= -1;
-            }
+    }
 
-            this.x += this.speedX + this.wind;
+    if (this.mode == "collision") {
+      this.collisionBorder();
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.speedY += this.gravityForce;
+      this.rotation += this.rotationSpeed;
+    }
 
-            this.time++;
+    if (this.mode == "animating") {
+      this.x = Math.floor( (stage.width/4) * Math.cos( stage.time * this.speedX ) + this.x );
+      this.y = Math.floor( (stage.height/4)  * Math.sin( stage.time * this.speedY) + this.y - (stage.height/4) );
+    }
 
-        }
+    if(this.rotate) {
+      this.rotation > 360 ? this.rotation = 0 : this.rotation++;
+    }
 
-        if (this.mode == "collision") {
-            this.collisionBorder();
-            //console.log( this.mode)
-            this.x += this.speedX;
-            this.y += this.speedY;
-            this.speedY += this.gravityForce;
-            this.rotation += this.rotationSpeed;
-        }
-
-        if (this.mode == "animating") {
-            this.x = Math.floor( (stage.width/4) * Math.cos( stage.time * this.speedX ) + this.x );
-            this.y = Math.floor( (stage.height/4)  * Math.sin( stage.time * this.speedY) + this.y - (stage.height/4) );
-        }
-        if(this.rotate){
-          this.rotation > 360 ? this.rotation = 0 : this.rotation++;
-        }
-
-        this.move();
-    },
+    this.move();
+  },
 };
 
 function EggFlake() {
-    this.maxSpeed = 10;
-    this.wiggle = 14;
-    this.scale = 1;
+  this.maxSpeed = 10;
+  this.wiggle = 14;
+  this.scale = 1;
 
-    this.colors = ["ffe4e1", "fff0f5", "e6e6fa", "f0f8ff"];
-    this.getRandomColor = function() {
-      return this.colors[Math.floor(Math.random() * this.colors.length)];
-    };
+  this.colors = ["ffe4e1", "fff0f5", "e6e6fa", "f0f8ff"];
+  this.getRandomColor = function() {
+    return this.colors[Math.floor(Math.random() * this.colors.length)];
+  };
 
-    this.reset = function() {
-        this.width = 4;
-        this.height = 4;
-        this.x = randomRange(-eggStorm.emitter[0], eggStorm.emitter[0]) + eggStorm.center[0];
-        this.y = randomRange(-100, 100);
+  this.reset = function() {
+    this.width = 4;
+    this.height = 4;
+    this.x = randomRange(-eggStorm.emitter[0], eggStorm.emitter[0]) + eggStorm.center[0];
+    this.y = randomRange(-100, 100);
 
-        this.gravity = 4;
+    this.gravity = 4;
 
-        this.speeX = randomRange(-this.maxSpeed, this.maxSpeed);
-        this.speeY = randomRange(-this.maxSpeed, this.maxSpeed);
-        this.scale = randomRange(.2, .9);
-    };
+    this.speeX = randomRange(-this.maxSpeed, this.maxSpeed);
+    this.speeY = randomRange(-this.maxSpeed, this.maxSpeed);
+    this.scale = randomRange(.2, .9);
+  };
 
-    this.append = function() {
-        this.element = document.createElement("div");
-        this.element.className = "eggflake";
-        this.element.style.backgroundColor = this.getRandomColor();
-        stage.element.appendChild(this.element);
-    };
+  this.append = function() {
+    this.element = document.createElement("div");
+    this.element.className = "eggflake";
+    this.element.style.backgroundColor = this.getRandomColor();
+    stage.element.appendChild(this.element);
+  };
 
-    this.move = function() {
-        var transform = 'translateX(' + Math.round(this.x) + 'px) translateY(' +
-                        Math.round(this.y) + 'px) scale(' + this.scale + ')';
-        this.element.style.MozTransform = transform;
-        this.element.style.WebkitTransform = transform;
-        this.element.style.OTransform = transform;
-        this.element.style.transform = transform;
-    };
+  this.move = function() {
+    var transform = 'translateX(' + Math.round(this.x) + 'px) translateY(' +
+                    Math.round(this.y) + 'px) scale(' + this.scale + ')';
+    this.element.style.WebkitTransform = transform;
+    this.element.style.MozTransform = transform;
+    this.element.style.transform = transform;
+  };
 
-    this.reset();
+  this.reset();
 }
 
 var eggStorm = {
-    fps: 1000/24,
-    time: 0,
-    timeSpeed: .01,
-    numberOfFlakes : 150,
-    allFlakes: [],
-    emitter: [stage.width, 40],
+  fps: 1000/24,
+  time: 0,
+  timeSpeed: .01,
+  numberOfFlakes : 150,
+  allFlakes: [],
+  emitter: [stage.width, 40],
 
-    init: function() {
-        this.center = [stage.width * .5 - this.emitter[0] * .5,
-                       stage.height * .5 - this.emitter[1] * .5];
+  init: function() {
+    this.center = [stage.width * .5 - this.emitter[0] * .5,
+    stage.height * .5 - this.emitter[1] * .5];
 
-        for (var i = 0; i < this.numberOfFlakes; i++) {
-            var flake = new EggFlake;
-            flake.append();
-            eggStorm.allFlakes.push(flake);
-        };
+    for (var i = 0; i < this.numberOfFlakes; i++) {
+      var flake = new EggFlake;
+      flake.append();
+      eggStorm.allFlakes.push(flake);
+    };
 
-        this.play();
-    },
+    this.play();
+  },
 
-    play: function() {
-        window.requestAnimationFrame( () => this.play() );
-        this.update();
-    },
+  play: function() {
+    window.requestAnimationFrame( () => this.play() );
+    this.update();
+  },
 
-    update: function() {
-        this.time += this.timeSpeed;
+  update: function() {
+    this.time += this.timeSpeed;
 
-        for (var i = 0; i < this.allFlakes.length; i++) {
-            var elem = this.allFlakes[i];
-            var x =  2 * Math.cos( this.time * elem.speeX );
-            var y =  3 * Math.sin( this.time * elem.speeY ) + elem.gravity;
+    for (var i = 0; i < this.allFlakes.length; i++) {
+      var elem = this.allFlakes[i];
+      var x =  2 * Math.cos( this.time * elem.speeX );
+      var y =  3 * Math.sin( this.time * elem.speeY ) + elem.gravity;
 
-            elem.x += x;
-            elem.y += y;
+      elem.x += x;
+      elem.y += y;
 
-            if ( elem.y <  0 || elem.y > stage.height ||
-                 elem.x <  0 || elem.x > stage.width) {
-                 elem.reset();
-            }
+      if ( elem.y <  0 || elem.y > stage.height ||
+           elem.x <  0 || elem.x > stage.width) {
+        elem.reset();
+      }
 
-            elem.move();
-        };
-    },
+      elem.move();
+    };
+  },
 
 };
 
 // Don't storm on mobile devices, which can be too slow to handle it.
 if (!navigator.userAgent.contains("Mobi")) {
-    $(document).ready(() => eggStorm.init());
+  $(document).ready(() => eggStorm.init());
 }
