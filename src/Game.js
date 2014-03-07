@@ -22,9 +22,11 @@ var Game = Backbone.Model.extend({
   DEPRECIATION: 0.5,
   EVENT_INTERVAL: 8, //in seconds
   PURCHASE_COST_MULTIPLIER: 1.15,
-
+  REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD: 25,
+  
+  DEBUG: true,
   DEBUG_FORCE_CHALLENGES: false,
-  DEBUG_FORCE_EVENTS: false,
+  DEBUG_FORCE_EVENTS: true,
   DEBUG_EVENT_INTERVAL: 2, //in seconds
 
   player: null,
@@ -39,7 +41,7 @@ var Game = Backbone.Model.extend({
 
   initialize: function() {
     this.player = new Player();
-    this.DEBUG = this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS;
+    this.DEBUG = this.DEBUG || this.DEBUG_FORCE_CHALLENGES || this.DEBUG_FORCE_EVENTS;
     this.debug("IN DEBUG MODE");
   },
 
@@ -129,6 +131,11 @@ var Game = Backbone.Model.extend({
   },
 
   mainLoop: function() {
+    this.debug("Manual click count", this.player.manualClickCount);
+    if(this.player.manualClickCount > this.REALISTIC_MANUAL_CLICK_COUNT_THRESHOLD) {
+      alert("You're cheating!");
+      window.location.href = "http://www.youtube.com/watch?v=oHg5SJYRHA0";
+    }
     if(((this.DEBUG) && this.player.get("totalTimePlayed") % this.DEBUG_EVENT_INTERVAL == 0) || 
        (this.player.get("totalTimePlayed") % this.EVENT_INTERVAL == 0)) {
 
@@ -171,6 +178,7 @@ var Game = Backbone.Model.extend({
     
     this.awards.each((award) => award.process());
     this.player.lay();
+    this.player.manualClickCount = 0;
   },
 
   toJSON: function () {

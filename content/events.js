@@ -57,20 +57,20 @@ var eventData = [{
   }, 
   {
     id:"tom_jones",
-    probability: 0.01,  
+    probability: 10.01,  
 
     init: function() {
-      this.multiplier = Math.round(Math.random() * 100);
-      this.time = Math.round(Math.sqrt(this.multiplier) * 2);
+      this.eggMultiplier = Math.round(Math.random() * 100);
+      this.time = Math.round(Math.sqrt(this.eggMultiplier) * 2);
     },
 
     getDescription: function() {
-      return "Tom Jones phones you one day and all your birds get excited and lay " + this.multiplier + " times the eggs for " + this.time +" seconds.";
+      return "Tom Jones phones you one day and all your birds get excited and lay " + this.eggMultiplier + " times the eggs for " + this.time +" seconds.";
     },
 
     process: function() {
       this.multiplier = () => {
-        return this.multiplier;
+        return this.eggMultiplier;
       };
       game.player.multipliers.push(this.multiplier);
       this.setEventTimeout(() => {

@@ -2,7 +2,7 @@ var Player = Backbone.Model.extend({
   defaults: {
     totalEggs: 0,
     eggs: 0,
-    eggIncrement: 1, // per lay
+    eggIncrement: 0.1, // per lay
     eggMultiplier: 1,
     manualClicks: 0,
     birdCount: 0,
@@ -12,7 +12,7 @@ var Player = Backbone.Model.extend({
     rewardedAwards: 0,
     extraEggs: 0 //how many extra eggs are awarded per second - calculated per second
   },
-
+  manualClickCount: 0,
   nests: null,
   badges: null,
   addons: null,
@@ -126,6 +126,9 @@ var Player = Backbone.Model.extend({
   },
 
   manualLay: function(event) {
+
+    this.manualClickCount++;
+
     this.inc("manualClicks", 1);
     this.lay();
 
