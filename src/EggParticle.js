@@ -9,6 +9,8 @@ var randomRange = function (min, max) {
 var particleList = [];
 var particleMax = 5;
 
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame;
+
 var stage = {
   width: window.innerWidth,
   height: window.innerHeight,
@@ -25,7 +27,7 @@ var stage = {
     document.body.appendChild(this.element);
 
     this.updateSize();
-    window.addEventListener("resize", () => this.updateSize());
+    window.addEventListener("resize", function () { this.updateSize() }.bind(this));
   },
 
   updateSize: function() {
@@ -36,7 +38,7 @@ var stage = {
   },
 };
 
-$(document).ready(() => stage.init());
+$(document).ready(function () { stage.init() });
 
 // Like stage, but with z-index == -1, so stuff appears in background.
 var backstage = {
@@ -54,7 +56,7 @@ var backstage = {
     document.body.appendChild(this.element);
 
     this.updateSize();
-    window.addEventListener("resize", () => this.updateSize());
+    window.addEventListener("resize", function () { this.updateSize() }.bind(this));
   },
 
   updateSize: function() {
@@ -65,7 +67,7 @@ var backstage = {
   },
 };
 
-$(document).ready(() => backstage.init());
+$(document).ready(function () { backstage.init() });
 
 
 function EggParticle(x, y) {
@@ -92,16 +94,16 @@ function EggParticle(x, y) {
   stage.element.appendChild(this.element);
 
   var requestId;
-  var update = () => {
+  var update = function () {
     requestId = window.requestAnimationFrame(update);
     this.update();
-  }
+  }.bind(this);
   update();
   $(this.element).css({ opacity: 1 }).animate({ opacity: 0 }, this.fadeout);
-  setTimeout(() => {
+  setTimeout(function () {
     window.cancelAnimationFrame(requestId);
     this.die();
-  }, this.fadeout);
+  }.bind(this), this.fadeout);
 
   this.index = particleList.push(this) - 1;
 }
@@ -274,7 +276,7 @@ var eggStorm = {
   },
 
   play: function() {
-    window.requestAnimationFrame( () => this.play() );
+    window.requestAnimationFrame(function () { this.play() }.bind(this));
     this.update();
   },
 
@@ -302,5 +304,5 @@ var eggStorm = {
 
 // Don't storm on mobile devices, which can be too slow to handle it.
 if (!navigator.userAgent.contains("Mobi")) {
-  $(document).ready(() => eggStorm.init());
+  $(document).ready(function () { eggStorm.init() });
 }

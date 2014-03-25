@@ -69,16 +69,16 @@ var eventData = [{
     },
 
     process: function() {
-      this.multiplier = () => {
+      this.multiplier = function () {
         return this.eggMultiplier;
-      };
+      }.bind(this);
       game.player.multipliers.push(this.multiplier);
-      this.setEventTimeout(() => {
+      this.setEventTimeout(function () {
         var index = game.player.multipliers.indexOf(this.multiplier);
         if (index > -1) {
           game.player.multipliers.splice(index, 1);
         }
-      }, this.time * 1000);      
+      }.bind(this), this.time * 1000);      
 
     }
   }, 
@@ -143,16 +143,16 @@ var eventData = [{
       return "Cookie production multiplied - x7 for 77 seconds";
     },
     process: function() {
-      this.multiplier = () => {
+      this.multiplier = function () {
         return 7;
-      };
+      }.bind(this);
       game.player.multipliers.push(this.multiplier);
-      this.setEventTimeout(() => {
+      this.setEventTimeout(function () {
         var index = game.player.multipliers.indexOf(this.multiplier);
         if (index > -1) {
           game.player.multipliers.splice(index, 1);
         }
-      }, 7 * 1000);
+      }.bind(this), 7 * 1000);
     }
   }, 
   {
@@ -165,16 +165,16 @@ var eventData = [{
       return "Cookie production multiplied - x777 for 7 seconds";
     },
     process: function() {
-      this.multiplier = () => {
+      this.multiplier = function () {
         return 777;
-      };
+      }.bind(this);
       game.player.multipliers.push(this.multiplier);
-      this.setEventTimeout(() => {
+      this.setEventTimeout(function () {
         var index = game.player.multipliers.indexOf(this.multiplier);
         if (index > -1) {
           game.player.multipliers.splice(index, 1);
         }
-      }, 7 * 1000);
+      }.bind(this), 7 * 1000);
     }
   }, 
   {
@@ -187,16 +187,16 @@ var eventData = [{
       return "John Travolta smooth talks your birds and they stop producing for 10 seconds";
     },
     process: function() {
-      this.multiplier = () => {
+      this.multiplier = function () {
         return 0;
-      };
+      }.bind(this);
       game.player.multipliers.push(this.multiplier);
-      this.setEventTimeout(() => {
+      this.setEventTimeout(function () {
         var index = game.player.multipliers.indexOf(this.multiplier);
         if (index > -1) {
           game.player.multipliers.splice(index, 1);
         }
-      }, 10 * 1000);
+      }.bind(this), 10 * 1000);
     }
   }, 
   {
@@ -209,16 +209,16 @@ var eventData = [{
       return "One of your birds looks a lot like Brendan Eich and implements an egg based scripting language which gives you a 50% more eggs for a while";
     },
     process: function() {
-      this.multiplier = () => {
+      this.multiplier = function () {
         return 2;
-      };
+      }.bind(this);
       game.player.multipliers.push(this.multiplier);
-      this.setEventTimeout(() => {
+      this.setEventTimeout(function () {
         var index = game.player.multipliers.indexOf(this.multiplier);
         if (index > -1) {
           game.player.multipliers.splice(index, 1);
         }
-      }, this.seconds * 1000);
+      }.bind(this), this.seconds * 1000);
     }
   }, 
   {

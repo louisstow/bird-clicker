@@ -22,7 +22,7 @@ var Event = Backbone.Model.extend({
     }
   },
   initialize: function() {
-    this.on("start", () => {
+    this.on("start", function () {
       this.init();
       if(this.canProceed()) {
 
@@ -32,16 +32,16 @@ var Event = Backbone.Model.extend({
       } else {
         game.debug("event launch criteria not met - aborting", this.get("id"));
       }
-    });
+    }.bind(this));
   },
   setEventTimeout: function(func, time) {
     game.debug("starting event timeout", this.get("id"), time);
     game.ongoingEvent = true;
-    setTimeout(() => {
+    setTimeout(function () {
       game.debug("finishing event timeout", this.get("id"));
       func();
       game.ongoingEvent = false;
-    }, time);
+    }.bind(this), time);
   },
   init: function() {},
   process: function() {},    

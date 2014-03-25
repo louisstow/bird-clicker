@@ -19,13 +19,13 @@ var Scoreboard = Backbone.View.extend({
       clearInterval(this.interval);
     }
 
-    this.interval = setInterval(() => {
+    this.interval = setInterval(function () {
       // The increment is per-second, and we update the egg counter 20 times
       // per second (i.e. every 50ms), so we divide the increment by 20 to get
       // our increment per interval.
       count = count + (increment / 20);
       $("#eggs").text(count.formatNumber(1));
-    }, 50);
+    }.bind(this), 50);
   },
 
 });

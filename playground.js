@@ -45,9 +45,9 @@ document.onready = function() {
 
   game.start();
 
-  $("#layButton").click((event) => game.trigger("layButtonClick", event));
-  $("#buyNestButton").click(() => game.trigger("buyNest"));
-  $("#buyBirdButton").click(() => game.trigger("buyBird"));
+  $("#layButton").click(function (event) { game.trigger("layButtonClick", event) });
+  $("#buyNestButton").click(function () { game.trigger("buyNest") });
+  $("#buyBirdButton").click(function () { game.trigger("buyBird") });
 
   if (window.localStorage) {
     if (localStorage.data) {

@@ -26,12 +26,12 @@ var StoreView = Backbone.View.extend({
   toggleSectionVisibility: function() {
 
     var displayUpgrades = false;
-    game.upgrades.each((upgrade) => {
+    game.upgrades.each(function (upgrade) {
       game.debug("upgrade", upgrade.get("id"), upgrade.get("hidden"), upgrade.get("shown"));
       if(!upgrade.get("hidden") && upgrade.get("shown")) {
         displayUpgrades = true;
       }
-    });
+    }.bind(this));
     if(!displayUpgrades) {
       $("#upgradecontainer").hide();
     } else {

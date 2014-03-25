@@ -4,7 +4,7 @@ var NotificationView = Backbone.View.extend({
     this.listenTo(this.model, "change", this.render);
     this.view = $("#notifications").append(this.render().$el);
     this.view.css({opacity: 0, bottom: "-75px"}).animate({bottom: "0", opacity: 1}, 500);
-    setTimeout(() => this.hide(), 5 * 1000);
+    setTimeout(function () { this.hide() }.bind(this), 5 * 1000);
   },
 
   template: _.template('<div class="notification">' +
@@ -17,9 +17,9 @@ var NotificationView = Backbone.View.extend({
   },
 
   hide: function() {
-    this.view.animate({bottom: "-75px", opacity: 0}, () => {
+    this.view.animate({bottom: "-75px", opacity: 0}, function () {
       this.remove();
-    });
+    }.bind(this));
   },
 
 });

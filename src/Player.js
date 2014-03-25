@@ -30,7 +30,7 @@ var Player = Backbone.Model.extend({
     this.nests.init();
     this.nests.add(nest);
 
-    this.on("lay", () => {
+    this.on("lay", function () {
       this.performLay();
     });
   },
@@ -148,14 +148,14 @@ var Player = Backbone.Model.extend({
   calculateEggsPerSecond: function() {
 
     //calculate upgrade effects, they will normally add to the extraEggs var
-    this.upgrades.each((upgrade) => {
+    this.upgrades.each(function (upgrade) {
       upgrade.process();
-    });
+    }.bind(this));
 
     var totalMultiplier = this.get("eggMultiplier");
-    _.each(this.multipliers, (func) => {
+    _.each(this.multipliers, function (func) {
       totalMultiplier *= func();
-    });
+    }.bind(this));
     game.debug("total multiplier", totalMultiplier);
 
     var eggsToAdd = (this.extraEggs + this.get("eggIncrement")) * totalMultiplier;

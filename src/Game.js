@@ -58,13 +58,13 @@ var Game = Backbone.Model.extend({
 
   load: function() {
     this.nests = new Nests(nestData);
-    this.nests.each((nest) => new NestView({ model: nest }));
+    this.nests.each(function (nest) { new NestView({ model: nest }); });
 
     this.birds = new Birds(birdData);
-    this.birds.each((bird) => new BirdView({ model: bird }));
+    this.birds.each(function (bird) { new BirdView({ model: bird }); });
 
     this.upgrades = new Upgrades(upgradeData);
-    this.upgrades.each((upgrade) => new UpgradeView({ model: upgrade }));  
+    this.upgrades.each(function (upgrade) { new UpgradeView({ model: upgrade }); });  
 
     this.challenges = new Challenges(challengeData);
     this.events = new Events(eventData);
@@ -106,28 +106,28 @@ var Game = Backbone.Model.extend({
   },
 
   addEventListeners: function() {
-    this.on("layButtonClick", (event) => {
+    this.on("layButtonClick", function (event) {
       this.player.manualLay(event);
-    });
+    }.bind(this));
 
-    this.on("buyNest", (nest) => {
+    this.on("buyNest", function (nest) {
       this.player.buyNest(nest ? new Nest(_.clone(nest.attributes)) : new Nest);
-    });
+    }.bind(this));
 
-    this.on("buyBird", (bird) => {
+    this.on("buyBird", function (bird) {
       this.player.buyBird(bird ? new Bird(_.clone(bird.attributes)) : new Bird);
-    });
+    }.bind(this));
 
-    this.on("buyUpgrade", (upgrade) => {
+    this.on("buyUpgrade", function (upgrade) {
       this.player.buyUpgrade(upgrade ? new Upgrade(_.clone(upgrade.attributes)) : new Upgrade);
-    });
+    }.bind(this));
   },
 
   start: function() {
-    this.eggTimer = setInterval(() => {
+    this.eggTimer = setInterval(function () {
       this.player.inc("totalTimePlayed", 1);
       this.mainLoop();
-    }, 1000);
+    }.bind(this), 1000);
   },
 
   mainLoop: function() {
@@ -178,7 +178,7 @@ var Game = Backbone.Model.extend({
       }
     }
     
-    this.awards.each((award) => award.process());
+    this.awards.each(function (award) { award.process(); });
     this.player.lay();
     this.player.manualClickCount = 0;
   },
@@ -195,33 +195,33 @@ var Game = Backbone.Model.extend({
     obj.game.birds = [];
 
 
-    game.player.upgrades.each((u) => {
+    game.player.upgrades.each(function (u) {
       obj.player.upgrades.push({id: u.attributes.id});
-    }); 
+    }.bind(this)); 
 
-    game.nests.each((n) => {
+    game.nests.each(function (n) {
       obj.game.nests.push({name: n.attributes.name, cost: n.attributes.cost, numberOwned: n.attributes.numberOwned});
-    });    
+    }.bind(this));    
 
 
-    game.birds.each((b) => {
+    game.birds.each(function (b) {
       obj.game.birds.push({name: b.attributes.name, cost: b.attributes.cost, numberOwned: b.attributes.numberOwned});
-    });
+    }.bind(this));
 
-    this.player.nests.each((n) => {
+    this.player.nests.each(function (n) {
       var i = obj.player.nests.push({name: n.attributes.name}) - 1;
       obj.player.nests[i].birds = [];
 
-      n.birds.each((b) => {
+      n.birds.each(function (b) {
         obj.player.nests[i].birds.push({name: b.attributes.name});
-      });
-    });
+      }.bind(this));
+    }.bind(this));
 
-    this.awards.each((a) => {
+    this.awards.each(function (a) {
       if (a.attributes.awarded) {
         obj.awards.push({id: a.attributes.id});
       }
-    });
+    }.bind(this));
 
     return obj
   },
@@ -230,11 +230,11 @@ var Game = Backbone.Model.extend({
 
     for (i = 0; i < obj.awards.length; ++i) {
       var id = obj.awards[i].id;
-      this.awards.each((a) => {
+      this.awards.each(function (a) {
         if (a.attributes.id == id) {
           a.set("awarded", true); 
         }
-      });
+      }.bind(this));
     }
 
     delete obj.awards;
@@ -242,13 +242,13 @@ var Game = Backbone.Model.extend({
     if ("upgrades" in obj.player) {
       for (i = 0; i < obj.player.upgrades.length; ++i) {
         var id = obj.player.upgrades[i].id;
-        this.upgrades.each((a) => {
+        this.upgrades.each(function (a) {
           if (a.attributes.id == id) {
             game.player.upgrades.push(new Upgrade(_.clone(a.attributes)));
             a.set("purchased", true);
             a.set("hidden", true);
           }
-        });
+        }.bind(this));
       }
     }
 

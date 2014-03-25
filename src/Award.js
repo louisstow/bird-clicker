@@ -14,7 +14,7 @@ defaults: {
     }
   },
   initialize: function() {
-    this.on("start", () => {
+    this.on("start", function () {
       console.log("award rewarded: " + this.get("name"));
       $.notify({
         name: this.get("name"),
@@ -25,7 +25,7 @@ defaults: {
         clickToHide: false
       });    
       game.player.inc("rewardedAwards", 1);
-    });
+    }.bind(this));
   },
   process: function() {
     if(!this.get("awarded")) {
